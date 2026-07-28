@@ -1,2 +1,2 @@
 # interview-prep
-[ManualTesting](doc/manual-testing.md)
+[ManualTesting](docs/manual-testing.md)
