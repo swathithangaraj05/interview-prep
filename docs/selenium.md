@@ -1,7 +1,8 @@
-## SELENIUM
+# SELENIUM
 ---------
 
-1.Explain the selenium architecture and WebDriver flow?
+### 1.Explain the selenium architecture and WebDriver flow?
+```
 Selenium WebDriver follows a client-server architecture. I write the automation script in Java using Selenium WebDriver APIs. When I execute a Selenium command, Selenium converts it into a W3C WebDriver request and sends it to the browser-specific driver, such as ChromeDriver. The browser driver acts as a bridge and communicates with the browser. The browser executes the requested action on the application and sends the response back to the browser driver, which then returns it to Selenium WebDriver. Finally, Selenium passes the response back to my test script, and the execution continues with the next command.
 Simple diagram:
 ----------------
@@ -19,10 +20,11 @@ Browser
 Web Application
         ↑
       Response
-
-2.In Selenium, which is the client and which is the server?
+```
+### 2.In Selenium, which is the client and which is the server?
+```
 In Selenium WebDriver architecture, the Selenium WebDriver library (Java client) acts as the client because it sends automation commands. The browser driver, such as ChromeDriver, EdgeDriver, or GeckoDriver, acts as the server because it receives those commands, communicates with the browser, and returns the response back to the client.
-
+```
 3.Which locator strategy do you prefer and why?
 I don't have a single preferred locator for every situation. I choose the locator based on the application's HTML structure. My first preference is id because it is usually unique and provides better readability and performance. If id is not available, I prefer name, followed by CSS Selector. When CSS cannot uniquely identify the element, I use XPath. I try to avoid using dynamic or absolute XPath because they are more likely to break when the UI changes.
 
