@@ -1,0 +1,2050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cucumber Interview Questions – 3 Years Experience</title>
+  <style>
+    :root {
+      --green: #23d45e;
+      --dark-green: #1a9e45;
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --surface2: #22263a;
+      --text: #e2e8f0;
+      --muted: #8892a4;
+      --accent: #4ade80;
+      --badge-bg: #163624;
+      --tag-scenario: #1e3a5f;
+      --tag-scenario-text: #60a5fa;
+      --tag-conceptual: #2d1b4e;
+      --tag-conceptual-text: #c084fc;
+      --tag-practical: #3b1f1f;
+      --tag-practical-text: #f87171;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+    header {
+      background: linear-gradient(135deg, #0d2818 0%, #163624 50%, #0f1117 100%);
+      border-bottom: 1px solid #2a3a2a;
+      padding: 48px 24px 36px;
+      text-align: center;
+    }
+    header .logo {
+      font-size: 3rem;
+      margin-bottom: 12px;
+    }
+    header h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: -0.5px;
+    }
+    header p {
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 1rem;
+    }
+    .stats-bar {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+    .stat {
+      text-align: center;
+    }
+    .stat-num {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--green);
+    }
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    nav.filter-bar {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      padding: 20px 24px;
+      background: var(--surface);
+      border-bottom: 1px solid #2a2d3e;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    nav.filter-bar button {
+      background: var(--surface2);
+      border: 1px solid #3a3d4e;
+      color: var(--text);
+      padding: 7px 18px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+    nav.filter-bar button:hover,
+    nav.filter-bar button.active {
+      background: var(--dark-green);
+      border-color: var(--green);
+      color: #fff;
+    }
+    .search-wrap {
+      display: flex;
+      justify-content: center;
+      padding: 20px 24px 0;
+    }
+    .search-wrap input {
+      width: 100%;
+      max-width: 560px;
+      padding: 10px 18px;
+      border-radius: 24px;
+      border: 1px solid #3a3d4e;
+      background: var(--surface2);
+      color: var(--text);
+      font-size: 0.95rem;
+      outline: none;
+    }
+    .search-wrap input::placeholder { color: var(--muted); }
+    .search-wrap input:focus { border-color: var(--green); }
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 32px 24px 60px;
+    }
+    .section-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin: 40px 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #2a3a2a;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid #2a2d3e;
+      border-radius: 12px;
+      margin-bottom: 14px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .card:hover { border-color: #3a5a3a; }
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 18px 20px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .q-num {
+      background: var(--badge-bg);
+      color: var(--green);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 6px;
+      min-width: 36px;
+      text-align: center;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+    .q-text {
+      flex: 1;
+      font-weight: 600;
+      font-size: 0.97rem;
+    }
+    .tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+    .tag {
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-weight: 600;
+    }
+    .tag.scenario { background: var(--tag-scenario); color: var(--tag-scenario-text); }
+    .tag.conceptual { background: var(--tag-conceptual); color: var(--tag-conceptual-text); }
+    .tag.practical { background: var(--tag-practical); color: var(--tag-practical-text); }
+    .chevron {
+      color: var(--muted);
+      font-size: 1.1rem;
+      transition: transform 0.25s;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+    .card.open .chevron { transform: rotate(180deg); }
+    .card-body {
+      display: none;
+      padding: 0 20px 20px 70px;
+      border-top: 1px solid #2a2d3e;
+    }
+    .card.open .card-body { display: block; }
+    .card-body p { color: var(--text); margin-top: 14px; font-size: 0.92rem; }
+    .card-body ul, .card-body ol {
+      margin: 10px 0 0 18px;
+      font-size: 0.92rem;
+    }
+    .card-body li { margin-bottom: 5px; }
+    .card-body code, code {
+      background: #1e2535;
+      color: #7dd3fc;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-size: 0.88rem;
+      font-family: 'Fira Code', 'Cascadia Code', monospace;
+    }
+    pre {
+      background: #111827;
+      border: 1px solid #2a3a4a;
+      border-radius: 8px;
+      padding: 14px 16px;
+      overflow-x: auto;
+      margin-top: 12px;
+      font-size: 0.85rem;
+      font-family: 'Fira Code', 'Cascadia Code', monospace;
+      color: #a5f3d0;
+      line-height: 1.6;
+    }
+    .tip {
+      background: #0d2818;
+      border-left: 3px solid var(--green);
+      padding: 10px 14px;
+      border-radius: 0 8px 8px 0;
+      margin-top: 12px;
+      font-size: 0.88rem;
+      color: #86efac;
+    }
+    .tip strong { color: var(--accent); }
+    .no-results {
+      text-align: center;
+      color: var(--muted);
+      padding: 60px 0;
+      font-size: 1rem;
+    }
+    footer {
+      text-align: center;
+      padding: 24px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      border-top: 1px solid #2a2d3e;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">🥒</div>
+  <h1>Cucumber Interview Questions</h1>
+  <p>QA Automation Test Engineer · 3 Years Experience Level</p>
+  <div class="stats-bar">
+    <div class="stat"><div class="stat-num">60+</div><div class="stat-label">Questions</div></div>
+    <div class="stat"><div class="stat-num">8</div><div class="stat-label">Categories</div></div>
+    <div class="stat"><div class="stat-num">30+</div><div class="stat-label">Scenario-Based</div></div>
+  </div>
+</header>
+
+<nav class="filter-bar">
+  <button class="active" data-filter="all">All</button>
+  <button data-filter="scenario">Scenario-Based</button>
+  <button data-filter="conceptual">Conceptual</button>
+  <button data-filter="practical">Practical</button>
+</nav>
+
+<div class="search-wrap">
+  <input type="text" id="searchInput" placeholder="Search questions..." />
+</div>
+
+<main id="mainContent">
+
+  <!-- ===== SECTION 1: BDD & Cucumber Basics ===== -->
+  <div class="section-title">🌱 BDD &amp; Cucumber Fundamentals</div>
+
+  <div class="card" data-tags="conceptual">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q1</span>
+      <div class="q-text">What is BDD and how does Cucumber support it?<div class="tags"><span class="tag conceptual">Conceptual</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p><strong>Behavior-Driven Development (BDD)</strong> is an agile software development methodology where tests are written in plain English from the user's perspective before development begins. It bridges the gap between business stakeholders and developers.</p>
+      <p>Cucumber supports BDD by:</p>
+      <ul>
+        <li>Allowing test scenarios to be written in <strong>Gherkin</strong> (a plain-English DSL)</li>
+        <li>Mapping those scenarios to step definitions written in Java, Ruby, JS, etc.</li>
+        <li>Making tests readable by non-technical stakeholders</li>
+        <li>Acting as living documentation for the application</li>
+      </ul>
+      <div class="tip"><strong>Tip:</strong> Always mention that BDD promotes collaboration between Dev, QA, and Business (the "Three Amigos").</div>
+    </div>
+  </div>
+
+  <div class="card" data-tags="conceptual">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q2</span>
+      <div class="q-text">Explain the Gherkin syntax with all keywords.<div class="tags"><span class="tag conceptual">Conceptual</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p>Gherkin is the language used to write Cucumber feature files. Core keywords:</p>
+      <ul>
+        <li><code>Feature</code> – High-level description of the functionality</li>
+        <li><code>Background</code> – Steps common to all scenarios in the feature</li>
+        <li><code>Scenario</code> – A specific test case</li>
+        <li><code>Scenario Outline</code> – A template scenario with multiple data sets</li>
+        <li><code>Given</code> – Sets the precondition</li>
+        <li><code>When</code> – Describes the action/event</li>
+        <li><code>Then</code> – Describes the expected outcome</li>
+        <li><code>And / But</code> – Continuation of Given/When/Then</li>
+        <li><code>Examples</code> – Data table used with Scenario Outline</li>
+        <li><code>@TagName</code> – Adds metadata/tags to scenarios</li>
+        <li><code>"""</code> – Doc Strings for multiline text</li>
+        <li><code>|</code> – Data Tables inline with steps</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" data-tags="conceptual">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q3</span>
+      <div class="q-text">What is the difference between Scenario and Scenario Outline?<div class="tags"><span class="tag conceptual">Conceptual</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p><strong>Scenario</strong> is a single test case with fixed data. <strong>Scenario Outline</strong> is a parameterized template that runs multiple times with different data sets supplied via the <code>Examples</code> table.</p>
+      <pre>
+# Scenario Outline Example
+Scenario Outline: Login with multiple credentials
+  Given the user is on the login page
+  When the user enters "&lt;username&gt;" and "&lt;password&gt;"
+  Then the user should see "&lt;message&gt;"
+
+  Examples:
+    | username | password  | message        |
+    | admin    | admin123  | Welcome Admin  |
+    | user1    | pass456   | Welcome User   |
+    | invalid  | wrong     | Login Failed   |
+      </pre>
+      <div class="tip"><strong>Tip:</strong> Scenario Outline reduces duplication. It's equivalent to data-driven testing.</div>
+    </div>
+  </div>
+
+  <div class="card" data-tags="conceptual">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q4</span>
+      <div class="q-text">What is the role of the Feature file and Step Definitions file?<div class="tags"><span class="tag conceptual">Conceptual</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p><strong>Feature File (.feature):</strong> Contains test scenarios written in Gherkin. It's the source of truth and acts as documentation. Readable by everyone on the team.</p>
+      <p><strong>Step Definition File:</strong> Contains Java (or other language) methods annotated with <code>@Given</code>, <code>@When</code>, <code>@Then</code> that map to the Gherkin steps and contain the actual automation code.</p>
+      <pre>
+// Step Definition
+@Given("the user is on the login page")
+public void userIsOnLoginPage() {
+    driver.get("https://app.example.com/login");
+}
+      </pre>
+    </div>
+  </div>
+
+  <!-- ===== SECTION 2: Step Definitions & Hooks ===== -->
+  <div class="section-title">🪝 Step Definitions &amp; Hooks</div>
+
+  <div class="card" data-tags="conceptual practical">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q5</span>
+      <div class="q-text">What are Hooks in Cucumber? Explain @Before, @After, @BeforeStep, @AfterStep.<div class="tags"><span class="tag conceptual">Conceptual</span><span class="tag practical">Practical</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p>Hooks are code blocks that run at specific points during test execution:</p>
+      <ul>
+        <li><code>@Before</code> – Runs before each scenario (e.g., launch browser, set up DB)</li>
+        <li><code>@After</code> – Runs after each scenario (e.g., close browser, clean DB)</li>
+        <li><code>@BeforeStep</code> – Runs before each individual step</li>
+        <li><code>@AfterStep</code> – Runs after each individual step (useful for screenshots)</li>
+        <li><code>@BeforeAll</code> / <code>@AfterAll</code> – Run once before/after all scenarios (class-level)</li>
+      </ul>
+      <pre>
+@Before
+public void setUp(Scenario scenario) {
+    driver = new ChromeDriver();
+    this.scenario = scenario;
+}
+
+@After
+public void tearDown(Scenario scenario) {
+    if (scenario.isFailed()) {
+        byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+        scenario.attach(screenshot, "image/png", "Failure Screenshot");
+    }
+    driver.quit();
+}
+      </pre>
+    </div>
+  </div>
+
+  <div class="card" data-tags="scenario">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q6</span>
+      <div class="q-text">SCENARIO: You need to take a screenshot only when a test fails. How would you implement this in Cucumber?<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p>Use the <code>@After</code> hook and check <code>scenario.isFailed()</code>:</p>
+      <pre>
+@After
+public void captureScreenshotOnFailure(Scenario scenario) {
+    if (scenario.isFailed()) {
+        TakesScreenshot ts = (TakesScreenshot) driver;
+        byte[] screenshot = ts.getScreenshotAs(OutputType.BYTES);
+        scenario.attach(screenshot, "image/png", scenario.getName());
+    }
+    driver.quit();
+}
+      </pre>
+      <div class="tip"><strong>Tip:</strong> The <code>Scenario</code> object is automatically injected when declared as a parameter in the hook method.</div>
+    </div>
+  </div>
+
+  <div class="card" data-tags="scenario practical">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q7</span>
+      <div class="q-text">SCENARIO: A @Before hook needs to run only for scenarios tagged @smoke. How do you do it?<div class="tags"><span class="tag scenario">Scenario-Based</span><span class="tag practical">Practical</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p>Pass the tag expression to the <code>@Before</code> annotation:</p>
+      <pre>
+@Before("@smoke")
+public void setupForSmoke() {
+    System.out.println("Setting up smoke test environment...");
+    driver = new ChromeDriver();
+}
+
+@Before("@regression and not @slow")
+public void setupRegressionExcludingSlow() {
+    driver = new FirefoxDriver();
+}
+      </pre>
+      <div class="tip"><strong>Tip:</strong> Tag expressions support <code>and</code>, <code>or</code>, <code>not</code> operators since Cucumber 4+.</div>
+    </div>
+  </div>
+
+  <div class="card" data-tags="scenario">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q8</span>
+      <div class="q-text">SCENARIO: You have a step definition that matches two Gherkin steps. What error occurs and how do you fix it?<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p>Cucumber throws an <strong>AmbiguousStepDefinitionException</strong> when more than one step definition matches a Gherkin step.</p>
+      <p><strong>Fix:</strong></p>
+      <ul>
+        <li>Make the regex/expressions more specific</li>
+        <li>Use anchors: <code>^</code> (start) and <code>$</code> (end) in regex patterns</li>
+        <li>Use Cucumber Expressions instead of regex where possible</li>
+      </ul>
+      <pre>
+// Ambiguous:
+@Given("the user {string} logs in")
+@Given("the user (.*) logs in")
+
+// Fix: Use one consistent pattern
+@Given("the user {string} logs in")
+public void userLogsIn(String username) { ... }
+      </pre>
+    </div>
+  </div>
+
+  <!-- ===== SECTION 3: Tags & Running Tests ===== -->
+  <div class="section-title">🏷️ Tags, Filtering &amp; Test Execution</div>
+
+  <div class="card" data-tags="conceptual practical">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q9</span>
+      <div class="q-text">How do you run a specific tagged test from the command line using Maven?<div class="tags"><span class="tag conceptual">Conceptual</span><span class="tag practical">Practical</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <pre>
+# Run only @smoke tagged scenarios
+mvn test -Dcucumber.filter.tags="@smoke"
+
+# Run @regression but not @slow
+mvn test -Dcucumber.filter.tags="@regression and not @slow"
+
+# Run @smoke OR @sanity
+mvn test -Dcucumber.filter.tags="@smoke or @sanity"
+      </pre>
+      <p>Alternatively, configure in <code>@CucumberOptions</code>:</p>
+      <pre>
+@CucumberOptions(
+    features = "src/test/resources/features",
+    glue = "stepDefinitions",
+    tags = "@smoke",
+    plugin = {"pretty", "html:target/cucumber-reports"}
+)
+      </pre>
+    </div>
+  </div>
+
+  <div class="card" data-tags="scenario">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q10</span>
+      <div class="q-text">SCENARIO: Your test suite has 200 scenarios. The CI pipeline must run only the critical path tests on every commit. How do you organize this?<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p><strong>Strategy:</strong></p>
+      <ul>
+        <li>Tag critical scenarios with <code>@critical</code> or <code>@smoke</code></li>
+        <li>Create a dedicated TestRunner class for CI with <code>tags = "@critical"</code></li>
+        <li>In CI pipeline (Jenkins/GitHub Actions), run with <code>-Dcucumber.filter.tags="@critical"</code></li>
+        <li>Full <code>@regression</code> suite runs nightly or on PR merge</li>
+      </ul>
+      <pre>
+# Jenkinsfile (Declarative Pipeline)
+stage('Smoke Tests') {
+    steps {
+        sh 'mvn test -Dcucumber.filter.tags="@critical"'
+    }
+}
+stage('Regression') {
+    when { branch 'main' }
+    steps {
+        sh 'mvn test -Dcucumber.filter.tags="@regression"'
+    }
+}
+      </pre>
+    </div>
+  </div>
+
+  <div class="card" data-tags="scenario practical">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q11</span>
+      <div class="q-text">SCENARIO: A particular test is flaky and should be temporarily skipped without deleting it. How do you handle it?<div class="tags"><span class="tag scenario">Scenario-Based</span><span class="tag practical">Practical</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p>Tag it with <code>@ignore</code> or <code>@wip</code> and exclude that tag during execution:</p>
+      <pre>
+# In feature file
+@regression @ignore
+Scenario: Flaky payment timeout test
+  Given ...
+
+# In TestRunner or CLI
+tags = "@regression and not @ignore"
+      </pre>
+      <div class="tip"><strong>Tip:</strong> Add a comment in the feature file explaining WHY it's ignored and reference the bug ticket number.</div>
+    </div>
+  </div>
+
+  <!-- ===== SECTION 4: Data-Driven Testing ===== -->
+  <div class="section-title">📊 Data Tables &amp; Data-Driven Testing</div>
+
+  <div class="card" data-tags="conceptual practical">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q12</span>
+      <div class="q-text">What is the difference between DataTable and Scenario Outline with Examples?<div class="tags"><span class="tag conceptual">Conceptual</span><span class="tag practical">Practical</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <ul>
+        <li><strong>DataTable:</strong> Passes structured data to a single step within a scenario. Good for bulk input (e.g., filling a form with many fields, or inserting multiple rows).</li>
+        <li><strong>Scenario Outline + Examples:</strong> Runs the entire scenario multiple times with different input sets. Good for testing the same flow with varied data.</li>
+      </ul>
+      <pre>
+# DataTable usage
+When the user registers with the following details:
+  | firstName | lastName | email           |
+  | John      | Doe      | john@email.com  |
+  | Jane      | Smith    | jane@email.com  |
+
+// Step Definition
+@When("the user registers with the following details:")
+public void registerUsers(DataTable dataTable) {
+    List&lt;Map&lt;String, String&gt;&gt; users = dataTable.asMaps();
+    for (Map&lt;String, String&gt; user : users) {
+        String firstName = user.get("firstName");
+        // ... fill form
+    }
+}
+      </pre>
+    </div>
+  </div>
+
+  <div class="card" data-tags="scenario practical">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q13</span>
+      <div class="q-text">SCENARIO: Write a Gherkin scenario to test adding multiple products to a cart using DataTable.<div class="tags"><span class="tag scenario">Scenario-Based</span><span class="tag practical">Practical</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <pre>
+Feature: Shopping Cart
+
+  Scenario: Add multiple products to cart
+    Given the user is logged in as "customer@shop.com"
+    When the user adds the following products to the cart:
+      | productName       | quantity | price  |
+      | Wireless Mouse    | 2        | 29.99  |
+      | Mechanical Keyboard | 1      | 89.99  |
+      | USB Hub           | 3        | 15.00  |
+    Then the cart should contain 3 products
+    And the total price should be "234.97"
+      </pre>
+      <pre>
+@When("the user adds the following products to the cart:")
+public void addProductsToCart(DataTable dataTable) {
+    List&lt;Map&lt;String, String&gt;&gt; products = dataTable.asMaps(String.class, String.class);
+    for (Map&lt;String, String&gt; product : products) {
+        cartPage.addProduct(product.get("productName"),
+                            Integer.parseInt(product.get("quantity")));
+    }
+}
+      </pre>
+    </div>
+  </div>
+
+  <div class="card" data-tags="scenario practical">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q14</span>
+      <div class="q-text">SCENARIO: You need to test the login feature with 5 different user roles. Design the feature file.<div class="tags"><span class="tag scenario">Scenario-Based</span><span class="tag practical">Practical</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <pre>
+Feature: Role-Based Login
+
+  Scenario Outline: Login with different user roles
+    Given the application is on the login page
+    When the "&lt;role&gt;" user logs in with "&lt;username&gt;" and "&lt;password&gt;"
+    Then they should be redirected to the "&lt;dashboard&gt;"
+    And the navigation menu should display "&lt;menuItem&gt;"
+
+    Examples:
+      | role        | username          | password   | dashboard       | menuItem      |
+      | Admin       | admin@app.com     | Admin@123  | /admin/home     | User Management |
+      | Manager     | mgr@app.com       | Mgr@456    | /manager/home   | Team Reports  |
+      | Developer   | dev@app.com       | Dev@789    | /dev/home       | Code Reviews  |
+      | Viewer      | view@app.com      | View@321   | /viewer/home    | Reports Only  |
+      | Guest       | guest@app.com     | Guest@000  | /guest/home     | Browse Only   |
+      </pre>
+    </div>
+  </div>
+
+  <!-- ===== SECTION 5: Page Object Model & Framework Design ===== -->
+  <div class="section-title">🏗️ Framework Design &amp; POM Integration</div>
+
+  <div class="card" data-tags="conceptual practical">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q15</span>
+      <div class="q-text">How do you integrate Page Object Model (POM) with Cucumber?<div class="tags"><span class="tag conceptual">Conceptual</span><span class="tag practical">Practical</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p>POM separates UI interaction from test logic. In Cucumber, Page Objects are instantiated in Step Definition classes:</p>
+      <pre>
+// Page Object
+public class LoginPage {
+    private WebDriver driver;
+
+    @FindBy(id = "username") WebElement usernameField;
+    @FindBy(id = "password") WebElement passwordField;
+    @FindBy(id = "loginBtn") WebElement loginButton;
+
+    public LoginPage(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+    }
+
+    public void login(String username, String password) {
+        usernameField.sendKeys(username);
+        passwordField.sendKeys(password);
+        loginButton.click();
+    }
+}
+
+// Step Definition
+public class LoginSteps {
+    private WebDriver driver = Hooks.driver;
+    private LoginPage loginPage = new LoginPage(driver);
+
+    @When("the user logs in with {string} and {string}")
+    public void userLogsIn(String username, String password) {
+        loginPage.login(username, password);
+    }
+}
+      </pre>
+    </div>
+  </div>
+
+  <div class="card" data-tags="scenario">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q16</span>
+      <div class="q-text">SCENARIO: How do you share the WebDriver instance across multiple Step Definition classes in Cucumber?<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p>Use <strong>Dependency Injection (DI)</strong> via PicoContainer, Spring, or Guice. PicoContainer is the most common with Cucumber-Java:</p>
+      <pre>
+// Shared context class
+public class TestContext {
+    private WebDriver driver;
+
+    public WebDriver getDriver() {
+        if (driver == null) {
+            driver = new ChromeDriver();
+        }
+        return driver;
+    }
+
+    public void quitDriver() {
+        if (driver != null) driver.quit();
+    }
+}
+
+// Step Definition 1 - inject via constructor
+public class LoginSteps {
+    private TestContext context;
+    public LoginSteps(TestContext context) {
+        this.context = context;
+    }
+
+    @Given("user is on login page")
+    public void openLogin() {
+        context.getDriver().get("https://example.com/login");
+    }
+}
+
+// Step Definition 2 - same TestContext instance injected
+public class DashboardSteps {
+    private TestContext context;
+    public DashboardSteps(TestContext context) {
+        this.context = context;
+    }
+}
+      </pre>
+      <div class="tip"><strong>Tip:</strong> PicoContainer is the go-to DI framework for Cucumber. Add <code>cucumber-picocontainer</code> dependency to pom.xml.</div>
+    </div>
+  </div>
+
+  <div class="card" data-tags="scenario practical">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q17</span>
+      <div class="q-text">SCENARIO: Design a Cucumber + Selenium framework folder structure for an e-commerce project.<div class="tags"><span class="tag scenario">Scenario-Based</span><span class="tag practical">Practical</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <pre>
+src/
+├── test/
+│   ├── java/
+│   │   ├── pageObjects/
+│   │   │   ├── LoginPage.java
+│   │   │   ├── ProductPage.java
+│   │   │   └── CartPage.java
+│   │   ├── stepDefinitions/
+│   │   │   ├── LoginSteps.java
+│   │   │   ├── ProductSteps.java
+│   │   │   └── CartSteps.java
+│   │   ├── hooks/
+│   │   │   └── Hooks.java
+│   │   ├── utils/
+│   │   │   ├── DriverFactory.java
+│   │   │   ├── ConfigReader.java
+│   │   │   └── TestContext.java
+│   │   └── runners/
+│   │       ├── SmokeTestRunner.java
+│   │       └── RegressionTestRunner.java
+│   └── resources/
+│       ├── features/
+│       │   ├── login.feature
+│       │   ├── product.feature
+│       │   └── cart.feature
+│       ├── config.properties
+│       └── testdata/
+│           └── users.json
+pom.xml
+      </pre>
+    </div>
+  </div>
+
+  <!-- ===== SECTION 6: Scenario-Based Design ===== -->
+  <div class="section-title">🎯 Scenario Design Challenges</div>
+
+  <div class="card" data-tags="scenario">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q18</span>
+      <div class="q-text">SCENARIO: Write a Cucumber scenario for an end-to-end checkout flow on an e-commerce site.<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <pre>
+Feature: E-Commerce Checkout
+
+  Background:
+    Given the user is logged in as "testuser@shop.com"
+    And the cart is empty
+
+  @smoke @checkout
+  Scenario: Successful checkout with credit card
+    Given the user searches for "Wireless Headphones"
+    And the user selects the first product from results
+    When the user adds the product to the cart
+    And the user proceeds to checkout
+    And the user enters shipping address:
+      | field    | value              |
+      | street   | 123 Main Street    |
+      | city     | Austin             |
+      | state    | TX                 |
+      | zip      | 78701              |
+    And the user selects "Standard Shipping"
+    And the user pays with credit card "4111111111111111"
+    Then the order confirmation page should display
+    And the user should receive a confirmation email
+    And the order should appear in "My Orders"
+      </pre>
+    </div>
+  </div>
+
+  <div class="card" data-tags="scenario">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q19</span>
+      <div class="q-text">SCENARIO: Write scenarios to cover both positive and negative cases for a user registration form.<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <pre>
+Feature: User Registration
+
+  @positive
+  Scenario: Successful registration with valid data
+    Given the user is on the registration page
+    When the user fills in valid registration details
+    Then the user account should be created
+    And a welcome email should be sent to the registered email
+
+  @negative
+  Scenario Outline: Registration fails with invalid inputs
+    Given the user is on the registration page
+    When the user enters "&lt;email&gt;" as email and "&lt;password&gt;" as password
+    Then the error message "&lt;error&gt;" should be displayed
+
+    Examples:
+      | email              | password    | error                          |
+      | invalid-email      | Pass@123    | Please enter a valid email     |
+      | test@mail.com      | 123         | Password must be 8+ characters |
+      | test@mail.com      | password    | Password needs a number        |
+      |                    | Pass@123    | Email is required              |
+      | existing@mail.com  | Pass@123    | Email already registered       |
+      </pre>
+    </div>
+  </div>
+
+  <div class="card" data-tags="scenario">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q20</span>
+      <div class="q-text">SCENARIO: How would you write a scenario to verify API response using Cucumber and REST Assured?<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <pre>
+Feature: User API
+
+  @api @smoke
+  Scenario: Retrieve user details successfully
+    Given the API base URL is "https://api.example.com"
+    And a valid auth token is available
+    When a GET request is sent to "/users/101"
+    Then the response status code should be 200
+    And the response body should contain:
+      | field    | value             |
+      | id       | 101               |
+      | name     | John Doe          |
+      | email    | john@example.com  |
+    And the response time should be less than 2000 ms
+      </pre>
+      <pre>
+@When("a GET request is sent to {string}")
+public void sendGetRequest(String endpoint) {
+    response = given()
+        .header("Authorization", "Bearer " + token)
+        .when()
+        .get(baseURL + endpoint)
+        .then()
+        .extract().response();
+}
+
+@Then("the response status code should be {int}")
+public void verifyStatusCode(int expectedCode) {
+    Assert.assertEquals(response.getStatusCode(), expectedCode);
+}
+      </pre>
+    </div>
+  </div>
+
+  <div class="card" data-tags="scenario">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q21</span>
+      <div class="q-text">SCENARIO: How do you handle dynamic data (e.g., generated order IDs) between steps in Cucumber?<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p>Store dynamic data in a <strong>shared context object</strong> injected via DI, or use a thread-safe <strong>ScenarioContext</strong> map:</p>
+      <pre>
+// ScenarioContext utility
+public class ScenarioContext {
+    private Map&lt;String, Object&gt; contextMap = new HashMap&lt;&gt;();
+
+    public void set(String key, Object value) { contextMap.put(key, value); }
+    public Object get(String key) { return contextMap.get(key); }
+}
+
+// Step 1 - store generated order ID
+@When("the user places an order")
+public void placeOrder() {
+    String orderId = orderPage.placeOrder();
+    scenarioContext.set("orderId", orderId);
+}
+
+// Step 2 - retrieve order ID in the same scenario
+@Then("the order should be visible in the system")
+public void verifyOrder() {
+    String orderId = (String) scenarioContext.get("orderId");
+    Assert.assertTrue(adminPage.isOrderPresent(orderId));
+}
+      </pre>
+    </div>
+  </div>
+
+  <div class="card" data-tags="scenario">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q22</span>
+      <div class="q-text">SCENARIO: Write a Cucumber feature for a bank transfer between two accounts, covering success and failure cases.<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <pre>
+Feature: Bank Account Transfer
+
+  Background:
+    Given the user is authenticated on the banking portal
+
+  @positive @transfer
+  Scenario: Successful transfer between accounts
+    Given account "ACC-001" has a balance of 5000.00
+    And account "ACC-002" has a balance of 1000.00
+    When the user transfers 1500.00 from "ACC-001" to "ACC-002"
+    Then account "ACC-001" balance should be 3500.00
+    And account "ACC-002" balance should be 2500.00
+    And a transaction receipt should be generated
+
+  @negative @transfer
+  Scenario Outline: Transfer fails under invalid conditions
+    Given account "ACC-001" has a balance of &lt;balance&gt;
+    When the user attempts to transfer &lt;amount&gt; to "ACC-002"
+    Then the transfer should fail with error "&lt;error&gt;"
+
+    Examples:
+      | balance | amount  | error                         |
+      | 500.00  | 1000.00 | Insufficient funds            |
+      | 1000.00 | 0.00    | Amount must be greater than 0 |
+      | 1000.00 | -100    | Invalid transfer amount        |
+      </pre>
+    </div>
+  </div>
+
+  <!-- ===== SECTION 7: Advanced Scenarios ===== -->
+  <div class="section-title">⚡ Advanced &amp; Real-World Scenarios</div>
+
+  <div class="card" data-tags="scenario">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q23</span>
+      <div class="q-text">SCENARIO: Your test needs to verify email delivery after user registration. How do you automate this?<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p>Use a mail testing service like <strong>Mailinator</strong>, <strong>MailHog</strong>, or <strong>GreenMail</strong>:</p>
+      <pre>
+Scenario: Verify welcome email after registration
+  Given the user registers with email "testuser+{timestamp}@mailinator.com"
+  When the registration is successful
+  Then a welcome email should arrive in "testuser+{timestamp}" inbox within 30 seconds
+  And the email subject should be "Welcome to Our Platform!"
+  And the email body should contain a "Verify Email" link
+      </pre>
+      <pre>
+@Then("a welcome email should arrive in {string} inbox within {int} seconds")
+public void verifyEmailArrived(String inbox, int timeout) {
+    MailinatorClient client = new MailinatorClient("API_KEY");
+    Inbox mailInbox = client.request(new GetInboxRequest(inbox));
+    // Poll with retry logic up to timeout
+    Assert.assertTrue(mailInbox.getMsgs().size() > 0);
+}
+      </pre>
+      <div class="tip"><strong>Tip:</strong> For local environments, use MailHog (SMTP mock) and query its HTTP API in step definitions.</div>
+    </div>
+  </div>
+
+  <div class="card" data-tags="scenario">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q24</span>
+      <div class="q-text">SCENARIO: You have 500 scenarios and tests are running slowly. How would you implement parallel execution in Cucumber?<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p>Use <strong>Maven Surefire Plugin</strong> with JUnit 5 parallel execution, or <strong>Cucumber-JUnit Platform Engine</strong>:</p>
+      <pre>
+&lt;!-- pom.xml --&gt;
+&lt;plugin&gt;
+  &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+  &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
+  &lt;configuration&gt;
+    &lt;parallel&gt;methods&lt;/parallel&gt;
+    &lt;threadCount&gt;4&lt;/threadCount&gt;
+  &lt;/configuration&gt;
+&lt;/plugin&gt;
+      </pre>
+      <p>For Cucumber-native parallel, use <code>junit-platform.properties</code>:</p>
+      <pre>
+cucumber.execution.parallel.enabled=true
+cucumber.execution.parallel.config.strategy=fixed
+cucumber.execution.parallel.config.fixed.parallelism=4
+      </pre>
+      <div class="tip"><strong>Tip:</strong> Ensure WebDriver instances are thread-local using <code>ThreadLocal&lt;WebDriver&gt;</code> to avoid conflicts between parallel threads.</div>
+    </div>
+  </div>
+
+  <div class="card" data-tags="scenario practical">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q25</span>
+      <div class="q-text">SCENARIO: Implement thread-safe WebDriver management for parallel Cucumber execution.<div class="tags"><span class="tag scenario">Scenario-Based</span><span class="tag practical">Practical</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <pre>
+public class DriverFactory {
+    private static ThreadLocal&lt;WebDriver&gt; tlDriver = new ThreadLocal&lt;&gt;();
+
+    public static WebDriver getDriver() {
+        return tlDriver.get();
+    }
+
+    public static void setDriver(String browser) {
+        WebDriver driver;
+        switch (browser.toLowerCase()) {
+            case "chrome": driver = new ChromeDriver(); break;
+            case "firefox": driver = new FirefoxDriver(); break;
+            default: throw new IllegalArgumentException("Unknown browser: " + browser);
+        }
+        tlDriver.set(driver);
+    }
+
+    public static void quitDriver() {
+        if (tlDriver.get() != null) {
+            tlDriver.get().quit();
+            tlDriver.remove();
+        }
+    }
+}
+      </pre>
+    </div>
+  </div>
+
+  <div class="card" data-tags="scenario">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q26</span>
+      <div class="q-text">SCENARIO: A step definition works fine locally but fails in CI. The error is "element not found". What do you investigate?<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p>Typical causes and fixes:</p>
+      <ul>
+        <li><strong>Headless vs GUI:</strong> CI runs headless — some elements behave differently. Check browser window size: <code>driver.manage().window().maximize()</code></li>
+        <li><strong>Timing issues:</strong> CI machines are slower. Increase explicit waits or use <code>WebDriverWait</code></li>
+        <li><strong>Different browser version:</strong> Ensure ChromeDriver/browser versions match in CI</li>
+        <li><strong>Stale elements:</strong> Re-find elements after page transitions</li>
+        <li><strong>Environment config:</strong> Check if the URL/env in CI config.properties is correct</li>
+      </ul>
+      <pre>
+// Always use explicit waits over Thread.sleep()
+WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+WebElement element = wait.until(
+    ExpectedConditions.elementToBeClickable(By.id("submitBtn"))
+);
+      </pre>
+    </div>
+  </div>
+
+  <div class="card" data-tags="scenario">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q27</span>
+      <div class="q-text">SCENARIO: Write a feature file for password reset functionality with all edge cases.<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <pre>
+Feature: Password Reset
+
+  @positive
+  Scenario: Successful password reset with valid email
+    Given the user is on the "Forgot Password" page
+    When the user enters registered email "user@test.com"
+    And clicks the "Send Reset Link" button
+    Then the success message should display "Check your email for reset instructions"
+    And a password reset email should be sent to "user@test.com"
+
+  @positive
+  Scenario: Complete password reset using the reset link
+    Given the user clicks the password reset link from email
+    When the user enters new password "NewPass@2024" and confirms it
+    And clicks "Reset Password"
+    Then the password should be updated successfully
+    And the user should be redirected to login page
+    And the old password should no longer work
+
+  @negative
+  Scenario Outline: Password reset fails for invalid inputs
+    Given the user is on the "Forgot Password" page
+    When the user enters "&lt;email&gt;"
+    Then the message "&lt;message&gt;" should be shown
+
+    Examples:
+      | email              | message                          |
+      |                    | Email is required                |
+      | invalid-format     | Enter a valid email address      |
+      | unknown@test.com   | No account found with this email |
+
+  @negative
+  Scenario: Password reset link expires after 24 hours
+    Given the user received a password reset link 25 hours ago
+    When the user clicks the expired reset link
+    Then the error "This link has expired. Please request a new one." should be shown
+      </pre>
+    </div>
+  </div>
+
+  <div class="card" data-tags="scenario">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q28</span>
+      <div class="q-text">SCENARIO: How would you test a multi-step wizard form (Step 1 → Step 2 → Step 3 → Confirm) in Cucumber?<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <pre>
+Feature: Multi-Step Insurance Application Form
+
+  @wizard @smoke
+  Scenario: Complete 3-step insurance application
+    Given the user is on the insurance application page
+
+    # Step 1 - Personal Info
+    When the user fills personal info:
+      | field     | value        |
+      | firstName | Alice        |
+      | lastName  | Johnson      |
+      | dob       | 15/06/1990   |
+    And clicks "Next"
+    Then step 2 of the wizard should be visible
+
+    # Step 2 - Coverage
+    When the user selects coverage type "Comprehensive"
+    And sets the coverage amount to "500000"
+    And clicks "Next"
+    Then step 3 of the wizard should be visible
+
+    # Step 3 - Payment
+    When the user enters payment details with card "4111111111111111"
+    And clicks "Submit Application"
+    Then the confirmation page should show the application reference number
+    And the user should receive a confirmation email
+      </pre>
+    </div>
+  </div>
+
+  <!-- ===== SECTION 8: Reporting & CI/CD ===== -->
+  <div class="section-title">📈 Reporting, CI/CD &amp; Debugging</div>
+
+  <div class="card" data-tags="conceptual practical">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q29</span>
+      <div class="q-text">What reporting plugins are available in Cucumber? How do you generate HTML reports?<div class="tags"><span class="tag conceptual">Conceptual</span><span class="tag practical">Practical</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p>Configure in <code>@CucumberOptions</code> plugin array:</p>
+      <ul>
+        <li><code>pretty</code> – Colorized console output</li>
+        <li><code>html:target/cucumber-reports/report.html</code> – Built-in HTML report</li>
+        <li><code>json:target/cucumber.json</code> – JSON report (for external tools)</li>
+        <li><code>junit:target/junit.xml</code> – JUnit XML (for CI)</li>
+        <li><code>rerun:target/rerun.txt</code> – Lists failed scenarios for re-run</li>
+      </ul>
+      <p><strong>Third-party:</strong> Extent Reports, Allure, Masterthought Cucumber Reports</p>
+      <pre>
+// Masterthought Cucumber Report (pom.xml plugin)
+&lt;plugin&gt;
+  &lt;groupId&gt;net.masterthought&lt;/groupId&gt;
+  &lt;artifactId&gt;maven-cucumber-reporting&lt;/artifactId&gt;
+  &lt;version&gt;5.7.4&lt;/version&gt;
+&lt;/plugin&gt;
+      </pre>
+    </div>
+  </div>
+
+  <div class="card" data-tags="scenario practical">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q30</span>
+      <div class="q-text">SCENARIO: How do you re-run only the failed scenarios automatically after the first run?<div class="tags"><span class="tag scenario">Scenario-Based</span><span class="tag practical">Practical</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p>Use the <code>rerun</code> plugin to record failures, then create a second runner to re-run them:</p>
+      <pre>
+// Runner 1 - Main Run
+@CucumberOptions(
+    features = "src/test/resources/features",
+    glue = "stepDefinitions",
+    plugin = {
+        "rerun:target/rerun.txt",
+        "html:target/reports/run1.html"
+    }
+)
+public class TestRunner extends AbstractTestNGCucumberTests {}
+
+// Runner 2 - Re-run failures
+@CucumberOptions(
+    features = "@target/rerun.txt",
+    glue = "stepDefinitions",
+    plugin = {"html:target/reports/rerun.html"}
+)
+public class RerunRunner extends AbstractTestNGCucumberTests {}
+      </pre>
+      <pre>
+# Maven command to chain both runs
+mvn test -Dtest=TestRunner || mvn test -Dtest=RerunRunner
+      </pre>
+    </div>
+  </div>
+
+  <div class="card" data-tags="scenario">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q31</span>
+      <div class="q-text">SCENARIO: How would you integrate Cucumber tests with Jenkins to publish test results?<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <pre>
+// Jenkinsfile
+pipeline {
+    agent any
+    stages {
+        stage('Checkout') {
+            steps { git 'https://github.com/org/project.git' }
+        }
+        stage('Test') {
+            steps {
+                sh 'mvn clean test -Dcucumber.filter.tags="@regression"'
+            }
+            post {
+                always {
+                    // Publish JUnit results
+                    junit 'target/surefire-reports/*.xml'
+                    // Publish Cucumber HTML report
+                    publishHTML([
+                        reportDir: 'target/cucumber-reports',
+                        reportFiles: 'index.html',
+                        reportName: 'Cucumber Report'
+                    ])
+                }
+            }
+        }
+    }
+}
+      </pre>
+      <div class="tip"><strong>Tip:</strong> Install the "Cucumber Reports" Jenkins plugin for rich, interactive test dashboards.</div>
+    </div>
+  </div>
+
+  <!-- ===== SECTION 9: More Scenario Questions ===== -->
+  <div class="section-title">🔥 More Must-Know Scenario Questions</div>
+
+  <div class="card" data-tags="scenario">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q32</span>
+      <div class="q-text">SCENARIO: How do you handle a dropdown, date picker, and file upload within a Cucumber scenario?<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <pre>
+Scenario: Submit an expense report form
+  Given the user is on the expense report page
+  When the user selects "Travel" from the expense type dropdown
+  And the user selects date "2024-06-15" from the date picker
+  And the user uploads the receipt file "receipt.pdf"
+  And clicks "Submit"
+  Then the expense report should be submitted successfully
+      </pre>
+      <pre>
+// Dropdown
+Select dropdown = new Select(driver.findElement(By.id("expenseType")));
+dropdown.selectByVisibleText(option);
+
+// Date Picker - clear and type
+WebElement datePicker = driver.findElement(By.id("datePicker"));
+datePicker.clear();
+datePicker.sendKeys("06/15/2024");
+
+// File Upload
+WebElement fileInput = driver.findElement(By.id("fileUpload"));
+fileInput.sendKeys("/absolute/path/to/receipt.pdf");
+      </pre>
+    </div>
+  </div>
+
+  <div class="card" data-tags="scenario">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q33</span>
+      <div class="q-text">SCENARIO: You need to verify data in a database after a form submission. How do you incorporate DB validation in Cucumber?<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <pre>
+@Then("the user record should be saved in the database")
+public void verifyUserInDB() throws SQLException {
+    String query = "SELECT * FROM users WHERE email = 'test@example.com'";
+    Connection conn = DBUtils.getConnection();
+    ResultSet rs = conn.createStatement().executeQuery(query);
+    Assert.assertTrue(rs.next(), "User not found in DB");
+    Assert.assertEquals(rs.getString("status"), "ACTIVE");
+    conn.close();
+}
+      </pre>
+      <div class="tip"><strong>Tip:</strong> Always clean up test data using <code>@After</code> hook or use a test DB with rollback transactions to keep tests idempotent.</div>
+    </div>
+  </div>
+
+  <div class="card" data-tags="scenario">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q34</span>
+      <div class="q-text">SCENARIO: Write scenarios to test a search feature with filters (price range, category, rating).<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <pre>
+Feature: Product Search with Filters
+
+  Scenario: Search with keyword returns relevant results
+    Given the user is on the search page
+    When the user searches for "laptop"
+    Then the results should contain at least 1 product with "laptop" in the name
+
+  Scenario Outline: Filter products by category
+    Given search results for "electronics" are displayed
+    When the user applies category filter "&lt;category&gt;"
+    Then all results should belong to "&lt;category&gt;"
+
+    Examples:
+      | category   |
+      | Laptops    |
+      | Phones     |
+      | Tablets    |
+
+  Scenario: Apply price range filter
+    Given search results are displayed for "headphones"
+    When the user sets price range from 50 to 200
+    Then all displayed products should have prices between 50 and 200
+
+  Scenario: Apply minimum rating filter
+    Given search results are displayed
+    When the user filters by minimum rating "4 stars"
+    Then all products shown should have a rating of 4 or above
+
+  Scenario: Combine multiple filters
+    Given search results for "shoes" are displayed
+    When the user filters by category "Running" and price range 30 to 100
+    And sets minimum rating to "3 stars"
+    Then only products matching all criteria should be shown
+      </pre>
+    </div>
+  </div>
+
+  <div class="card" data-tags="scenario">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q35</span>
+      <div class="q-text">SCENARIO: How would you test session timeout behavior in Cucumber?<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <pre>
+Feature: Session Management
+
+  @session @security
+  Scenario: User is logged out after session timeout
+    Given the user is logged in
+    When the user is inactive for the session timeout duration
+    Then the user should be automatically logged out
+    And redirected to the login page with message "Your session has expired"
+    And accessing any protected page should redirect to login
+
+  # For actual automation (don't use Thread.sleep in real tests!)
+  # Approach: manipulate session cookie expiry or use backend API to expire session
+      </pre>
+      <pre>
+@When("the user is inactive for the session timeout duration")
+public void expireSession() {
+    // Approach 1: Delete the session cookie
+    driver.manage().deleteCookieNamed("JSESSIONID");
+
+    // Approach 2: Call backend API to invalidate session
+    apiClient.invalidateSession(currentSessionId);
+
+    // Approach 3: For short timeouts only, navigate away and back
+}
+      </pre>
+      <div class="tip"><strong>Tip:</strong> Never use <code>Thread.sleep(30 * 60 * 1000)</code> for a 30-min timeout. Always manipulate state programmatically.</div>
+    </div>
+  </div>
+
+  <div class="card" data-tags="scenario">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q36</span>
+      <div class="q-text">SCENARIO: A new feature is added mid-sprint. How do you write Cucumber scenarios before the feature is developed (ATDD)?<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p><strong>Acceptance Test-Driven Development (ATDD) Process:</strong></p>
+      <ol>
+        <li>QA, Dev, and BA collaborate in "Three Amigos" meeting</li>
+        <li>Write feature file scenarios in Gherkin before development</li>
+        <li>These become the acceptance criteria for the feature</li>
+        <li>Tag scenarios with <code>@wip</code> until development is complete</li>
+        <li>Write step definitions that are initially stubbed/pending</li>
+        <li>Implement step definitions as the feature is built</li>
+        <li>Scenarios drive the definition of done</li>
+      </ol>
+      <pre>
+@wip @sprint-24
+Scenario: User can apply promo code at checkout
+  Given the user has items worth 100 in the cart
+  When the user applies promo code "SAVE20"
+  Then the discount of 20.00 should be applied
+  And the total should display 80.00
+      </pre>
+    </div>
+  </div>
+
+  <div class="card" data-tags="scenario">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q37</span>
+      <div class="q-text">SCENARIO: How do you handle browser pop-ups, alerts, and iframes in Cucumber scenarios?<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <pre>
+// Handle JavaScript alert
+@Then("the confirmation alert should appear")
+public void handleAlert() {
+    Alert alert = driver.switchTo().alert();
+    String alertText = alert.getText();
+    Assert.assertEquals(alertText, "Are you sure you want to delete?");
+    alert.accept(); // or alert.dismiss()
+}
+
+// Handle iframe
+@When("the user fills in the embedded payment form")
+public void fillIframeForm() {
+    WebElement iframe = driver.findElement(By.id("paymentFrame"));
+    driver.switchTo().frame(iframe);
+    driver.findElement(By.id("cardNumber")).sendKeys("4111111111111111");
+    driver.switchTo().defaultContent(); // switch back
+}
+
+// Handle new window/tab
+@When("the user clicks on Terms and Conditions link")
+public void handleNewTab() {
+    String mainWindow = driver.getWindowHandle();
+    driver.findElement(By.linkText("Terms")).click();
+    for (String handle : driver.getWindowHandles()) {
+        if (!handle.equals(mainWindow)) {
+            driver.switchTo().window(handle);
+        }
+    }
+}
+      </pre>
+    </div>
+  </div>
+
+  <div class="card" data-tags="scenario">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q38</span>
+      <div class="q-text">SCENARIO: How do you perform mobile testing using Cucumber + Appium?<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <pre>
+Feature: Mobile Login
+
+  @mobile @android
+  Scenario: Login on Android app
+    Given the Android app is launched on the device
+    When the user taps on the "Username" field and enters "user@test.com"
+    And the user taps on the "Password" field and enters "Pass@123"
+    And the user taps the "Login" button
+    Then the home screen should be displayed
+      </pre>
+      <pre>
+// Appium Driver Setup in Hooks
+@Before("@mobile")
+public void setUpMobile() {
+    DesiredCapabilities caps = new DesiredCapabilities();
+    caps.setCapability("platformName", "Android");
+    caps.setCapability("deviceName", "emulator-5554");
+    caps.setCapability("app", "/path/to/app.apk");
+    caps.setCapability("automationName", "UiAutomator2");
+
+    driver = new AndroidDriver(new URL("http://localhost:4723/wd/hub"), caps);
+}
+      </pre>
+    </div>
+  </div>
+
+  <div class="card" data-tags="scenario">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q39</span>
+      <div class="q-text">SCENARIO: Write a Cucumber scenario for verifying pagination on a search results page.<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <pre>
+Feature: Search Results Pagination
+
+  Scenario: Default page shows first 10 results
+    Given the user searches for "shoes"
+    Then the results page should display 10 products per page
+    And the pagination control should be visible
+
+  Scenario: Navigate to next page
+    Given the search results are on page 1
+    When the user clicks "Next" page
+    Then the results should update to page 2
+    And the URL should contain "page=2"
+    And 10 new products should be displayed
+
+  Scenario: Navigate directly to a specific page
+    Given the search results are displayed
+    When the user clicks on page number "5"
+    Then page 5 results should load
+    And page "5" should be highlighted in the pagination bar
+
+  Scenario: Last page shows remaining items
+    Given the search for "rare item" returns 23 total results
+    When the user navigates to page 3
+    Then 3 products should be displayed on the last page
+    And the "Next" button should be disabled
+      </pre>
+    </div>
+  </div>
+
+  <div class="card" data-tags="scenario">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q40</span>
+      <div class="q-text">SCENARIO: How would you implement retry logic for flaky steps in Cucumber?<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p>Use a custom retry mechanism or the <strong>Cucumber Retry</strong> plugin:</p>
+      <pre>
+// Custom Retry Utility
+public class RetryUtils {
+    public static void retry(int maxAttempts, Runnable action) {
+        int attempt = 0;
+        while (attempt &lt; maxAttempts) {
+            try {
+                action.run();
+                return; // success
+            } catch (Exception e) {
+                attempt++;
+                if (attempt == maxAttempts) throw new RuntimeException(e);
+                try { Thread.sleep(1000 * attempt); } catch (InterruptedException ie) {}
+            }
+        }
+    }
+}
+
+// Usage in Step Definition
+@When("the payment is processed")
+public void processPayment() {
+    RetryUtils.retry(3, () -&gt; {
+        paymentPage.submitPayment();
+        Assert.assertTrue(paymentPage.isSuccessVisible());
+    });
+}
+      </pre>
+      <div class="tip"><strong>Tip:</strong> For Cucumber 7+, use <code>@Retry</code> annotation with the cucumber-retry extension or configure in <code>junit-platform.properties</code>: <code>cucumber.execution.retry.count=2</code></div>
+    </div>
+  </div>
+
+  <div class="card" data-tags="scenario conceptual">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q41</span>
+      <div class="q-text">SCENARIO: How do you manage test data externalization in Cucumber — not hardcoding it in feature files?<div class="tags"><span class="tag scenario">Scenario-Based</span><span class="tag conceptual">Conceptual</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p>Strategies for externalizing test data:</p>
+      <ul>
+        <li><strong>Properties files:</strong> <code>config.properties</code> for environment URLs, credentials</li>
+        <li><strong>JSON / YAML files:</strong> Complex test data loaded via Jackson/Gson</li>
+        <li><strong>Excel sheets:</strong> Apache POI for large data sets</li>
+        <li><strong>Database:</strong> Fetch test data from a dedicated test schema</li>
+        <li><strong>Faker library:</strong> Generate synthetic realistic test data dynamically</li>
+      </ul>
+      <pre>
+// Reading from JSON
+public class TestDataReader {
+    public static User getUser(String role) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        File file = new File("src/test/resources/testdata/users.json");
+        Map&lt;String, User&gt; users = mapper.readValue(file,
+            new TypeReference&lt;Map&lt;String, User&gt;&gt;(){});
+        return users.get(role);
+    }
+}
+
+// In Step Definition
+@Given("the admin user is logged in")
+public void adminLogin() {
+    User admin = TestDataReader.getUser("admin");
+    loginPage.login(admin.getEmail(), admin.getPassword());
+}
+      </pre>
+    </div>
+  </div>
+
+  <div class="card" data-tags="scenario">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q42</span>
+      <div class="q-text">SCENARIO: How do you test a GraphQL API endpoint using Cucumber?<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <pre>
+Feature: GraphQL User API
+
+  Scenario: Fetch user by ID via GraphQL query
+    Given the GraphQL endpoint is "https://api.example.com/graphql"
+    When the following query is executed:
+      """
+      {
+        user(id: "101") {
+          id
+          name
+          email
+          role
+        }
+      }
+      """
+    Then the response should have status 200
+    And the "data.user.name" field should be "John Doe"
+    And the "data.user.role" field should be "ADMIN"
+      </pre>
+      <pre>
+@When("the following query is executed:")
+public void executeGraphQLQuery(String query) {
+    response = given()
+        .contentType("application/json")
+        .body("{\"query\": \"" + query.replace("\n", " ") + "\"}")
+        .post(graphqlEndpoint);
+}
+
+@Then("the {string} field should be {string}")
+public void verifyField(String jsonPath, String expected) {
+    String actual = response.jsonPath().getString(jsonPath);
+    Assert.assertEquals(actual, expected);
+}
+      </pre>
+    </div>
+  </div>
+
+  <div class="card" data-tags="scenario">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q43</span>
+      <div class="q-text">SCENARIO: How do you write a Cucumber scenario for testing an OAuth 2.0 protected API?<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <pre>
+Feature: OAuth Protected API
+
+  Background:
+    Given a valid OAuth token is obtained for "client_credentials" flow
+
+  Scenario: Access protected resource with valid token
+    When a GET request is made to "/api/v1/protected/resource"
+    Then the response status should be 200
+    And the response should contain the protected data
+
+  Scenario: Access fails with expired token
+    Given the OAuth token is expired
+    When a GET request is made to "/api/v1/protected/resource"
+    Then the response status should be 401
+    And the error should be "Token has expired"
+
+  Scenario: Access fails without token
+    When a GET request is made to "/api/v1/protected/resource" without auth header
+    Then the response status should be 401
+      </pre>
+      <pre>
+@Before
+public void obtainToken() {
+    token = given()
+        .formParam("grant_type", "client_credentials")
+        .formParam("client_id", config.get("clientId"))
+        .formParam("client_secret", config.get("clientSecret"))
+        .post(config.get("tokenUrl"))
+        .jsonPath().getString("access_token");
+}
+      </pre>
+    </div>
+  </div>
+
+  <div class="card" data-tags="scenario">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q44</span>
+      <div class="q-text">SCENARIO: How do you test responsive design breakpoints across devices in Cucumber?<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <pre>
+Feature: Responsive Design
+
+  Scenario Outline: Homepage renders correctly at different screen sizes
+    Given the user opens the homepage
+    When the browser is resized to "&lt;width&gt;" x "&lt;height&gt;"
+    Then the "&lt;element&gt;" should be "&lt;visibility&gt;"
+    And the layout should match the "&lt;device&gt;" mockup
+
+    Examples:
+      | width | height | device  | element        | visibility |
+      | 1920  | 1080   | Desktop | desktop-nav    | visible    |
+      | 768   | 1024   | Tablet  | hamburger-menu | visible    |
+      | 375   | 812    | Mobile  | hamburger-menu | visible    |
+      | 375   | 812    | Mobile  | desktop-nav    | hidden     |
+      </pre>
+      <pre>
+@When("the browser is resized to {string} x {string}")
+public void resizeBrowser(String width, String height) {
+    driver.manage().window().setSize(
+        new Dimension(Integer.parseInt(width), Integer.parseInt(height))
+    );
+}
+      </pre>
+    </div>
+  </div>
+
+  <div class="card" data-tags="scenario">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q45</span>
+      <div class="q-text">SCENARIO: You are asked to verify that a CSV file is downloaded correctly. How do you handle this in Cucumber?<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <pre>
+Feature: Data Export
+
+  @download
+  Scenario: Export user list as CSV
+    Given the admin is on the users management page
+    When the admin clicks the "Export to CSV" button
+    Then a CSV file should be downloaded within 10 seconds
+    And the CSV file should contain header row:
+      | ID | Name | Email | Role | CreatedDate |
+    And the CSV should have at least 1 data row
+    And all email values should be in valid email format
+      </pre>
+      <pre>
+@Then("a CSV file should be downloaded within {int} seconds")
+public void verifyDownload(int timeout) throws Exception {
+    String downloadDir = System.getProperty("user.home") + "/Downloads";
+    File csvFile = null;
+    long start = System.currentTimeMillis();
+
+    while (System.currentTimeMillis() - start &lt; timeout * 1000L) {
+        File[] files = new File(downloadDir).listFiles(
+            f -&gt; f.getName().endsWith(".csv") &amp;&amp; !f.getName().endsWith(".crdownload")
+        );
+        if (files != null &amp;&amp; files.length &gt; 0) {
+            csvFile = files[0];
+            break;
+        }
+        Thread.sleep(500);
+    }
+    Assert.assertNotNull(csvFile, "CSV file not downloaded");
+}
+      </pre>
+    </div>
+  </div>
+
+  <!-- Conceptual Advanced -->
+  <div class="section-title">💡 Advanced Conceptual Questions</div>
+
+  <div class="card" data-tags="conceptual">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q46</span>
+      <div class="q-text">What are Cucumber Expressions vs Regular Expressions in step definitions?<div class="tags"><span class="tag conceptual">Conceptual</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p><strong>Cucumber Expressions</strong> are a simpler, more readable way to define step patterns (introduced in Cucumber 3+):</p>
+      <pre>
+// Cucumber Expression (preferred)
+@Given("the user has {int} items in the cart")
+public void userHasItems(int count) { }
+
+// With optional text
+@When("the user click(s) the submit button")
+
+// With alternation
+@Then("the form is submitted/saved successfully")
+
+// Named parameters
+@Then("the response time is less than {long} milliseconds")
+      </pre>
+      <p><strong>Regex</strong> is more powerful but harder to read:</p>
+      <pre>
+@Given("^the user has (\\d+) items? in the cart$")
+public void userHasItems(int count) { }
+      </pre>
+      <div class="tip"><strong>Tip:</strong> Prefer Cucumber Expressions. Use regex only when complex pattern matching is needed.</div>
+    </div>
+  </div>
+
+  <div class="card" data-tags="conceptual">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q47</span>
+      <div class="q-text">What is the Background keyword and when should you use it vs @Before hook?<div class="tags"><span class="tag conceptual">Conceptual</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <ul>
+        <li><code>Background</code> – Runs Gherkin steps before each scenario in the same feature file. Visible and readable in the feature file itself. Best for UI setup steps (navigating to a page, logging in).</li>
+        <li><code>@Before</code> hook – Runs Java code before each scenario. Best for technical setup (launching browser, initializing objects, setting up DB).</li>
+      </ul>
+      <pre>
+# Use Background for steps the business cares about
+Background:
+  Given the user is on the product listing page
+  And 10 products are loaded
+
+# Use @Before for technical setup only
+@Before
+public void setUp() {
+    driver = DriverFactory.initDriver("chrome");
+    driver.manage().window().maximize();
+}
+      </pre>
+      <div class="tip"><strong>Tip:</strong> Background makes scenarios easier to understand as documentation. @Before is invisible to non-technical stakeholders.</div>
+    </div>
+  </div>
+
+  <div class="card" data-tags="conceptual">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q48</span>
+      <div class="q-text">What is a "Living Documentation" and how does Cucumber enable it?<div class="tags"><span class="tag conceptual">Conceptual</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p><strong>Living Documentation</strong> means the test specifications always reflect the current behavior of the system — they're never out of date because they ARE the tests.</p>
+      <p>Cucumber enables this by:</p>
+      <ul>
+        <li>Writing tests in plain English (Gherkin) that serves as specification</li>
+        <li>If behavior changes, the tests fail → forcing documentation to be updated</li>
+        <li>Tools like <strong>Pickles</strong>, <strong>Serenity BDD</strong>, and <strong>Cucumber Reports</strong> generate browsable documentation from feature files</li>
+        <li>Feature files are stored in version control alongside code</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" data-tags="scenario conceptual">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q49</span>
+      <div class="q-text">SCENARIO: A step definition in one class needs data set in a step definition from another class. How do you pass data between them?<div class="tags"><span class="tag scenario">Scenario-Based</span><span class="tag conceptual">Conceptual</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p>Three approaches:</p>
+      <ol>
+        <li><strong>Shared Context via DI (Recommended):</strong> Use PicoContainer with a shared context object</li>
+        <li><strong>World object:</strong> A shared object that Cucumber passes to all step definitions in a scenario</li>
+        <li><strong>Thread-local static fields:</strong> Use only when DI is not available</li>
+      </ol>
+      <pre>
+// Recommended: Shared ScenarioContext with PicoContainer
+public class ScenarioContext {
+    private Map&lt;String, Object&gt; data = new HashMap&lt;&gt;();
+    public void put(String key, Object val) { data.put(key, val); }
+    public &lt;T&gt; T get(String key, Class&lt;T&gt; type) { return type.cast(data.get(key)); }
+}
+
+// Class A sets data
+public class LoginSteps {
+    private final ScenarioContext ctx;
+    public LoginSteps(ScenarioContext ctx) { this.ctx = ctx; }
+
+    @When("user logs in and gets a session token")
+    public void login() {
+        String token = authService.login("user", "pass");
+        ctx.put("authToken", token);
+    }
+}
+
+// Class B reads data
+public class ApiSteps {
+    private final ScenarioContext ctx;
+    public ApiSteps(ScenarioContext ctx) { this.ctx = ctx; }
+
+    @Then("the API request uses the token")
+    public void apiWithToken() {
+        String token = ctx.get("authToken", String.class);
+        // use token
+    }
+}
+      </pre>
+    </div>
+  </div>
+
+  <div class="card" data-tags="scenario">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q50</span>
+      <div class="q-text">SCENARIO: Write end-to-end Cucumber scenarios for a "Forgot Password" + "Login with new password" complete flow.<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <pre>
+Feature: Complete Password Recovery Flow
+
+  @e2e @smoke
+  Scenario: User recovers account and logs in with new password
+    # Step 1: Trigger forgot password
+    Given the user is on the login page
+    And the user clicks "Forgot Password"
+    And the user enters "testuser@example.com" and submits
+    Then the confirmation message should say "Reset link sent"
+
+    # Step 2: Use reset link (simulated via API in automation)
+    When the test retrieves the reset token for "testuser@example.com" from the system
+    And the user navigates to the password reset link with the token
+    Then the "Set New Password" page should be displayed
+
+    # Step 3: Set new password
+    When the user enters "NewSecure@2024" as the new password
+    And confirms with "NewSecure@2024"
+    And submits the form
+    Then the success message "Password updated successfully" should appear
+    And the user should be redirected to login
+
+    # Step 4: Login with new password
+    When the user logs in with "testuser@example.com" and "NewSecure@2024"
+    Then the user dashboard should be displayed
+    And the old password "OldPass@2023" should no longer work
+      </pre>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p>Cucumber Interview Questions for QA Automation Engineer · 3 Years Experience · 50+ Questions</p>
+</footer>
+
+<script>
+  function toggle(headerEl) {
+    const card = headerEl.closest('.card');
+    card.classList.toggle('open');
+  }
+
+  // Filter buttons
+  document.querySelectorAll('nav.filter-bar button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('nav.filter-bar button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      filterCards(filter, document.getElementById('searchInput').value.toLowerCase());
+    });
+  });
+
+  // Search
+  document.getElementById('searchInput').addEventListener('input', e => {
+    const activeFilter = document.querySelector('nav.filter-bar button.active').dataset.filter;
+    filterCards(activeFilter, e.target.value.toLowerCase());
+  });
+
+  function filterCards(tagFilter, searchText) {
+    const sections = document.querySelectorAll('.section-title');
+    const cards = document.querySelectorAll('.card');
+
+    cards.forEach(card => {
+      const tags = card.dataset.tags || '';
+      const text = card.textContent.toLowerCase();
+      const tagMatch = tagFilter === 'all' || tags.includes(tagFilter);
+      const searchMatch = !searchText || text.includes(searchText);
+      card.style.display = tagMatch && searchMatch ? '' : 'none';
+    });
+
+    // Hide section titles if all cards in that section are hidden
+    sections.forEach(section => {
+      let next = section.nextElementSibling;
+      let hasVisible = false;
+      while (next && !next.classList.contains('section-title')) {
+        if (next.classList.contains('card') && next.style.display !== 'none') {
+          hasVisible = true;
+        }
+        next = next.nextElementSibling;
+      }
+      section.style.display = hasVisible ? '' : 'none';
+    });
+
+    // Show "no results" if nothing visible
+    const anyVisible = [...cards].some(c => c.style.display !== 'none');
+    let noResults = document.getElementById('noResults');
+    if (!anyVisible) {
+      if (!noResults) {
+        noResults = document.createElement('div');
+        noResults.id = 'noResults';
+        noResults.className = 'no-results';
+        noResults.textContent = 'No matching questions found.';
+        document.getElementById('mainContent').appendChild(noResults);
+      }
+      noResults.style.display = '';
+    } else if (noResults) {
+      noResults.style.display = 'none';
+    }
+  }
+</script>
+</body>
+</html>
