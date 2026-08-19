@@ -3,24 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cucumber Interview Questions – 3 Years Experience</title>
+  <title>API Testing – Complete Guide &amp; Interview Questions</title>
   <style>
     :root {
-      --green: #23d45e;
-      --dark-green: #1a9e45;
+      --blue: #3b82f6;
+      --dark-blue: #1d4ed8;
       --bg: #0f1117;
       --surface: #1a1d27;
       --surface2: #22263a;
       --text: #e2e8f0;
       --muted: #8892a4;
-      --accent: #4ade80;
-      --badge-bg: #163624;
+      --accent: #60a5fa;
+      --badge-bg: #1e2d4a;
       --tag-scenario: #1e3a5f;
       --tag-scenario-text: #60a5fa;
       --tag-conceptual: #2d1b4e;
       --tag-conceptual-text: #c084fc;
       --tag-practical: #3b1f1f;
       --tag-practical-text: #f87171;
+      --tag-auth: #1a3a2a;
+      --tag-auth-text: #4ade80;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -30,26 +32,19 @@
       line-height: 1.7;
     }
     header {
-      background: linear-gradient(135deg, #0d2818 0%, #163624 50%, #0f1117 100%);
-      border-bottom: 1px solid #2a3a2a;
+      background: linear-gradient(135deg, #0d1a2e 0%, #1a2a4a 50%, #0f1117 100%);
+      border-bottom: 1px solid #1e3a5a;
       padding: 48px 24px 36px;
       text-align: center;
     }
-    header .logo {
-      font-size: 3rem;
-      margin-bottom: 12px;
-    }
+    header .logo { font-size: 3rem; margin-bottom: 12px; }
     header h1 {
       font-size: 2.2rem;
       font-weight: 700;
       color: var(--accent);
       letter-spacing: -0.5px;
     }
-    header p {
-      color: var(--muted);
-      margin-top: 8px;
-      font-size: 1rem;
-    }
+    header p { color: var(--muted); margin-top: 8px; font-size: 1rem; }
     .stats-bar {
       display: flex;
       justify-content: center;
@@ -57,20 +52,48 @@
       flex-wrap: wrap;
       margin-top: 24px;
     }
-    .stat {
-      text-align: center;
+    .stat { text-align: center; }
+    .stat-num { font-size: 1.8rem; font-weight: 700; color: var(--blue); }
+    .stat-label { font-size: 0.78rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* ── Theory / explainer blocks ── */
+    .theory-block {
+      background: var(--surface);
+      border: 1px solid #1e3a5a;
+      border-radius: 14px;
+      margin-bottom: 18px;
+      overflow: hidden;
     }
-    .stat-num {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--green);
+    .theory-header {
+      background: linear-gradient(90deg, #0d1a2e, #1a2a4a);
+      padding: 16px 22px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      user-select: none;
     }
-    .stat-label {
-      font-size: 0.78rem;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+    .theory-header h3 { font-size: 1rem; font-weight: 700; color: var(--accent); flex: 1; }
+    .theory-body { display: none; padding: 20px 22px; }
+    .theory-block.open .theory-body { display: block; }
+    .theory-block.open .chevron { transform: rotate(180deg); }
+
+    /* ── Diagram ── */
+    .diagram {
+      background: #111827;
+      border: 1px solid #1e3a5a;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 14px 0;
+      font-family: 'Fira Code', 'Cascadia Code', monospace;
+      font-size: 0.82rem;
+      color: #93c5fd;
+      overflow-x: auto;
+      white-space: pre;
+      line-height: 1.9;
     }
+
+    /* ── Filter nav ── */
     nav.filter-bar {
       display: flex;
       justify-content: center;
@@ -95,10 +118,12 @@
     }
     nav.filter-bar button:hover,
     nav.filter-bar button.active {
-      background: var(--dark-green);
-      border-color: var(--green);
+      background: var(--dark-blue);
+      border-color: var(--blue);
       color: #fff;
     }
+
+    /* ── Search ── */
     .search-wrap {
       display: flex;
       justify-content: center;
@@ -116,27 +141,22 @@
       outline: none;
     }
     .search-wrap input::placeholder { color: var(--muted); }
-    .search-wrap input:focus { border-color: var(--green); }
-    main {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 32px 24px 60px;
-    }
+    .search-wrap input:focus { border-color: var(--blue); }
+
+    main { max-width: 960px; margin: 0 auto; padding: 32px 24px 60px; }
+
     .section-title {
       font-size: 1.3rem;
       font-weight: 700;
       color: var(--accent);
-      margin: 40px 0 16px;
+      margin: 44px 0 16px;
       display: flex;
       align-items: center;
       gap: 10px;
     }
-    .section-title::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: #2a3a2a;
-    }
+    .section-title::after { content: ''; flex: 1; height: 1px; background: #1e3a5a; }
+
+    /* ── Q&A cards ── */
     .card {
       background: var(--surface);
       border: 1px solid #2a2d3e;
@@ -145,7 +165,7 @@
       overflow: hidden;
       transition: border-color 0.2s;
     }
-    .card:hover { border-color: #3a5a3a; }
+    .card:hover { border-color: #2a4a6a; }
     .card-header {
       display: flex;
       align-items: flex-start;
@@ -156,7 +176,7 @@
     }
     .q-num {
       background: var(--badge-bg);
-      color: var(--green);
+      color: var(--blue);
       font-size: 0.75rem;
       font-weight: 700;
       padding: 3px 9px;
@@ -166,45 +186,24 @@
       margin-top: 2px;
       flex-shrink: 0;
     }
-    .q-text {
-      flex: 1;
-      font-weight: 600;
-      font-size: 0.97rem;
-    }
-    .tags {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-      margin-top: 4px;
-    }
+    .q-text { flex: 1; font-weight: 600; font-size: 0.97rem; }
+    .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
     .tag {
       font-size: 0.7rem;
       padding: 2px 8px;
       border-radius: 10px;
       font-weight: 600;
     }
-    .tag.scenario { background: var(--tag-scenario); color: var(--tag-scenario-text); }
-    .tag.conceptual { background: var(--tag-conceptual); color: var(--tag-conceptual-text); }
-    .tag.practical { background: var(--tag-practical); color: var(--tag-practical-text); }
-    .chevron {
-      color: var(--muted);
-      font-size: 1.1rem;
-      transition: transform 0.25s;
-      margin-top: 2px;
-      flex-shrink: 0;
-    }
+    .tag.scenario   { background: var(--tag-scenario);    color: var(--tag-scenario-text); }
+    .tag.conceptual { background: var(--tag-conceptual);  color: var(--tag-conceptual-text); }
+    .tag.practical  { background: var(--tag-practical);   color: var(--tag-practical-text); }
+    .tag.auth       { background: var(--tag-auth);        color: var(--tag-auth-text); }
+    .chevron { color: var(--muted); font-size: 1.1rem; transition: transform 0.25s; margin-top: 2px; flex-shrink: 0; }
     .card.open .chevron { transform: rotate(180deg); }
-    .card-body {
-      display: none;
-      padding: 0 20px 20px 70px;
-      border-top: 1px solid #2a2d3e;
-    }
+    .card-body { display: none; padding: 0 20px 20px 70px; border-top: 1px solid #2a2d3e; }
     .card.open .card-body { display: block; }
-    .card-body p { color: var(--text); margin-top: 14px; font-size: 0.92rem; }
-    .card-body ul, .card-body ol {
-      margin: 10px 0 0 18px;
-      font-size: 0.92rem;
-    }
+    .card-body p  { color: var(--text); margin-top: 14px; font-size: 0.92rem; }
+    .card-body ul, .card-body ol { margin: 10px 0 0 18px; font-size: 0.92rem; }
     .card-body li { margin-bottom: 5px; }
     .card-body code, code {
       background: #1e2535;
@@ -216,1834 +215,2785 @@
     }
     pre {
       background: #111827;
-      border: 1px solid #2a3a4a;
+      border: 1px solid #1e3a5a;
       border-radius: 8px;
       padding: 14px 16px;
       overflow-x: auto;
       margin-top: 12px;
       font-size: 0.85rem;
       font-family: 'Fira Code', 'Cascadia Code', monospace;
-      color: #a5f3d0;
+      color: #bae6fd;
       line-height: 1.6;
     }
     .tip {
-      background: #0d2818;
-      border-left: 3px solid var(--green);
+      background: #0d1a2e;
+      border-left: 3px solid var(--blue);
       padding: 10px 14px;
       border-radius: 0 8px 8px 0;
       margin-top: 12px;
       font-size: 0.88rem;
-      color: #86efac;
+      color: #93c5fd;
     }
     .tip strong { color: var(--accent); }
-    .no-results {
-      text-align: center;
-      color: var(--muted);
-      padding: 60px 0;
-      font-size: 1rem;
+    .warn {
+      background: #2d1f0d;
+      border-left: 3px solid #f59e0b;
+      padding: 10px 14px;
+      border-radius: 0 8px 8px 0;
+      margin-top: 12px;
+      font-size: 0.88rem;
+      color: #fcd34d;
     }
-    footer {
-      text-align: center;
-      padding: 24px;
-      color: var(--muted);
-      font-size: 0.82rem;
-      border-top: 1px solid #2a2d3e;
+    .warn strong { color: #fbbf24; }
+    .no-results { text-align: center; color: var(--muted); padding: 60px 0; font-size: 1rem; }
+
+    /* ── HTTP method badges ── */
+    .method {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 5px;
+      font-family: monospace;
+      margin-right: 4px;
     }
+    .method.get    { background: #163624; color: #4ade80; }
+    .method.post   { background: #1a2a4a; color: #60a5fa; }
+    .method.put    { background: #2d2200; color: #fbbf24; }
+    .method.patch  { background: #2d1f0d; color: #fb923c; }
+    .method.delete { background: #3b1f1f; color: #f87171; }
+
+    /* ── Status code table ── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      font-size: 0.88rem;
+    }
+    th {
+      background: #1e2535;
+      color: var(--accent);
+      padding: 8px 12px;
+      text-align: left;
+      font-weight: 600;
+    }
+    td { padding: 7px 12px; border-bottom: 1px solid #2a2d3e; }
+    tr:hover td { background: #1e2535; }
+
+    footer { text-align: center; padding: 24px; color: var(--muted); font-size: 0.82rem; border-top: 1px solid #2a2d3e; }
   </style>
 </head>
 <body>
 
 <header>
-  <div class="logo">🥒</div>
-  <h1>Cucumber Interview Questions</h1>
-  <p>QA Automation Test Engineer · 3 Years Experience Level</p>
+  <div class="logo">🔌</div>
+  <h1>API Testing – Complete Guide &amp; Interview Questions</h1>
+  <p>QA Automation Test Engineer · How APIs Work · Authentication · REST Assured · Scenario-Based Q&amp;A</p>
   <div class="stats-bar">
-    <div class="stat"><div class="stat-num">60+</div><div class="stat-label">Questions</div></div>
-    <div class="stat"><div class="stat-num">8</div><div class="stat-label">Categories</div></div>
-    <div class="stat"><div class="stat-num">30+</div><div class="stat-label">Scenario-Based</div></div>
+    <div class="stat"><div class="stat-num">100+</div><div class="stat-label">Questions</div></div>
+    <div class="stat"><div class="stat-num">11</div><div class="stat-label">Categories</div></div>
+    <div class="stat"><div class="stat-num">70+</div><div class="stat-label">Scenario-Based</div></div>
+    <div class="stat"><div class="stat-num">5</div><div class="stat-label">Auth Types</div></div>
   </div>
 </header>
 
+<!-- ═══════════════════════════════════════════════
+     THEORY SECTION – How APIs Work
+═══════════════════════════════════════════════ -->
+<main>
+
+  <div class="section-title">📚 How APIs Work – Core Concepts (Read First)</div>
+
+  <!-- Theory 1: What is an API -->
+  <div class="theory-block open" id="theory-what">
+    <div class="theory-header" onclick="toggleTheory(this)">
+      <span style="font-size:1.4rem">🌐</span>
+      <h3>1 · What is an API and How Does It Work?</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="theory-body">
+      <p>An <strong>API (Application Programming Interface)</strong> is a contract that defines how two software systems communicate. In web development, a <strong>REST API</strong> exposes endpoints (URLs) that a client calls over HTTP to create, read, update, or delete data on a server.</p>
+      <div class="diagram">
+CLIENT (Browser / Mobile App / Test Script)
+        │
+        │  HTTP Request
+        │  ┌──────────────────────────────────────────┐
+        │  │  Method:  GET / POST / PUT / DELETE       │
+        │  │  URL:     https://api.example.com/users/1 │
+        │  │  Headers: Content-Type, Authorization     │
+        │  │  Body:    { "name": "Alice" }  (if POST)  │
+        │  └──────────────────────────────────────────┘
+        │
+        ▼
+  API SERVER (Express / Spring Boot / Django)
+        │
+        │  Processes request → hits Database / Business Logic
+        │
+        │  HTTP Response
+        │  ┌──────────────────────────────────────────┐
+        │  │  Status:  200 OK / 201 Created / 404 …   │
+        │  │  Headers: Content-Type: application/json │
+        │  │  Body:    { "id": 1, "name": "Alice" }   │
+        │  └──────────────────────────────────────────┘
+        │
+        ▼
+CLIENT receives &amp; parses response</div>
+
+      <p><strong>Key concepts:</strong></p>
+      <ul>
+        <li><strong>Endpoint</strong> – A specific URL that represents a resource, e.g. <code>/api/users</code></li>
+        <li><strong>HTTP Method</strong> – Describes the intended action (GET, POST, PUT, PATCH, DELETE)</li>
+        <li><strong>Request Headers</strong> – Metadata sent with the request (Content-Type, Authorization, Accept)</li>
+        <li><strong>Request Body</strong> – The payload sent with POST/PUT/PATCH (usually JSON or XML)</li>
+        <li><strong>Response Status Code</strong> – A numeric code indicating success or failure</li>
+        <li><strong>Response Body</strong> – The data returned by the server (JSON, XML, plain text)</li>
+        <li><strong>Base URL</strong> – The common prefix for all endpoints, e.g. <code>https://api.example.com/v1</code></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Theory 2: HTTP Methods -->
+  <div class="theory-block open" id="theory-methods">
+    <div class="theory-header" onclick="toggleTheory(this)">
+      <span style="font-size:1.4rem">⚡</span>
+      <h3>2 · HTTP Methods (CRUD Mapping)</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="theory-body">
+      <table>
+        <tr><th>Method</th><th>CRUD</th><th>Use Case</th><th>Has Body?</th><th>Idempotent?</th></tr>
+        <tr><td><span class="method get">GET</span></td><td>Read</td><td>Fetch a resource or list</td><td>No</td><td>Yes</td></tr>
+        <tr><td><span class="method post">POST</span></td><td>Create</td><td>Create a new resource</td><td>Yes</td><td>No</td></tr>
+        <tr><td><span class="method put">PUT</span></td><td>Replace</td><td>Fully replace a resource</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td><span class="method patch">PATCH</span></td><td>Update</td><td>Partially update a resource</td><td>Yes</td><td>No</td></tr>
+        <tr><td><span class="method delete">DELETE</span></td><td>Delete</td><td>Remove a resource</td><td>No</td><td>Yes</td></tr>
+      </table>
+      <div class="tip"><strong>Idempotent</strong> means calling the same request multiple times produces the same result. GET, PUT, DELETE are idempotent. POST is not — it creates a new resource each time.</div>
+    </div>
+  </div>
+
+  <!-- Theory 3: Status Codes -->
+  <div class="theory-block open" id="theory-status">
+    <div class="theory-header" onclick="toggleTheory(this)">
+      <span style="font-size:1.4rem">📊</span>
+      <h3>3 · HTTP Status Codes – Every Tester Must Know</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="theory-body">
+      <table>
+        <tr><th>Code</th><th>Name</th><th>Meaning</th></tr>
+        <tr><td><code>200</code></td><td>OK</td><td>Successful GET / PUT / PATCH / DELETE</td></tr>
+        <tr><td><code>201</code></td><td>Created</td><td>Resource successfully created (POST)</td></tr>
+        <tr><td><code>204</code></td><td>No Content</td><td>Success but no response body (DELETE)</td></tr>
+        <tr><td><code>400</code></td><td>Bad Request</td><td>Malformed request / validation error</td></tr>
+        <tr><td><code>401</code></td><td>Unauthorized</td><td>Missing or invalid authentication token</td></tr>
+        <tr><td><code>403</code></td><td>Forbidden</td><td>Authenticated but not authorized for this resource</td></tr>
+        <tr><td><code>404</code></td><td>Not Found</td><td>Resource does not exist</td></tr>
+        <tr><td><code>405</code></td><td>Method Not Allowed</td><td>HTTP method not supported on this endpoint</td></tr>
+        <tr><td><code>409</code></td><td>Conflict</td><td>Duplicate data / state conflict</td></tr>
+        <tr><td><code>422</code></td><td>Unprocessable Entity</td><td>Semantically invalid request (e.g. wrong field type)</td></tr>
+        <tr><td><code>429</code></td><td>Too Many Requests</td><td>Rate limit exceeded</td></tr>
+        <tr><td><code>500</code></td><td>Internal Server Error</td><td>Unhandled server-side exception</td></tr>
+        <tr><td><code>503</code></td><td>Service Unavailable</td><td>Server is down or overloaded</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Theory 4: Authentication Types -->
+  <div class="theory-block open" id="theory-auth">
+    <div class="theory-header" onclick="toggleTheory(this)">
+      <span style="font-size:1.4rem">🔐</span>
+      <h3>4 · API Authentication – Complete Guide</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="theory-body">
+      <p>Authentication proves <em>who you are</em>. Authorization decides <em>what you can do</em>. Most APIs require both.</p>
+
+      <p style="margin-top:14px"><strong>① Basic Authentication</strong></p>
+      <p>Username and password are Base64-encoded and sent in the <code>Authorization</code> header. Simple but insecure over plain HTTP — always use HTTPS.</p>
+      <pre>
+Authorization: Basic dXNlcjpwYXNzd29yZA==
+# dXNlcjpwYXNzd29yZA== is Base64("user:password")</pre>
+
+      <p style="margin-top:14px"><strong>② API Key</strong></p>
+      <p>A static secret token issued by the server. Can be sent as a header, query param, or in the body.</p>
+      <pre>
+# As a header (preferred)
+X-API-Key: a1b2c3d4e5f6
+
+# As a query parameter (visible in logs — less secure)
+GET https://api.example.com/data?api_key=a1b2c3d4e5f6</pre>
+
+      <p style="margin-top:14px"><strong>③ Bearer Token (OAuth 2.0 / JWT)</strong></p>
+      <p>The most common method in modern APIs. The client first obtains a token via a login/auth endpoint, then sends it with every subsequent request.</p>
+      <div class="diagram">
+CLIENT                             AUTH SERVER
+  │                                     │
+  │── POST /auth/token ─────────────────▶│
+  │   { username, password, client_id }  │
+  │                                     │
+  │◀── 200 OK ──────────────────────────│
+  │   { access_token: "eyJ...", expires_in: 3600 }
+  │
+  │── GET /api/orders ──────────────────▶ RESOURCE SERVER
+  │   Authorization: Bearer eyJ...       │
+  │                                      │
+  │◀── 200 OK ────────────────────────── │
+  │   { orders: [...] }</div>
+      <pre>
+# REST Assured – Bearer Token
+given()
+  .header("Authorization", "Bearer " + accessToken)
+.when()
+  .get("/api/orders")
+.then()
+  .statusCode(200);</pre>
+
+      <p style="margin-top:14px"><strong>④ JWT (JSON Web Token) – Structure</strong></p>
+      <p>A JWT has three Base64URL-encoded parts separated by dots: <code>header.payload.signature</code></p>
+      <div class="diagram">
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9   ← Header  (algo + type)
+.
+eyJzdWIiOiJ1c2VyMTIzIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzA5MDAwMDAwfQ  ← Payload (claims)
+.
+SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c                            ← Signature (verify integrity)</div>
+      <div class="tip"><strong>Key claims:</strong> <code>sub</code> (subject/user ID), <code>exp</code> (expiry timestamp), <code>iat</code> (issued at), <code>role</code> (custom claim). You can decode the header and payload at <em>jwt.io</em> — but never share a real token.</div>
+
+      <p style="margin-top:14px"><strong>⑤ OAuth 2.0 – Client Credentials Flow (machine-to-machine)</strong></p>
+      <pre>
+# Step 1: Get token
+POST /oauth/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=client_credentials
+&amp;client_id=myClientId
+&amp;client_secret=mySecret
+&amp;scope=read:orders
+
+# Response
+{ "access_token": "eyJ...", "token_type": "Bearer", "expires_in": 3600 }
+
+# Step 2: Use token
+GET /api/orders
+Authorization: Bearer eyJ...</pre>
+
+      <p style="margin-top:14px"><strong>⑥ OAuth 2.0 – Authorization Code Flow (user-delegated)</strong></p>
+      <div class="diagram">
+USER                 CLIENT APP              AUTH SERVER         RESOURCE SERVER
+  │                      │                       │                     │
+  │── clicks Login ──────▶│                       │                     │
+  │                      │── redirect to /authorize ──────────────────▶│
+  │                      │                       │                     │
+  │◀── login page ────────────────────────────────│                     │
+  │── enters credentials ─────────────────────────▶│                     │
+  │                      │◀── code=ABC123 ────────│                     │
+  │                      │                       │                     │
+  │                      │── POST /token ─────────▶│                     │
+  │                      │   code=ABC123           │                     │
+  │                      │◀── access_token ────────│                     │
+  │                      │                                              │
+  │                      │── GET /api/profile ──────────────────────────▶│
+  │                      │   Authorization: Bearer ...                  │</div>
+    </div>
+  </div>
+
+  <!-- Theory 5: REST Assured Basics -->
+  <div class="theory-block open" id="theory-restassured">
+    <div class="theory-header" onclick="toggleTheory(this)">
+      <span style="font-size:1.4rem">🧪</span>
+      <h3>5 · REST Assured – The API Testing Library (Java)</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="theory-body">
+      <p>REST Assured is the most popular Java library for API testing. It provides a domain-specific language (DSL) following the <strong>Given / When / Then</strong> pattern.</p>
+      <pre>
+// Maven dependency
+&lt;dependency&gt;
+  &lt;groupId&gt;io.rest-assured&lt;/groupId&gt;
+  &lt;artifactId&gt;rest-assured&lt;/artifactId&gt;
+  &lt;version&gt;5.4.0&lt;/version&gt;
+  &lt;scope&gt;test&lt;/scope&gt;
+&lt;/dependency&gt;</pre>
+
+      <pre>
+import static io.restassured.RestAssured.*;
+import static org.hamcrest.Matchers.*;
+
+// Base URI setup (do once in @BeforeClass)
+RestAssured.baseURI = "https://api.example.com/v1";
+
+// GET request
+given()
+  .header("Authorization", "Bearer " + token)
+  .queryParam("page", 1)
+.when()
+  .get("/users")
+.then()
+  .statusCode(200)
+  .body("data.size()", greaterThan(0))
+  .body("data[0].name", notNullValue());
+
+// POST request
+given()
+  .contentType(ContentType.JSON)
+  .header("Authorization", "Bearer " + token)
+  .body("{ \"name\": \"Alice\", \"email\": \"alice@example.com\" }")
+.when()
+  .post("/users")
+.then()
+  .statusCode(201)
+  .body("id", notNullValue())
+  .body("name", equalTo("Alice"));</pre>
+
+      <div class="tip"><strong>Structure:</strong> <code>given()</code> = request setup → <code>when()</code> = HTTP call → <code>then()</code> = assertions. This maps cleanly to BDD Given/When/Then.</div>
+    </div>
+  </div>
+
+  <!-- Theory 6: What to Test in an API -->
+  <div class="theory-block open" id="theory-whattotest">
+    <div class="theory-header" onclick="toggleTheory(this)">
+      <span style="font-size:1.4rem">✅</span>
+      <h3>6 · What to Test in Every API – Testing Checklist</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="theory-body">
+      <p>For every API endpoint, verify these dimensions:</p>
+      <ul>
+        <li><strong>Status Code</strong> – Correct code for the scenario (200, 201, 400, 401, 404…)</li>
+        <li><strong>Response Schema</strong> – All required fields exist with correct data types</li>
+        <li><strong>Response Values</strong> – Actual field values match expected data</li>
+        <li><strong>Headers</strong> – <code>Content-Type</code>, <code>Cache-Control</code>, CORS headers are correct</li>
+        <li><strong>Response Time</strong> – API responds within an acceptable SLA (e.g. under 2 seconds)</li>
+        <li><strong>Authentication</strong> – 401 when no token, 403 when insufficient permissions</li>
+        <li><strong>Validation Errors</strong> – 400/422 with meaningful error messages for bad input</li>
+        <li><strong>Boundary Values</strong> – Empty strings, null, very long strings, negative numbers</li>
+        <li><strong>Pagination</strong> – <code>page</code>, <code>limit</code>, <code>total</code> fields behave correctly</li>
+        <li><strong>Idempotency</strong> – Calling GET/PUT/DELETE multiple times has the same result</li>
+        <li><strong>Error Messages</strong> – Errors are descriptive but do not leak sensitive data</li>
+      </ul>
+    </div>
+  </div>
+
+</main>
+
+<!-- ═══════════════════════════════════════════════
+     FILTER NAV + SEARCH
+═══════════════════════════════════════════════ -->
 <nav class="filter-bar">
   <button class="active" data-filter="all">All</button>
   <button data-filter="scenario">Scenario-Based</button>
   <button data-filter="conceptual">Conceptual</button>
   <button data-filter="practical">Practical</button>
+  <button data-filter="auth">Auth</button>
 </nav>
 
 <div class="search-wrap">
-  <input type="text" id="searchInput" placeholder="Search questions..." />
+  <input type="text" id="searchInput" placeholder="Search questions…" />
 </div>
 
+<!-- ═══════════════════════════════════════════════
+     Q&A SECTIONS
+═══════════════════════════════════════════════ -->
 <main id="mainContent">
 
-  <!-- ===== SECTION 1: BDD & Cucumber Basics ===== -->
-  <div class="section-title">🌱 BDD &amp; Cucumber Fundamentals</div>
+  <!-- ===== SECTION 1: API Fundamentals ===== -->
+  <div class="section-title">🌐 API Fundamentals</div>
 
   <div class="card" data-tags="conceptual">
     <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q1</span>
-      <div class="q-text">What is BDD and how does Cucumber support it?<div class="tags"><span class="tag conceptual">Conceptual</span></div></div>
+      <div class="q-text">What is the difference between REST and SOAP APIs?
+        <div class="tags"><span class="tag conceptual">Conceptual</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
-      <p><strong>Behavior-Driven Development (BDD)</strong> is an agile software development methodology where tests are written in plain English from the user's perspective before development begins. It bridges the gap between business stakeholders and developers.</p>
-      <p>Cucumber supports BDD by:</p>
-      <ul>
-        <li>Allowing test scenarios to be written in <strong>Gherkin</strong> (a plain-English DSL)</li>
-        <li>Mapping those scenarios to step definitions written in Java, Ruby, JS, etc.</li>
-        <li>Making tests readable by non-technical stakeholders</li>
-        <li>Acting as living documentation for the application</li>
-      </ul>
-      <div class="tip"><strong>Tip:</strong> Always mention that BDD promotes collaboration between Dev, QA, and Business (the "Three Amigos").</div>
+      <table>
+        <tr><th>Feature</th><th>REST</th><th>SOAP</th></tr>
+        <tr><td>Protocol</td><td>HTTP/HTTPS</td><td>HTTP, SMTP, TCP (any)</td></tr>
+        <tr><td>Data Format</td><td>JSON, XML, plain text</td><td>XML only</td></tr>
+        <tr><td>State</td><td>Stateless</td><td>Can be stateful</td></tr>
+        <tr><td>Contract</td><td>OpenAPI / Swagger (optional)</td><td>WSDL (mandatory)</td></tr>
+        <tr><td>Performance</td><td>Faster, lightweight</td><td>Heavier (XML overhead)</td></tr>
+        <tr><td>Security</td><td>HTTPS + OAuth/JWT</td><td>WS-Security built-in</td></tr>
+        <tr><td>Use in industry</td><td>Most modern APIs</td><td>Banking, enterprise legacy</td></tr>
+      </table>
+      <div class="tip"><strong>Rule of thumb:</strong> If an interviewer asks "REST vs SOAP", mention that REST is stateless and resource-oriented, while SOAP is operation-oriented and has a strict contract via WSDL.</div>
     </div>
   </div>
 
   <div class="card" data-tags="conceptual">
     <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q2</span>
-      <div class="q-text">Explain the Gherkin syntax with all keywords.<div class="tags"><span class="tag conceptual">Conceptual</span></div></div>
+      <div class="q-text">What is the difference between PUT and PATCH?
+        <div class="tags"><span class="tag conceptual">Conceptual</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
-      <p>Gherkin is the language used to write Cucumber feature files. Core keywords:</p>
-      <ul>
-        <li><code>Feature</code> – High-level description of the functionality</li>
-        <li><code>Background</code> – Steps common to all scenarios in the feature</li>
-        <li><code>Scenario</code> – A specific test case</li>
-        <li><code>Scenario Outline</code> – A template scenario with multiple data sets</li>
-        <li><code>Given</code> – Sets the precondition</li>
-        <li><code>When</code> – Describes the action/event</li>
-        <li><code>Then</code> – Describes the expected outcome</li>
-        <li><code>And / But</code> – Continuation of Given/When/Then</li>
-        <li><code>Examples</code> – Data table used with Scenario Outline</li>
-        <li><code>@TagName</code> – Adds metadata/tags to scenarios</li>
-        <li><code>"""</code> – Doc Strings for multiline text</li>
-        <li><code>|</code> – Data Tables inline with steps</li>
-      </ul>
+      <p><strong>PUT</strong> replaces the entire resource. If you omit a field it gets removed or set to null.</p>
+      <p><strong>PATCH</strong> applies a partial update — only the fields you send are changed.</p>
+      <pre>
+// Current resource: { "id": 1, "name": "Alice", "role": "admin" }
+
+// PUT – replaces everything
+PUT /users/1  →  { "name": "Bob" }
+// Result:         { "id": 1, "name": "Bob", "role": null }  ← role lost!
+
+// PATCH – partial update
+PATCH /users/1  →  { "name": "Bob" }
+// Result:           { "id": 1, "name": "Bob", "role": "admin" }  ← role preserved</pre>
+      <div class="tip"><strong>Test tip:</strong> Always test PUT by omitting optional fields to ensure the server does not silently discard data from other clients.</div>
     </div>
   </div>
 
   <div class="card" data-tags="conceptual">
     <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q3</span>
-      <div class="q-text">What is the difference between Scenario and Scenario Outline?<div class="tags"><span class="tag conceptual">Conceptual</span></div></div>
+      <div class="q-text">What is an idempotent API call? Give examples.
+        <div class="tags"><span class="tag conceptual">Conceptual</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
-      <p><strong>Scenario</strong> is a single test case with fixed data. <strong>Scenario Outline</strong> is a parameterized template that runs multiple times with different data sets supplied via the <code>Examples</code> table.</p>
-      <pre>
-# Scenario Outline Example
-Scenario Outline: Login with multiple credentials
-  Given the user is on the login page
-  When the user enters "&lt;username&gt;" and "&lt;password&gt;"
-  Then the user should see "&lt;message&gt;"
-
-  Examples:
-    | username | password  | message        |
-    | admin    | admin123  | Welcome Admin  |
-    | user1    | pass456   | Welcome User   |
-    | invalid  | wrong     | Login Failed   |
-      </pre>
-      <div class="tip"><strong>Tip:</strong> Scenario Outline reduces duplication. It's equivalent to data-driven testing.</div>
+      <p>An API call is <strong>idempotent</strong> if making the same request once or multiple times produces the same server state.</p>
+      <ul>
+        <li><code>GET /users/1</code> — always returns the same user; calling it 10 times changes nothing ✅</li>
+        <li><code>DELETE /users/1</code> — first call deletes; subsequent calls return 404 but the state is still "user deleted" ✅</li>
+        <li><code>PUT /users/1 { name: "Alice" }</code> — calling it 5 times still results in name="Alice" ✅</li>
+        <li><code>POST /orders</code> — each call creates a new order, so 5 calls = 5 orders ❌ (not idempotent)</li>
+      </ul>
+      <div class="tip"><strong>Why it matters for testing:</strong> Non-idempotent endpoints (POST) need cleanup after each test run to avoid duplicate data.</div>
     </div>
   </div>
 
   <div class="card" data-tags="conceptual">
     <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q4</span>
-      <div class="q-text">What is the role of the Feature file and Step Definitions file?<div class="tags"><span class="tag conceptual">Conceptual</span></div></div>
+      <div class="q-text">What is the difference between Query Parameters and Path Parameters?
+        <div class="tags"><span class="tag conceptual">Conceptual</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
-      <p><strong>Feature File (.feature):</strong> Contains test scenarios written in Gherkin. It's the source of truth and acts as documentation. Readable by everyone on the team.</p>
-      <p><strong>Step Definition File:</strong> Contains Java (or other language) methods annotated with <code>@Given</code>, <code>@When</code>, <code>@Then</code> that map to the Gherkin steps and contain the actual automation code.</p>
+      <p><strong>Path Parameters</strong> identify a specific resource and are part of the URL path:</p>
+      <pre>GET /users/{id}  →  GET /users/42  (fetches user with ID 42)</pre>
+      <p><strong>Query Parameters</strong> filter, sort, or paginate a collection and appear after <code>?</code>:</p>
+      <pre>GET /users?role=admin&amp;page=2&amp;limit=10</pre>
+      <p><strong>In REST Assured:</strong></p>
       <pre>
-// Step Definition
-@Given("the user is on the login page")
-public void userIsOnLoginPage() {
-    driver.get("https://app.example.com/login");
-}
-      </pre>
+// Path parameter
+given().pathParam("id", 42).when().get("/users/{id}");
+
+// Query parameter
+given().queryParam("role", "admin").queryParam("page", 2).when().get("/users");</pre>
     </div>
   </div>
 
-  <!-- ===== SECTION 2: Step Definitions & Hooks ===== -->
-  <div class="section-title">🪝 Step Definitions &amp; Hooks</div>
+  <!-- ===== SECTION 2: Authentication Testing ===== -->
+  <div class="section-title">🔐 Authentication &amp; Authorization Testing</div>
 
-  <div class="card" data-tags="conceptual practical">
+  <div class="card" data-tags="conceptual auth">
     <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q5</span>
-      <div class="q-text">What are Hooks in Cucumber? Explain @Before, @After, @BeforeStep, @AfterStep.<div class="tags"><span class="tag conceptual">Conceptual</span><span class="tag practical">Practical</span></div></div>
+      <div class="q-text">What is the difference between Authentication and Authorization?
+        <div class="tags"><span class="tag conceptual">Conceptual</span><span class="tag auth">Auth</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
-      <p>Hooks are code blocks that run at specific points during test execution:</p>
-      <ul>
-        <li><code>@Before</code> – Runs before each scenario (e.g., launch browser, set up DB)</li>
-        <li><code>@After</code> – Runs after each scenario (e.g., close browser, clean DB)</li>
-        <li><code>@BeforeStep</code> – Runs before each individual step</li>
-        <li><code>@AfterStep</code> – Runs after each individual step (useful for screenshots)</li>
-        <li><code>@BeforeAll</code> / <code>@AfterAll</code> – Run once before/after all scenarios (class-level)</li>
-      </ul>
-      <pre>
-@Before
-public void setUp(Scenario scenario) {
-    driver = new ChromeDriver();
-    this.scenario = scenario;
-}
-
-@After
-public void tearDown(Scenario scenario) {
-    if (scenario.isFailed()) {
-        byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-        scenario.attach(screenshot, "image/png", "Failure Screenshot");
-    }
-    driver.quit();
-}
-      </pre>
+      <p><strong>Authentication (AuthN)</strong> — "Who are you?" Verifies the identity of the caller (login with username/password, token, certificate).</p>
+      <p><strong>Authorization (AuthZ)</strong> — "What can you do?" Determines whether the authenticated caller has permission to perform the requested action.</p>
+      <table style="margin-top:12px">
+        <tr><th>Scenario</th><th>Status Code</th><th>Reason</th></tr>
+        <tr><td>No token sent</td><td><code>401</code></td><td>Not authenticated</td></tr>
+        <tr><td>Expired token</td><td><code>401</code></td><td>Authentication failed</td></tr>
+        <tr><td>Valid token, wrong role</td><td><code>403</code></td><td>Not authorized</td></tr>
+        <tr><td>Valid token, correct role</td><td><code>200</code></td><td>Success</td></tr>
+      </table>
     </div>
   </div>
 
-  <div class="card" data-tags="scenario">
+  <div class="card" data-tags="practical auth">
     <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q6</span>
-      <div class="q-text">SCENARIO: You need to take a screenshot only when a test fails. How would you implement this in Cucumber?<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <div class="q-text">How do you obtain and reuse a JWT token across all API tests in REST Assured?
+        <div class="tags"><span class="tag practical">Practical</span><span class="tag auth">Auth</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
-      <p>Use the <code>@After</code> hook and check <code>scenario.isFailed()</code>:</p>
+      <p>Fetch the token once in a <code>@BeforeAll</code> / base class setup and store it as a static field:</p>
       <pre>
-@After
-public void captureScreenshotOnFailure(Scenario scenario) {
-    if (scenario.isFailed()) {
-        TakesScreenshot ts = (TakesScreenshot) driver;
-        byte[] screenshot = ts.getScreenshotAs(OutputType.BYTES);
-        scenario.attach(screenshot, "image/png", scenario.getName());
+public class BaseTest {
+
+    protected static String authToken;
+
+    @BeforeAll
+    static void getAuthToken() {
+        authToken = given()
+            .contentType(ContentType.JSON)
+            .body("{ \"username\": \"admin\", \"password\": \"secret\" }")
+        .when()
+            .post("/auth/login")
+        .then()
+            .statusCode(200)
+            .extract()
+            .path("token");         // or "access_token" depending on API
     }
-    driver.quit();
 }
-      </pre>
-      <div class="tip"><strong>Tip:</strong> The <code>Scenario</code> object is automatically injected when declared as a parameter in the hook method.</div>
+
+// Use in test:
+given()
+    .header("Authorization", "Bearer " + authToken)
+.when()
+    .get("/users")
+.then()
+    .statusCode(200);</pre>
+      <div class="tip"><strong>Tip:</strong> Store the token as a <code>static</code> field so it is fetched once per test suite, not before every test. This keeps your suite fast.</div>
     </div>
   </div>
 
-  <div class="card" data-tags="scenario practical">
+  <div class="card" data-tags="scenario auth">
     <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q7</span>
-      <div class="q-text">SCENARIO: A @Before hook needs to run only for scenarios tagged @smoke. How do you do it?<div class="tags"><span class="tag scenario">Scenario-Based</span><span class="tag practical">Practical</span></div></div>
+      <div class="q-text">SCENARIO: The API uses OAuth 2.0 Client Credentials. How do you automate getting the token in REST Assured?
+        <div class="tags"><span class="tag scenario">Scenario-Based</span><span class="tag auth">Auth</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
-      <p>Pass the tag expression to the <code>@Before</code> annotation:</p>
       <pre>
-@Before("@smoke")
-public void setupForSmoke() {
-    System.out.println("Setting up smoke test environment...");
-    driver = new ChromeDriver();
-}
-
-@Before("@regression and not @slow")
-public void setupRegressionExcludingSlow() {
-    driver = new FirefoxDriver();
-}
-      </pre>
-      <div class="tip"><strong>Tip:</strong> Tag expressions support <code>and</code>, <code>or</code>, <code>not</code> operators since Cucumber 4+.</div>
+@BeforeAll
+static void fetchOAuthToken() {
+    authToken = given()
+        .contentType("application/x-www-form-urlencoded")
+        .formParam("grant_type",    "client_credentials")
+        .formParam("client_id",     System.getenv("CLIENT_ID"))
+        .formParam("client_secret", System.getenv("CLIENT_SECRET"))
+        .formParam("scope",         "read:orders")
+    .when()
+        .post("https://auth.example.com/oauth/token")
+    .then()
+        .statusCode(200)
+        .extract()
+        .path("access_token");
+}</pre>
+      <div class="warn"><strong>Security:</strong> Never hard-code <code>client_id</code> or <code>client_secret</code> in test code. Always read from environment variables or a secrets manager (AWS Secrets Manager, Vault, etc.).</div>
     </div>
   </div>
 
-  <div class="card" data-tags="scenario">
+  <div class="card" data-tags="scenario auth">
     <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q8</span>
-      <div class="q-text">SCENARIO: You have a step definition that matches two Gherkin steps. What error occurs and how do you fix it?<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <div class="q-text">SCENARIO: Your JWT token expires mid-test-run. How do you handle token refresh?
+        <div class="tags"><span class="tag scenario">Scenario-Based</span><span class="tag auth">Auth</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
-      <p>Cucumber throws an <strong>AmbiguousStepDefinitionException</strong> when more than one step definition matches a Gherkin step.</p>
-      <p><strong>Fix:</strong></p>
-      <ul>
-        <li>Make the regex/expressions more specific</li>
-        <li>Use anchors: <code>^</code> (start) and <code>$</code> (end) in regex patterns</li>
-        <li>Use Cucumber Expressions instead of regex where possible</li>
-      </ul>
+      <p>Track the expiry time and re-fetch before it expires:</p>
       <pre>
-// Ambiguous:
-@Given("the user {string} logs in")
-@Given("the user (.*) logs in")
+public class TokenManager {
+    private static String token;
+    private static long expiryTime;
 
-// Fix: Use one consistent pattern
-@Given("the user {string} logs in")
-public void userLogsIn(String username) { ... }
-      </pre>
+    public static String getToken() {
+        // Refresh 60 seconds before expiry
+        if (token == null || System.currentTimeMillis() &gt; expiryTime - 60_000) {
+            Response response = given()
+                .contentType(ContentType.JSON)
+                .body("{ \"username\": \"admin\", \"password\": \"secret\" }")
+            .when()
+                .post("/auth/login");
+
+            token      = response.path("access_token");
+            int expiresIn = response.path("expires_in");  // seconds
+            expiryTime = System.currentTimeMillis() + (expiresIn * 1000L);
+        }
+        return token;
+    }
+}</pre>
+      <div class="tip"><strong>Tip:</strong> This pattern is called "lazy token refresh". Each test calls <code>TokenManager.getToken()</code> — it refreshes automatically when needed.</div>
     </div>
   </div>
 
-  <!-- ===== SECTION 3: Tags & Running Tests ===== -->
-  <div class="section-title">🏷️ Tags, Filtering &amp; Test Execution</div>
-
-  <div class="card" data-tags="conceptual practical">
+  <div class="card" data-tags="scenario auth">
     <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q9</span>
-      <div class="q-text">How do you run a specific tagged test from the command line using Maven?<div class="tags"><span class="tag conceptual">Conceptual</span><span class="tag practical">Practical</span></div></div>
+      <div class="q-text">SCENARIO: How do you test that an API endpoint correctly rejects unauthenticated and unauthorized requests?
+        <div class="tags"><span class="tag scenario">Scenario-Based</span><span class="tag auth">Auth</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
       <pre>
-# Run only @smoke tagged scenarios
-mvn test -Dcucumber.filter.tags="@smoke"
+@Test
+void shouldReturn401WhenNoToken() {
+    given()
+    .when()
+        .get("/api/orders")
+    .then()
+        .statusCode(401);
+}
 
-# Run @regression but not @slow
-mvn test -Dcucumber.filter.tags="@regression and not @slow"
+@Test
+void shouldReturn401WhenTokenExpired() {
+    String expiredToken = "eyJhbGci...expired...";
+    given()
+        .header("Authorization", "Bearer " + expiredToken)
+    .when()
+        .get("/api/orders")
+    .then()
+        .statusCode(401)
+        .body("error", containsString("token"));
+}
 
-# Run @smoke OR @sanity
-mvn test -Dcucumber.filter.tags="@smoke or @sanity"
-      </pre>
-      <p>Alternatively, configure in <code>@CucumberOptions</code>:</p>
+@Test
+void shouldReturn403WhenInsufficientRole() {
+    // "viewer" role token — not allowed to DELETE
+    given()
+        .header("Authorization", "Bearer " + viewerToken)
+    .when()
+        .delete("/api/orders/1")
+    .then()
+        .statusCode(403);
+}</pre>
+    </div>
+  </div>
+
+  <!-- ===== SECTION 3: REST Assured ===== -->
+  <div class="section-title">🧪 REST Assured – Core Testing</div>
+
+  <div class="card" data-tags="practical">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q10</span>
+      <div class="q-text">How do you validate the full JSON response schema in REST Assured?
+        <div class="tags"><span class="tag practical">Practical</span></div>
+      </div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p>Use the <code>matchesJsonSchemaInClasspath()</code> matcher from the <code>rest-assured-json-schema-validator</code> library:</p>
       <pre>
-@CucumberOptions(
-    features = "src/test/resources/features",
-    glue = "stepDefinitions",
-    tags = "@smoke",
-    plugin = {"pretty", "html:target/cucumber-reports"}
-)
-      </pre>
+// Maven dependency
+&lt;dependency&gt;
+  &lt;groupId&gt;io.rest-assured&lt;/groupId&gt;
+  &lt;artifactId&gt;json-schema-validator&lt;/artifactId&gt;
+  &lt;version&gt;5.4.0&lt;/version&gt;
+&lt;/dependency&gt;
+
+// JSON schema file: src/test/resources/schemas/user-schema.json
+{
+  "type": "object",
+  "required": ["id", "name", "email"],
+  "properties": {
+    "id":    { "type": "integer" },
+    "name":  { "type": "string" },
+    "email": { "type": "string", "format": "email" }
+  }
+}
+
+// Test
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+
+given()
+    .header("Authorization", "Bearer " + authToken)
+.when()
+    .get("/users/1")
+.then()
+    .statusCode(200)
+    .body(matchesJsonSchemaInClasspath("schemas/user-schema.json"));</pre>
+      <div class="tip"><strong>Tip:</strong> Schema validation catches breaking API changes (renamed fields, type changes) before functional tests even run.</div>
+    </div>
+  </div>
+
+  <div class="card" data-tags="practical">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q11</span>
+      <div class="q-text">How do you extract values from a response and use them in a subsequent request (chaining)?
+        <div class="tags"><span class="tag practical">Practical</span></div>
+      </div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <pre>
+// Step 1: Create a user and capture the generated ID
+int userId = given()
+    .contentType(ContentType.JSON)
+    .header("Authorization", "Bearer " + authToken)
+    .body("{ \"name\": \"Alice\", \"email\": \"alice@test.com\" }")
+.when()
+    .post("/users")
+.then()
+    .statusCode(201)
+    .extract()
+    .path("id");
+
+// Step 2: Use the captured ID to fetch that user
+given()
+    .header("Authorization", "Bearer " + authToken)
+.when()
+    .get("/users/" + userId)
+.then()
+    .statusCode(200)
+    .body("name", equalTo("Alice"));
+
+// Step 3: Cleanup – delete the user after test
+given()
+    .header("Authorization", "Bearer " + authToken)
+.when()
+    .delete("/users/" + userId)
+.then()
+    .statusCode(204);</pre>
+      <div class="tip"><strong>Create → Use → Delete</strong> is the classic pattern for isolated API tests that don't pollute the test database.</div>
+    </div>
+  </div>
+
+  <div class="card" data-tags="practical">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q12</span>
+      <div class="q-text">How do you test response time / performance in REST Assured?
+        <div class="tags"><span class="tag practical">Practical</span></div>
+      </div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <pre>
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
+import static java.util.concurrent.TimeUnit.SECONDS;
+
+// Assert response time is under 2 seconds
+given()
+    .header("Authorization", "Bearer " + authToken)
+.when()
+    .get("/users")
+.then()
+    .statusCode(200)
+    .time(lessThan(2000L), MILLISECONDS);
+
+// Extract response time for logging
+long responseTime = given()
+    .when()
+        .get("/health")
+    .timeIn(MILLISECONDS);
+
+System.out.println("Health check responded in: " + responseTime + " ms");</pre>
+    </div>
+  </div>
+
+  <div class="card" data-tags="practical">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q13</span>
+      <div class="q-text">How do you send multipart/form-data (file upload) in REST Assured?
+        <div class="tags"><span class="tag practical">Practical</span></div>
+      </div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <pre>
+File uploadFile = new File("src/test/resources/test-document.pdf");
+
+given()
+    .header("Authorization", "Bearer " + authToken)
+    .multiPart("file", uploadFile, "application/pdf")
+    .multiPart("description", "Test upload")
+    .contentType("multipart/form-data")
+.when()
+    .post("/documents/upload")
+.then()
+    .statusCode(201)
+    .body("filename", equalTo("test-document.pdf"))
+    .body("size", greaterThan(0));</pre>
+    </div>
+  </div>
+
+  <!-- ===== SECTION 4: Scenario-Based Questions ===== -->
+  <div class="section-title">🎯 Scenario-Based Questions</div>
+
+  <div class="card" data-tags="scenario">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q14</span>
+      <div class="q-text">SCENARIO: A GET /products API suddenly returns 503. What are the possible causes and how do you investigate?
+        <div class="tags"><span class="tag scenario">Scenario-Based</span></div>
+      </div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p><strong>503 Service Unavailable</strong> means the server is temporarily unable to handle the request.</p>
+      <p><strong>Possible causes:</strong></p>
+      <ul>
+        <li>The service/pod is down (check server logs, k8s pod status)</li>
+        <li>Database connection pool exhausted</li>
+        <li>Deployment in progress (rolling update, maintenance window)</li>
+        <li>Upstream dependency (cache, DB, microservice) is failing</li>
+        <li>Load balancer health check failing</li>
+      </ul>
+      <p><strong>Investigation steps:</strong></p>
+      <ol>
+        <li>Check the <code>Retry-After</code> response header (server may tell you when to retry)</li>
+        <li>Hit <code>/health</code> or <code>/status</code> endpoint — is it also failing?</li>
+        <li>Check server/application logs for exceptions</li>
+        <li>Check if the issue is environment-specific (works in staging but not prod?)</li>
+        <li>Check monitoring dashboards (CPU, memory, DB connection count)</li>
+      </ol>
+      <div class="tip"><strong>In tests:</strong> A 503 from a stable environment is a bug — raise it immediately. A 503 in CI may be a flaky environment, so add retry logic for infrastructure issues, not for application logic.</div>
     </div>
   </div>
 
   <div class="card" data-tags="scenario">
     <div class="card-header" onclick="toggle(this)">
-      <span class="q-num">Q10</span>
-      <div class="q-text">SCENARIO: Your test suite has 200 scenarios. The CI pipeline must run only the critical path tests on every commit. How do you organize this?<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
-      <span class="chevron">▼</span>
-    </div>
-    <div class="card-body">
-      <p><strong>Strategy:</strong></p>
-      <ul>
-        <li>Tag critical scenarios with <code>@critical</code> or <code>@smoke</code></li>
-        <li>Create a dedicated TestRunner class for CI with <code>tags = "@critical"</code></li>
-        <li>In CI pipeline (Jenkins/GitHub Actions), run with <code>-Dcucumber.filter.tags="@critical"</code></li>
-        <li>Full <code>@regression</code> suite runs nightly or on PR merge</li>
-      </ul>
-      <pre>
-# Jenkinsfile (Declarative Pipeline)
-stage('Smoke Tests') {
-    steps {
-        sh 'mvn test -Dcucumber.filter.tags="@critical"'
-    }
-}
-stage('Regression') {
-    when { branch 'main' }
-    steps {
-        sh 'mvn test -Dcucumber.filter.tags="@regression"'
-    }
-}
-      </pre>
-    </div>
-  </div>
-
-  <div class="card" data-tags="scenario practical">
-    <div class="card-header" onclick="toggle(this)">
-      <span class="q-num">Q11</span>
-      <div class="q-text">SCENARIO: A particular test is flaky and should be temporarily skipped without deleting it. How do you handle it?<div class="tags"><span class="tag scenario">Scenario-Based</span><span class="tag practical">Practical</span></div></div>
-      <span class="chevron">▼</span>
-    </div>
-    <div class="card-body">
-      <p>Tag it with <code>@ignore</code> or <code>@wip</code> and exclude that tag during execution:</p>
-      <pre>
-# In feature file
-@regression @ignore
-Scenario: Flaky payment timeout test
-  Given ...
-
-# In TestRunner or CLI
-tags = "@regression and not @ignore"
-      </pre>
-      <div class="tip"><strong>Tip:</strong> Add a comment in the feature file explaining WHY it's ignored and reference the bug ticket number.</div>
-    </div>
-  </div>
-
-  <!-- ===== SECTION 4: Data-Driven Testing ===== -->
-  <div class="section-title">📊 Data Tables &amp; Data-Driven Testing</div>
-
-  <div class="card" data-tags="conceptual practical">
-    <div class="card-header" onclick="toggle(this)">
-      <span class="q-num">Q12</span>
-      <div class="q-text">What is the difference between DataTable and Scenario Outline with Examples?<div class="tags"><span class="tag conceptual">Conceptual</span><span class="tag practical">Practical</span></div></div>
-      <span class="chevron">▼</span>
-    </div>
-    <div class="card-body">
-      <ul>
-        <li><strong>DataTable:</strong> Passes structured data to a single step within a scenario. Good for bulk input (e.g., filling a form with many fields, or inserting multiple rows).</li>
-        <li><strong>Scenario Outline + Examples:</strong> Runs the entire scenario multiple times with different input sets. Good for testing the same flow with varied data.</li>
-      </ul>
-      <pre>
-# DataTable usage
-When the user registers with the following details:
-  | firstName | lastName | email           |
-  | John      | Doe      | john@email.com  |
-  | Jane      | Smith    | jane@email.com  |
-
-// Step Definition
-@When("the user registers with the following details:")
-public void registerUsers(DataTable dataTable) {
-    List&lt;Map&lt;String, String&gt;&gt; users = dataTable.asMaps();
-    for (Map&lt;String, String&gt; user : users) {
-        String firstName = user.get("firstName");
-        // ... fill form
-    }
-}
-      </pre>
-    </div>
-  </div>
-
-  <div class="card" data-tags="scenario practical">
-    <div class="card-header" onclick="toggle(this)">
-      <span class="q-num">Q13</span>
-      <div class="q-text">SCENARIO: Write a Gherkin scenario to test adding multiple products to a cart using DataTable.<div class="tags"><span class="tag scenario">Scenario-Based</span><span class="tag practical">Practical</span></div></div>
-      <span class="chevron">▼</span>
-    </div>
-    <div class="card-body">
-      <pre>
-Feature: Shopping Cart
-
-  Scenario: Add multiple products to cart
-    Given the user is logged in as "customer@shop.com"
-    When the user adds the following products to the cart:
-      | productName       | quantity | price  |
-      | Wireless Mouse    | 2        | 29.99  |
-      | Mechanical Keyboard | 1      | 89.99  |
-      | USB Hub           | 3        | 15.00  |
-    Then the cart should contain 3 products
-    And the total price should be "234.97"
-      </pre>
-      <pre>
-@When("the user adds the following products to the cart:")
-public void addProductsToCart(DataTable dataTable) {
-    List&lt;Map&lt;String, String&gt;&gt; products = dataTable.asMaps(String.class, String.class);
-    for (Map&lt;String, String&gt; product : products) {
-        cartPage.addProduct(product.get("productName"),
-                            Integer.parseInt(product.get("quantity")));
-    }
-}
-      </pre>
-    </div>
-  </div>
-
-  <div class="card" data-tags="scenario practical">
-    <div class="card-header" onclick="toggle(this)">
-      <span class="q-num">Q14</span>
-      <div class="q-text">SCENARIO: You need to test the login feature with 5 different user roles. Design the feature file.<div class="tags"><span class="tag scenario">Scenario-Based</span><span class="tag practical">Practical</span></div></div>
-      <span class="chevron">▼</span>
-    </div>
-    <div class="card-body">
-      <pre>
-Feature: Role-Based Login
-
-  Scenario Outline: Login with different user roles
-    Given the application is on the login page
-    When the "&lt;role&gt;" user logs in with "&lt;username&gt;" and "&lt;password&gt;"
-    Then they should be redirected to the "&lt;dashboard&gt;"
-    And the navigation menu should display "&lt;menuItem&gt;"
-
-    Examples:
-      | role        | username          | password   | dashboard       | menuItem      |
-      | Admin       | admin@app.com     | Admin@123  | /admin/home     | User Management |
-      | Manager     | mgr@app.com       | Mgr@456    | /manager/home   | Team Reports  |
-      | Developer   | dev@app.com       | Dev@789    | /dev/home       | Code Reviews  |
-      | Viewer      | view@app.com      | View@321   | /viewer/home    | Reports Only  |
-      | Guest       | guest@app.com     | Guest@000  | /guest/home     | Browse Only   |
-      </pre>
-    </div>
-  </div>
-
-  <!-- ===== SECTION 5: Page Object Model & Framework Design ===== -->
-  <div class="section-title">🏗️ Framework Design &amp; POM Integration</div>
-
-  <div class="card" data-tags="conceptual practical">
-    <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q15</span>
-      <div class="q-text">How do you integrate Page Object Model (POM) with Cucumber?<div class="tags"><span class="tag conceptual">Conceptual</span><span class="tag practical">Practical</span></div></div>
+      <div class="q-text">SCENARIO: A POST /orders API returns 200 instead of 201. Is this a bug?
+        <div class="tags"><span class="tag scenario">Scenario-Based</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
-      <p>POM separates UI interaction from test logic. In Cucumber, Page Objects are instantiated in Step Definition classes:</p>
-      <pre>
-// Page Object
-public class LoginPage {
-    private WebDriver driver;
-
-    @FindBy(id = "username") WebElement usernameField;
-    @FindBy(id = "password") WebElement passwordField;
-    @FindBy(id = "loginBtn") WebElement loginButton;
-
-    public LoginPage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-    }
-
-    public void login(String username, String password) {
-        usernameField.sendKeys(username);
-        passwordField.sendKeys(password);
-        loginButton.click();
-    }
-}
-
-// Step Definition
-public class LoginSteps {
-    private WebDriver driver = Hooks.driver;
-    private LoginPage loginPage = new LoginPage(driver);
-
-    @When("the user logs in with {string} and {string}")
-    public void userLogsIn(String username, String password) {
-        loginPage.login(username, password);
-    }
-}
-      </pre>
+      <p>Technically yes — it violates REST conventions. <strong>201 Created</strong> is the correct status for successful resource creation. Returning 200 is non-standard because:</p>
+      <ul>
+        <li>200 means "the request succeeded" — it doesn't convey that a new resource was created</li>
+        <li>201 should also include a <code>Location</code> header pointing to the new resource URL</li>
+        <li>Clients and other services may rely on the 201 code to trigger downstream actions</li>
+      </ul>
+      <p>However, in practice, many legacy APIs return 200 for POST. Your test should:</p>
+      <ol>
+        <li>Check the API contract/documentation — if it says 200, align your tests with the documented contract</li>
+        <li>Raise a defect and link to RFC 7231 (HTTP semantics) as supporting evidence</li>
+        <li>Never silently accept incorrect codes — document the deviation</li>
+      </ol>
     </div>
   </div>
 
   <div class="card" data-tags="scenario">
     <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q16</span>
-      <div class="q-text">SCENARIO: How do you share the WebDriver instance across multiple Step Definition classes in Cucumber?<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <div class="q-text">SCENARIO: You need to test a DELETE endpoint but the test data gets deleted after the first run. How do you manage test data?
+        <div class="tags"><span class="tag scenario">Scenario-Based</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
-      <p>Use <strong>Dependency Injection (DI)</strong> via PicoContainer, Spring, or Guice. PicoContainer is the most common with Cucumber-Java:</p>
+      <p>Use the <strong>Create → Test → Cleanup</strong> pattern to make each test self-contained:</p>
       <pre>
-// Shared context class
-public class TestContext {
-    private WebDriver driver;
+public class DeleteOrderTest {
 
-    public WebDriver getDriver() {
-        if (driver == null) {
-            driver = new ChromeDriver();
-        }
-        return driver;
+    private static int orderId;
+
+    @BeforeEach
+    void createTestOrder() {
+        // Create fresh test data before each test
+        orderId = given()
+            .header("Authorization", "Bearer " + authToken)
+            .contentType(ContentType.JSON)
+            .body("{ \"product\": \"Book\", \"qty\": 1 }")
+        .when()
+            .post("/orders")
+        .then()
+            .statusCode(201)
+            .extract().path("id");
     }
 
-    public void quitDriver() {
-        if (driver != null) driver.quit();
-    }
-}
-
-// Step Definition 1 - inject via constructor
-public class LoginSteps {
-    private TestContext context;
-    public LoginSteps(TestContext context) {
-        this.context = context;
+    @Test
+    void deleteOrder_shouldReturn204() {
+        given()
+            .header("Authorization", "Bearer " + authToken)
+        .when()
+            .delete("/orders/" + orderId)
+        .then()
+            .statusCode(204);
     }
 
-    @Given("user is on login page")
-    public void openLogin() {
-        context.getDriver().get("https://example.com/login");
+    @Test
+    void deleteOrder_calledTwice_shouldReturn404() {
+        // First delete
+        given().header("Authorization", "Bearer " + authToken)
+               .when().delete("/orders/" + orderId).then().statusCode(204);
+        // Second delete
+        given().header("Authorization", "Bearer " + authToken)
+               .when().delete("/orders/" + orderId).then().statusCode(404);
     }
-}
-
-// Step Definition 2 - same TestContext instance injected
-public class DashboardSteps {
-    private TestContext context;
-    public DashboardSteps(TestContext context) {
-        this.context = context;
-    }
-}
-      </pre>
-      <div class="tip"><strong>Tip:</strong> PicoContainer is the go-to DI framework for Cucumber. Add <code>cucumber-picocontainer</code> dependency to pom.xml.</div>
+}</pre>
+      <div class="tip"><strong>Alternatives:</strong> Use a dedicated test DB that resets between runs, or use a mock server (WireMock) for complete isolation.</div>
     </div>
   </div>
 
-  <div class="card" data-tags="scenario practical">
+  <div class="card" data-tags="scenario">
     <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q17</span>
-      <div class="q-text">SCENARIO: Design a Cucumber + Selenium framework folder structure for an e-commerce project.<div class="tags"><span class="tag scenario">Scenario-Based</span><span class="tag practical">Practical</span></div></div>
+      <div class="q-text">SCENARIO: The API is returning the correct data but a field name changed from "userId" to "user_id". How do you catch this automatically?
+        <div class="tags"><span class="tag scenario">Scenario-Based</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
+      <p>This is a <strong>breaking change</strong> in the API contract. Use <strong>JSON Schema Validation</strong> to catch it automatically:</p>
       <pre>
-src/
-├── test/
-│   ├── java/
-│   │   ├── pageObjects/
-│   │   │   ├── LoginPage.java
-│   │   │   ├── ProductPage.java
-│   │   │   └── CartPage.java
-│   │   ├── stepDefinitions/
-│   │   │   ├── LoginSteps.java
-│   │   │   ├── ProductSteps.java
-│   │   │   └── CartSteps.java
-│   │   ├── hooks/
-│   │   │   └── Hooks.java
-│   │   ├── utils/
-│   │   │   ├── DriverFactory.java
-│   │   │   ├── ConfigReader.java
-│   │   │   └── TestContext.java
-│   │   └── runners/
-│   │       ├── SmokeTestRunner.java
-│   │       └── RegressionTestRunner.java
-│   └── resources/
-│       ├── features/
-│       │   ├── login.feature
-│       │   ├── product.feature
-│       │   └── cart.feature
-│       ├── config.properties
-│       └── testdata/
-│           └── users.json
-pom.xml
-      </pre>
+// user-schema.json
+{
+  "type": "object",
+  "required": ["userId", "name"],   // ← fails if renamed to user_id
+  "properties": {
+    "userId": { "type": "integer" },
+    "name":   { "type": "string" }
+  },
+  "additionalProperties": false     // ← fails if unexpected fields appear
+}
+
+// Test
+.then()
+  .body(matchesJsonSchemaInClasspath("schemas/user-schema.json"));</pre>
+      <p>Additionally, use <strong>Contract Testing</strong> (Pact) to prevent this at the service boundary level, without even calling the real API.</p>
     </div>
   </div>
-
-  <!-- ===== SECTION 6: Scenario-Based Design ===== -->
-  <div class="section-title">🎯 Scenario Design Challenges</div>
 
   <div class="card" data-tags="scenario">
     <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q18</span>
-      <div class="q-text">SCENARIO: Write a Cucumber scenario for an end-to-end checkout flow on an e-commerce site.<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <div class="q-text">SCENARIO: You need to test pagination. How do you verify that /products?page=1&amp;limit=10 works correctly?
+        <div class="tags"><span class="tag scenario">Scenario-Based</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
       <pre>
-Feature: E-Commerce Checkout
+@Test
+void pagination_firstPage_shouldReturn10Items() {
+    given()
+        .header("Authorization", "Bearer " + authToken)
+        .queryParam("page", 1)
+        .queryParam("limit", 10)
+    .when()
+        .get("/products")
+    .then()
+        .statusCode(200)
+        .body("data.size()",    equalTo(10))
+        .body("meta.page",      equalTo(1))
+        .body("meta.limit",     equalTo(10))
+        .body("meta.total",     greaterThan(10))   // more items exist
+        .body("meta.hasNext",   equalTo(true));
+}
 
-  Background:
-    Given the user is logged in as "testuser@shop.com"
-    And the cart is empty
+@Test
+void pagination_lastPage_shouldHaveNoNextPage() {
+    int total = given().header("Authorization", "Bearer " + authToken)
+        .queryParam("page", 1).queryParam("limit", 100)
+        .when().get("/products").then().extract().path("meta.total");
 
-  @smoke @checkout
-  Scenario: Successful checkout with credit card
-    Given the user searches for "Wireless Headphones"
-    And the user selects the first product from results
-    When the user adds the product to the cart
-    And the user proceeds to checkout
-    And the user enters shipping address:
-      | field    | value              |
-      | street   | 123 Main Street    |
-      | city     | Austin             |
-      | state    | TX                 |
-      | zip      | 78701              |
-    And the user selects "Standard Shipping"
-    And the user pays with credit card "4111111111111111"
-    Then the order confirmation page should display
-    And the user should receive a confirmation email
-    And the order should appear in "My Orders"
-      </pre>
+    int lastPage = (int) Math.ceil(total / 10.0);
+
+    given()
+        .header("Authorization", "Bearer " + authToken)
+        .queryParam("page", lastPage)
+        .queryParam("limit", 10)
+    .when()
+        .get("/products")
+    .then()
+        .statusCode(200)
+        .body("meta.hasNext", equalTo(false));
+}</pre>
     </div>
   </div>
 
   <div class="card" data-tags="scenario">
     <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q19</span>
-      <div class="q-text">SCENARIO: Write scenarios to cover both positive and negative cases for a user registration form.<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <div class="q-text">SCENARIO: How do you test an API that sends different responses based on the Accept header (content negotiation)?
+        <div class="tags"><span class="tag scenario">Scenario-Based</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
       <pre>
-Feature: User Registration
+@Test
+void acceptJson_shouldReturnJsonResponse() {
+    given()
+        .header("Accept", "application/json")
+    .when()
+        .get("/products/1")
+    .then()
+        .statusCode(200)
+        .contentType(ContentType.JSON)
+        .body("name", equalTo("Laptop"));
+}
 
-  @positive
-  Scenario: Successful registration with valid data
-    Given the user is on the registration page
-    When the user fills in valid registration details
-    Then the user account should be created
-    And a welcome email should be sent to the registered email
+@Test
+void acceptXml_shouldReturnXmlResponse() {
+    given()
+        .header("Accept", "application/xml")
+    .when()
+        .get("/products/1")
+    .then()
+        .statusCode(200)
+        .contentType("application/xml")
+        .body("product.name", equalTo("Laptop"));
+}
 
-  @negative
-  Scenario Outline: Registration fails with invalid inputs
-    Given the user is on the registration page
-    When the user enters "&lt;email&gt;" as email and "&lt;password&gt;" as password
-    Then the error message "&lt;error&gt;" should be displayed
-
-    Examples:
-      | email              | password    | error                          |
-      | invalid-email      | Pass@123    | Please enter a valid email     |
-      | test@mail.com      | 123         | Password must be 8+ characters |
-      | test@mail.com      | password    | Password needs a number        |
-      |                    | Pass@123    | Email is required              |
-      | existing@mail.com  | Pass@123    | Email already registered       |
-      </pre>
+@Test
+void unsupportedMediaType_shouldReturn406() {
+    given()
+        .header("Accept", "application/pdf")
+    .when()
+        .get("/products/1")
+    .then()
+        .statusCode(406);  // Not Acceptable
+}</pre>
     </div>
   </div>
 
   <div class="card" data-tags="scenario">
     <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q20</span>
-      <div class="q-text">SCENARIO: How would you write a scenario to verify API response using Cucumber and REST Assured?<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <div class="q-text">SCENARIO: How do you test rate limiting — that the API returns 429 after too many requests?
+        <div class="tags"><span class="tag scenario">Scenario-Based</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
       <pre>
-Feature: User API
+@Test
+void rateLimiting_shouldReturn429AfterExceedingLimit() {
+    int rateLimit = 100;  // known API rate limit per minute
+    int statusCode = 200;
 
-  @api @smoke
-  Scenario: Retrieve user details successfully
-    Given the API base URL is "https://api.example.com"
-    And a valid auth token is available
-    When a GET request is sent to "/users/101"
-    Then the response status code should be 200
-    And the response body should contain:
-      | field    | value             |
-      | id       | 101               |
-      | name     | John Doe          |
-      | email    | john@example.com  |
-    And the response time should be less than 2000 ms
-      </pre>
-      <pre>
-@When("a GET request is sent to {string}")
-public void sendGetRequest(String endpoint) {
-    response = given()
-        .header("Authorization", "Bearer " + token)
+    for (int i = 0; i &lt;= rateLimit; i++) {
+        statusCode = given()
+            .header("Authorization", "Bearer " + authToken)
         .when()
-        .get(baseURL + endpoint)
+            .get("/products")
         .then()
-        .extract().response();
+            .extract().statusCode();
+
+        if (statusCode == 429) break;
+    }
+
+    assertThat(statusCode, equalTo(429));
 }
 
-@Then("the response status code should be {int}")
-public void verifyStatusCode(int expectedCode) {
-    Assert.assertEquals(response.getStatusCode(), expectedCode);
-}
-      </pre>
+@Test
+void rateLimiting_responseHeaders_shouldContainLimitInfo() {
+    given()
+        .header("Authorization", "Bearer " + authToken)
+    .when()
+        .get("/products")
+    .then()
+        .statusCode(200)
+        .header("X-RateLimit-Limit",     notNullValue())
+        .header("X-RateLimit-Remaining", notNullValue())
+        .header("X-RateLimit-Reset",     notNullValue());
+}</pre>
+      <div class="warn"><strong>Caution:</strong> Only run rate-limit tests against a dedicated test environment. Running this against production will degrade service for real users.</div>
     </div>
   </div>
 
-  <div class="card" data-tags="scenario">
+  <!-- ===== SECTION 5: Validation Testing ===== -->
+  <div class="section-title">🛡️ Input Validation &amp; Error Handling</div>
+
+  <div class="card" data-tags="scenario practical">
     <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q21</span>
-      <div class="q-text">SCENARIO: How do you handle dynamic data (e.g., generated order IDs) between steps in Cucumber?<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <div class="q-text">SCENARIO: How do you test boundary and negative cases for a POST /users API?
+        <div class="tags"><span class="tag scenario">Scenario-Based</span><span class="tag practical">Practical</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
-      <p>Store dynamic data in a <strong>shared context object</strong> injected via DI, or use a thread-safe <strong>ScenarioContext</strong> map:</p>
       <pre>
-// ScenarioContext utility
-public class ScenarioContext {
-    private Map&lt;String, Object&gt; contextMap = new HashMap&lt;&gt;();
-
-    public void set(String key, Object value) { contextMap.put(key, value); }
-    public Object get(String key) { return contextMap.get(key); }
+// Missing required field
+@Test void missingEmail_shouldReturn400() {
+    given().contentType(ContentType.JSON).header("Authorization", "Bearer " + authToken)
+           .body("{ \"name\": \"Alice\" }")  // email missing
+    .when().post("/users")
+    .then().statusCode(400)
+           .body("error", containsString("email"));
 }
 
-// Step 1 - store generated order ID
-@When("the user places an order")
-public void placeOrder() {
-    String orderId = orderPage.placeOrder();
-    scenarioContext.set("orderId", orderId);
+// Invalid email format
+@Test void invalidEmail_shouldReturn422() {
+    given().contentType(ContentType.JSON).header("Authorization", "Bearer " + authToken)
+           .body("{ \"name\": \"Alice\", \"email\": \"not-an-email\" }")
+    .when().post("/users")
+    .then().statusCode(422)
+           .body("error", containsString("email"));
 }
 
-// Step 2 - retrieve order ID in the same scenario
-@Then("the order should be visible in the system")
-public void verifyOrder() {
-    String orderId = (String) scenarioContext.get("orderId");
-    Assert.assertTrue(adminPage.isOrderPresent(orderId));
+// Duplicate user
+@Test void duplicateEmail_shouldReturn409() {
+    String body = "{ \"name\": \"Alice\", \"email\": \"existing@test.com\" }";
+    given().contentType(ContentType.JSON).header("Authorization", "Bearer " + authToken)
+           .body(body).when().post("/users").then().statusCode(409);
 }
-      </pre>
+
+// Empty body
+@Test void emptyBody_shouldReturn400() {
+    given().contentType(ContentType.JSON).header("Authorization", "Bearer " + authToken)
+           .body("{}")
+    .when().post("/users")
+    .then().statusCode(400);
+}
+
+// Extremely long name (boundary)
+@Test void tooLongName_shouldReturn400() {
+    String longName = "A".repeat(256);
+    given().contentType(ContentType.JSON).header("Authorization", "Bearer " + authToken)
+           .body("{ \"name\": \"" + longName + "\", \"email\": \"a@test.com\" }")
+    .when().post("/users")
+    .then().statusCode(400);
+}</pre>
     </div>
   </div>
 
   <div class="card" data-tags="scenario">
     <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q22</span>
-      <div class="q-text">SCENARIO: Write a Cucumber feature for a bank transfer between two accounts, covering success and failure cases.<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <div class="q-text">SCENARIO: How do you verify that error responses do not leak sensitive information (e.g. stack traces, SQL errors)?
+        <div class="tags"><span class="tag scenario">Scenario-Based</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
+      <p>This is a security testing concern (OWASP API3 – Excessive Data Exposure). Test that error responses:</p>
       <pre>
-Feature: Bank Account Transfer
+@Test
+void invalidRequest_errorShouldNotLeakServerDetails() {
+    Response response = given()
+        .header("Authorization", "Bearer " + authToken)
+        .contentType(ContentType.JSON)
+        .body("{ \"name\": null }")
+    .when()
+        .post("/users");
 
-  Background:
-    Given the user is authenticated on the banking portal
+    String body = response.body().asString();
 
-  @positive @transfer
-  Scenario: Successful transfer between accounts
-    Given account "ACC-001" has a balance of 5000.00
-    And account "ACC-002" has a balance of 1000.00
-    When the user transfers 1500.00 from "ACC-001" to "ACC-002"
-    Then account "ACC-001" balance should be 3500.00
-    And account "ACC-002" balance should be 2500.00
-    And a transaction receipt should be generated
+    // Must NOT contain internal details
+    assertThat(body, not(containsString("SQLException")));
+    assertThat(body, not(containsString("NullPointerException")));
+    assertThat(body, not(containsString("at com.example")));  // stack trace
+    assertThat(body, not(containsString("SELECT")));          // SQL leakage
+    assertThat(body, not(containsString("password")));
 
-  @negative @transfer
-  Scenario Outline: Transfer fails under invalid conditions
-    Given account "ACC-001" has a balance of &lt;balance&gt;
-    When the user attempts to transfer &lt;amount&gt; to "ACC-002"
-    Then the transfer should fail with error "&lt;error&gt;"
-
-    Examples:
-      | balance | amount  | error                         |
-      | 500.00  | 1000.00 | Insufficient funds            |
-      | 1000.00 | 0.00    | Amount must be greater than 0 |
-      | 1000.00 | -100    | Invalid transfer amount        |
-      </pre>
+    // Must contain user-friendly error
+    assertThat(response.statusCode(), equalTo(400));
+    assertThat(body, containsString("error"));
+}</pre>
+      <div class="warn"><strong>Security:</strong> Stack traces, SQL queries, and internal paths in error responses are security vulnerabilities. Always verify these are suppressed in non-development environments.</div>
     </div>
   </div>
-
-  <!-- ===== SECTION 7: Advanced Scenarios ===== -->
-  <div class="section-title">⚡ Advanced &amp; Real-World Scenarios</div>
 
   <div class="card" data-tags="scenario">
     <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q23</span>
-      <div class="q-text">SCENARIO: Your test needs to verify email delivery after user registration. How do you automate this?<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <div class="q-text">SCENARIO: How do you test SQL Injection prevention on an API?
+        <div class="tags"><span class="tag scenario">Scenario-Based</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
-      <p>Use a mail testing service like <strong>Mailinator</strong>, <strong>MailHog</strong>, or <strong>GreenMail</strong>:</p>
+      <p>Send common SQL injection payloads in query parameters and request bodies. The API should reject or sanitize them — never execute them.</p>
       <pre>
-Scenario: Verify welcome email after registration
-  Given the user registers with email "testuser+{timestamp}@mailinator.com"
-  When the registration is successful
-  Then a welcome email should arrive in "testuser+{timestamp}" inbox within 30 seconds
-  And the email subject should be "Welcome to Our Platform!"
-  And the email body should contain a "Verify Email" link
-      </pre>
-      <pre>
-@Then("a welcome email should arrive in {string} inbox within {int} seconds")
-public void verifyEmailArrived(String inbox, int timeout) {
-    MailinatorClient client = new MailinatorClient("API_KEY");
-    Inbox mailInbox = client.request(new GetInboxRequest(inbox));
-    // Poll with retry logic up to timeout
-    Assert.assertTrue(mailInbox.getMsgs().size() > 0);
-}
-      </pre>
-      <div class="tip"><strong>Tip:</strong> For local environments, use MailHog (SMTP mock) and query its HTTP API in step definitions.</div>
+@ParameterizedTest
+@ValueSource(strings = {
+    "' OR '1'='1",
+    "'; DROP TABLE users; --",
+    "1 UNION SELECT * FROM users",
+    "\" OR \"\"=\""
+})
+void sqlInjection_shouldNotReturn200WithData(String payload) {
+    given()
+        .queryParam("name", payload)
+    .when()
+        .get("/users/search")
+    .then()
+        // Should return 400 (rejected) or 200 with empty results — never 500
+        .statusCode(not(equalTo(500)))
+        // Should never return all user data
+        .body("data.size()", not(greaterThan(0)));  // or at most expected matches
+}</pre>
+      <div class="tip"><strong>Note:</strong> A 400 or empty result proves the input is sanitized. A 500 may indicate the injection was partially processed.</div>
     </div>
   </div>
 
-  <div class="card" data-tags="scenario">
+  <!-- ===== SECTION 6: API + Cucumber (BDD) ===== -->
+  <div class="section-title">🥒 API Testing with Cucumber (BDD)</div>
+
+  <div class="card" data-tags="conceptual practical">
     <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q24</span>
-      <div class="q-text">SCENARIO: You have 500 scenarios and tests are running slowly. How would you implement parallel execution in Cucumber?<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <div class="q-text">How do you integrate REST Assured with Cucumber for BDD-style API testing?
+        <div class="tags"><span class="tag conceptual">Conceptual</span><span class="tag practical">Practical</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
-      <p>Use <strong>Maven Surefire Plugin</strong> with JUnit 5 parallel execution, or <strong>Cucumber-JUnit Platform Engine</strong>:</p>
       <pre>
-&lt;!-- pom.xml --&gt;
-&lt;plugin&gt;
-  &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
-  &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
-  &lt;configuration&gt;
-    &lt;parallel&gt;methods&lt;/parallel&gt;
-    &lt;threadCount&gt;4&lt;/threadCount&gt;
-  &lt;/configuration&gt;
-&lt;/plugin&gt;
-      </pre>
-      <p>For Cucumber-native parallel, use <code>junit-platform.properties</code>:</p>
+# Feature file: src/test/resources/features/users.feature
+Feature: User Management API
+
+  Background:
+    Given I am authenticated as "admin"
+
+  Scenario: Successfully create a new user
+    When I send a POST request to "/users" with body:
+      """
+      { "name": "Alice", "email": "alice@example.com" }
+      """
+    Then the response status code should be 201
+    And the response body should contain "id"
+    And the response body field "name" should equal "Alice"
+
+  Scenario: Fetch a non-existent user
+    When I send a GET request to "/users/99999"
+    Then the response status code should be 404
+    And the response body should contain "not found"</pre>
       <pre>
-cucumber.execution.parallel.enabled=true
-cucumber.execution.parallel.config.strategy=fixed
-cucumber.execution.parallel.config.fixed.parallelism=4
-      </pre>
-      <div class="tip"><strong>Tip:</strong> Ensure WebDriver instances are thread-local using <code>ThreadLocal&lt;WebDriver&gt;</code> to avoid conflicts between parallel threads.</div>
+// Step Definitions
+public class UserSteps {
+
+    private Response response;
+    private static String authToken;
+
+    @Given("I am authenticated as {string}")
+    public void iAmAuthenticatedAs(String role) {
+        authToken = given()
+            .body("{ \"username\": \"" + role + "\", \"password\": \"secret\" }")
+            .post("/auth/login").then().extract().path("token");
+    }
+
+    @When("I send a POST request to {string} with body:")
+    public void iSendPostRequest(String endpoint, String body) {
+        response = given()
+            .header("Authorization", "Bearer " + authToken)
+            .contentType(ContentType.JSON)
+            .body(body)
+        .when().post(endpoint);
+    }
+
+    @When("I send a GET request to {string}")
+    public void iSendGetRequest(String endpoint) {
+        response = given()
+            .header("Authorization", "Bearer " + authToken)
+        .when().get(endpoint);
+    }
+
+    @Then("the response status code should be {int}")
+    public void statusCodeShouldBe(int code) {
+        response.then().statusCode(code);
+    }
+
+    @Then("the response body should contain {string}")
+    public void bodyContains(String text) {
+        assertThat(response.body().asString(), containsString(text));
+    }
+
+    @Then("the response body field {string} should equal {string}")
+    public void fieldShouldEqual(String field, String value) {
+        response.then().body(field, equalTo(value));
+    }
+}</pre>
     </div>
   </div>
 
   <div class="card" data-tags="scenario practical">
     <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q25</span>
-      <div class="q-text">SCENARIO: Implement thread-safe WebDriver management for parallel Cucumber execution.<div class="tags"><span class="tag scenario">Scenario-Based</span><span class="tag practical">Practical</span></div></div>
+      <div class="q-text">SCENARIO: How do you pass dynamic test data (e.g. generated email) from one Cucumber step to another?
+        <div class="tags"><span class="tag scenario">Scenario-Based</span><span class="tag practical">Practical</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
+      <p>Store shared state in the step definition class (Cucumber uses the same instance per scenario) or use a shared context/world object:</p>
       <pre>
-public class DriverFactory {
-    private static ThreadLocal&lt;WebDriver&gt; tlDriver = new ThreadLocal&lt;&gt;();
-
-    public static WebDriver getDriver() {
-        return tlDriver.get();
-    }
-
-    public static void setDriver(String browser) {
-        WebDriver driver;
-        switch (browser.toLowerCase()) {
-            case "chrome": driver = new ChromeDriver(); break;
-            case "firefox": driver = new FirefoxDriver(); break;
-            default: throw new IllegalArgumentException("Unknown browser: " + browser);
-        }
-        tlDriver.set(driver);
-    }
-
-    public static void quitDriver() {
-        if (tlDriver.get() != null) {
-            tlDriver.get().quit();
-            tlDriver.remove();
-        }
-    }
+// Shared context
+public class ApiContext {
+    public String createdUserId;
+    public String generatedEmail;
+    public Response lastResponse;
 }
-      </pre>
+
+// Inject via constructor (PicoContainer DI)
+public class UserSteps {
+    private final ApiContext ctx;
+
+    public UserSteps(ApiContext ctx) {
+        this.ctx = ctx;
+    }
+
+    @Given("I generate a unique email address")
+    public void generateEmail() {
+        ctx.generatedEmail = "test-" + UUID.randomUUID() + "@example.com";
+    }
+
+    @When("I create a user with the generated email")
+    public void createUser() {
+        ctx.lastResponse = given()
+            .contentType(ContentType.JSON)
+            .body("{ \"email\": \"" + ctx.generatedEmail + "\" }")
+        .when().post("/users");
+        ctx.createdUserId = ctx.lastResponse.path("id").toString();
+    }
+
+    @Then("I can fetch the user by the returned ID")
+    public void fetchUser() {
+        given().when().get("/users/" + ctx.createdUserId)
+               .then().statusCode(200)
+               .body("email", equalTo(ctx.generatedEmail));
+    }
+}</pre>
+      <div class="tip"><strong>Tip:</strong> Use <strong>PicoContainer</strong> (add <code>cucumber-picocontainer</code> dependency) for automatic dependency injection of shared context objects between step definition classes.</div>
     </div>
   </div>
 
-  <div class="card" data-tags="scenario">
+  <!-- ===== SECTION 7: Mocking & WireMock ===== -->
+  <div class="section-title">🎭 API Mocking with WireMock</div>
+
+  <div class="card" data-tags="conceptual practical">
     <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q26</span>
-      <div class="q-text">SCENARIO: A step definition works fine locally but fails in CI. The error is "element not found". What do you investigate?<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <div class="q-text">What is WireMock and when do you use it?
+        <div class="tags"><span class="tag conceptual">Conceptual</span><span class="tag practical">Practical</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
-      <p>Typical causes and fixes:</p>
+      <p><strong>WireMock</strong> is a mock API server that simulates HTTP endpoints, allowing you to test your code against a fake API without hitting the real service.</p>
+      <p><strong>When to use WireMock:</strong></p>
       <ul>
-        <li><strong>Headless vs GUI:</strong> CI runs headless — some elements behave differently. Check browser window size: <code>driver.manage().window().maximize()</code></li>
-        <li><strong>Timing issues:</strong> CI machines are slower. Increase explicit waits or use <code>WebDriverWait</code></li>
-        <li><strong>Different browser version:</strong> Ensure ChromeDriver/browser versions match in CI</li>
-        <li><strong>Stale elements:</strong> Re-find elements after page transitions</li>
-        <li><strong>Environment config:</strong> Check if the URL/env in CI config.properties is correct</li>
+        <li>The real API is still under development</li>
+        <li>You need to simulate error conditions (500, timeouts, slow responses)</li>
+        <li>You want to avoid hitting a paid/rate-limited third-party API in tests</li>
+        <li>You need to run tests offline in CI/CD pipelines</li>
+        <li>Testing edge cases that are hard to reproduce in a real environment</li>
       </ul>
       <pre>
-// Always use explicit waits over Thread.sleep()
-WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-WebElement element = wait.until(
-    ExpectedConditions.elementToBeClickable(By.id("submitBtn"))
-);
-      </pre>
+// JUnit 5 + WireMock
+@WireMockTest(httpPort = 8089)
+class PaymentGatewayTest {
+
+    @Test
+    void paymentSuccess_shouldProcessOrder(WireMockRuntimeInfo wm) {
+        // Stub the external payment API
+        stubFor(post(urlEqualTo("/payments"))
+            .withHeader("Authorization", matching("Bearer .*"))
+            .willReturn(aResponse()
+                .withStatus(200)
+                .withHeader("Content-Type", "application/json")
+                .withBody("{ \"transactionId\": \"TXN123\", \"status\": \"SUCCESS\" }")
+            )
+        );
+
+        // Test your service that calls the payment API
+        OrderService service = new OrderService("http://localhost:8089");
+        Order result = service.placeOrder(new Order("PROD-1", 2));
+
+        assertThat(result.getStatus(), equalTo("CONFIRMED"));
+        assertThat(result.getTransactionId(), equalTo("TXN123"));
+    }
+
+    @Test
+    void paymentTimeout_shouldReturnPendingOrder(WireMockRuntimeInfo wm) {
+        // Simulate a slow response (timeout scenario)
+        stubFor(post(urlEqualTo("/payments"))
+            .willReturn(aResponse()
+                .withFixedDelay(5000)  // 5 second delay
+                .withStatus(200)
+            )
+        );
+
+        OrderService service = new OrderService("http://localhost:8089");
+        Order result = service.placeOrder(new Order("PROD-1", 1));
+
+        assertThat(result.getStatus(), equalTo("PENDING"));  // graceful timeout handling
+    }
+}</pre>
     </div>
   </div>
 
   <div class="card" data-tags="scenario">
     <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q27</span>
-      <div class="q-text">SCENARIO: Write a feature file for password reset functionality with all edge cases.<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <div class="q-text">SCENARIO: How do you simulate a 500 Internal Server Error from a third-party API and verify your code handles it gracefully?
+        <div class="tags"><span class="tag scenario">Scenario-Based</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
       <pre>
-Feature: Password Reset
+@Test
+void thirdPartyApi500_shouldReturnFallbackResponse() {
+    // Stub to return 500
+    stubFor(get(urlPathEqualTo("/inventory/PROD-1"))
+        .willReturn(aResponse()
+            .withStatus(500)
+            .withBody("{ \"error\": \"Internal Server Error\" }")
+        )
+    );
 
-  @positive
-  Scenario: Successful password reset with valid email
-    Given the user is on the "Forgot Password" page
-    When the user enters registered email "user@test.com"
-    And clicks the "Send Reset Link" button
-    Then the success message should display "Check your email for reset instructions"
-    And a password reset email should be sent to "user@test.com"
+    // Your service should catch the error and return a fallback
+    InventoryService service = new InventoryService("http://localhost:8089");
+    InventoryResult result = service.checkStock("PROD-1");
 
-  @positive
-  Scenario: Complete password reset using the reset link
-    Given the user clicks the password reset link from email
-    When the user enters new password "NewPass@2024" and confirms it
-    And clicks "Reset Password"
-    Then the password should be updated successfully
-    And the user should be redirected to login page
-    And the old password should no longer work
+    // Verify graceful degradation — not an unhandled exception
+    assertThat(result.isAvailable(), equalTo(false));
+    assertThat(result.getMessage(), equalTo("Stock information temporarily unavailable"));
 
-  @negative
-  Scenario Outline: Password reset fails for invalid inputs
-    Given the user is on the "Forgot Password" page
-    When the user enters "&lt;email&gt;"
-    Then the message "&lt;message&gt;" should be shown
-
-    Examples:
-      | email              | message                          |
-      |                    | Email is required                |
-      | invalid-format     | Enter a valid email address      |
-      | unknown@test.com   | No account found with this email |
-
-  @negative
-  Scenario: Password reset link expires after 24 hours
-    Given the user received a password reset link 25 hours ago
-    When the user clicks the expired reset link
-    Then the error "This link has expired. Please request a new one." should be shown
-      </pre>
+    // Verify the stub was actually called
+    verify(1, getRequestedFor(urlPathEqualTo("/inventory/PROD-1")));
+}</pre>
     </div>
   </div>
 
-  <div class="card" data-tags="scenario">
+  <!-- ===== SECTION 8: API Testing Strategy ===== -->
+  <div class="section-title">📋 API Testing Strategy &amp; Best Practices</div>
+
+  <div class="card" data-tags="conceptual">
     <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q28</span>
-      <div class="q-text">SCENARIO: How would you test a multi-step wizard form (Step 1 → Step 2 → Step 3 → Confirm) in Cucumber?<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <div class="q-text">What is the difference between API testing and End-to-End testing?
+        <div class="tags"><span class="tag conceptual">Conceptual</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
-      <pre>
-Feature: Multi-Step Insurance Application Form
-
-  @wizard @smoke
-  Scenario: Complete 3-step insurance application
-    Given the user is on the insurance application page
-
-    # Step 1 - Personal Info
-    When the user fills personal info:
-      | field     | value        |
-      | firstName | Alice        |
-      | lastName  | Johnson      |
-      | dob       | 15/06/1990   |
-    And clicks "Next"
-    Then step 2 of the wizard should be visible
-
-    # Step 2 - Coverage
-    When the user selects coverage type "Comprehensive"
-    And sets the coverage amount to "500000"
-    And clicks "Next"
-    Then step 3 of the wizard should be visible
-
-    # Step 3 - Payment
-    When the user enters payment details with card "4111111111111111"
-    And clicks "Submit Application"
-    Then the confirmation page should show the application reference number
-    And the user should receive a confirmation email
-      </pre>
+      <table>
+        <tr><th>Aspect</th><th>API Testing</th><th>End-to-End (UI) Testing</th></tr>
+        <tr><td>Layer</td><td>Service / Integration layer</td><td>Full stack (browser + API + DB)</td></tr>
+        <tr><td>Speed</td><td>Very fast (milliseconds)</td><td>Slow (seconds per test)</td></tr>
+        <tr><td>Fragility</td><td>Stable</td><td>Brittle (UI changes break tests)</td></tr>
+        <tr><td>Coverage</td><td>All business logic paths</td><td>Happy path flows only</td></tr>
+        <tr><td>Tools</td><td>REST Assured, Postman, Karate</td><td>Selenium, Playwright, Cypress</td></tr>
+        <tr><td>Position in pyramid</td><td>Middle layer</td><td>Top layer (few tests)</td></tr>
+      </table>
+      <div class="tip"><strong>Test Pyramid:</strong> Unit Tests (many) → API/Integration Tests (moderate) → E2E Tests (few). API tests give the best ROI — fast execution, good coverage, stable.</div>
     </div>
   </div>
 
-  <!-- ===== SECTION 8: Reporting & CI/CD ===== -->
-  <div class="section-title">📈 Reporting, CI/CD &amp; Debugging</div>
-
-  <div class="card" data-tags="conceptual practical">
+  <div class="card" data-tags="conceptual">
     <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q29</span>
-      <div class="q-text">What reporting plugins are available in Cucumber? How do you generate HTML reports?<div class="tags"><span class="tag conceptual">Conceptual</span><span class="tag practical">Practical</span></div></div>
+      <div class="q-text">What is Contract Testing and how does it differ from Integration Testing?
+        <div class="tags"><span class="tag conceptual">Conceptual</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
-      <p>Configure in <code>@CucumberOptions</code> plugin array:</p>
+      <p><strong>Contract Testing</strong> (using tools like <strong>Pact</strong>) verifies that two services agree on the API contract — without them needing to be running at the same time.</p>
       <ul>
-        <li><code>pretty</code> – Colorized console output</li>
-        <li><code>html:target/cucumber-reports/report.html</code> – Built-in HTML report</li>
-        <li><code>json:target/cucumber.json</code> – JSON report (for external tools)</li>
-        <li><code>junit:target/junit.xml</code> – JUnit XML (for CI)</li>
-        <li><code>rerun:target/rerun.txt</code> – Lists failed scenarios for re-run</li>
+        <li><strong>Consumer</strong> defines what it expects from the API (request/response contract)</li>
+        <li><strong>Provider</strong> runs the contract against their actual API to verify it matches</li>
+        <li>Contracts are published to a <strong>Pact Broker</strong> (shared registry)</li>
       </ul>
-      <p><strong>Third-party:</strong> Extent Reports, Allure, Masterthought Cucumber Reports</p>
-      <pre>
-// Masterthought Cucumber Report (pom.xml plugin)
-&lt;plugin&gt;
-  &lt;groupId&gt;net.masterthought&lt;/groupId&gt;
-  &lt;artifactId&gt;maven-cucumber-reporting&lt;/artifactId&gt;
-  &lt;version&gt;5.7.4&lt;/version&gt;
-&lt;/plugin&gt;
-      </pre>
+      <p><strong>Key difference:</strong></p>
+      <table>
+        <tr><th></th><th>Contract Testing</th><th>Integration Testing</th></tr>
+        <tr><td>Services running?</td><td>No — mocked</td><td>Yes — real or test instances</td></tr>
+        <tr><td>Speed</td><td>Very fast</td><td>Slow</td></tr>
+        <tr><td>Catches</td><td>API contract breaks</td><td>Behavioural / data issues</td></tr>
+        <tr><td>Runs in CI</td><td>Every commit</td><td>Staging/nightly pipeline</td></tr>
+      </table>
     </div>
   </div>
 
-  <div class="card" data-tags="scenario practical">
+  <div class="card" data-tags="scenario">
     <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q30</span>
-      <div class="q-text">SCENARIO: How do you re-run only the failed scenarios automatically after the first run?<div class="tags"><span class="tag scenario">Scenario-Based</span><span class="tag practical">Practical</span></div></div>
+      <div class="q-text">SCENARIO: You are asked to build an API testing framework from scratch. What would your structure look like?
+        <div class="tags"><span class="tag scenario">Scenario-Based</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
-      <p>Use the <code>rerun</code> plugin to record failures, then create a second runner to re-run them:</p>
       <pre>
-// Runner 1 - Main Run
-@CucumberOptions(
-    features = "src/test/resources/features",
-    glue = "stepDefinitions",
-    plugin = {
-        "rerun:target/rerun.txt",
-        "html:target/reports/run1.html"
-    }
-)
-public class TestRunner extends AbstractTestNGCucumberTests {}
-
-// Runner 2 - Re-run failures
-@CucumberOptions(
-    features = "@target/rerun.txt",
-    glue = "stepDefinitions",
-    plugin = {"html:target/reports/rerun.html"}
-)
-public class RerunRunner extends AbstractTestNGCucumberTests {}
-      </pre>
-      <pre>
-# Maven command to chain both runs
-mvn test -Dtest=TestRunner || mvn test -Dtest=RerunRunner
-      </pre>
+src/
+├── main/java/
+│   └── com.example.framework/
+│       ├── config/
+│       │   ├── EnvConfig.java          # reads env vars (base URL, credentials)
+│       │   └── RestAssuredConfig.java  # base URI, logging, filters
+│       ├── auth/
+│       │   └── TokenManager.java       # fetch &amp; cache auth tokens
+│       ├── clients/
+│       │   ├── UserApiClient.java      # typed methods: createUser(), getUser()
+│       │   └── OrderApiClient.java
+│       └── models/
+│           ├── User.java               # POJO for request/response mapping
+│           └── Order.java
+└── test/
+    ├── java/
+    │   └── com.example.tests/
+    │       ├── base/
+    │       │   └── BaseTest.java       # @BeforeAll: token, config setup
+    │       ├── users/
+    │       │   ├── CreateUserTest.java
+    │       │   ├── GetUserTest.java
+    │       │   └── DeleteUserTest.java
+    │       ├── orders/
+    │       │   └── OrderFlowTest.java
+    │       └── security/
+    │           └── AuthTest.java       # 401/403 tests
+    └── resources/
+        ├── schemas/
+        │   ├── user-schema.json
+        │   └── order-schema.json
+        ├── testdata/
+        │   └── users.csv              # parameterized test data
+        └── config/
+            ├── dev.properties
+            └── staging.properties</pre>
+      <div class="tip"><strong>Key principles:</strong> Separation of concerns (client layer vs test layer), environment-driven config, reusable auth, schema validation, and typed API clients.</div>
     </div>
   </div>
 
-  <div class="card" data-tags="scenario">
+  <!-- ===== SECTION 9: Postman / Tools ===== -->
+  <div class="section-title">🛠️ Postman, Tools &amp; CI/CD</div>
+
+  <div class="card" data-tags="practical">
     <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q31</span>
-      <div class="q-text">SCENARIO: How would you integrate Cucumber tests with Jenkins to publish test results?<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <div class="q-text">How do you chain requests and share variables in Postman?
+        <div class="tags"><span class="tag practical">Practical</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
+      <p>Use Postman's <strong>Tests</strong> tab to extract values from a response and store them as environment or collection variables:</p>
       <pre>
-// Jenkinsfile
-pipeline {
-    agent any
-    stages {
-        stage('Checkout') {
-            steps { git 'https://github.com/org/project.git' }
-        }
-        stage('Test') {
-            steps {
-                sh 'mvn clean test -Dcucumber.filter.tags="@regression"'
-            }
-            post {
-                always {
-                    // Publish JUnit results
-                    junit 'target/surefire-reports/*.xml'
-                    // Publish Cucumber HTML report
-                    publishHTML([
-                        reportDir: 'target/cucumber-reports',
-                        reportFiles: 'index.html',
-                        reportName: 'Cucumber Report'
-                    ])
-                }
-            }
-        }
-    }
-}
-      </pre>
-      <div class="tip"><strong>Tip:</strong> Install the "Cucumber Reports" Jenkins plugin for rich, interactive test dashboards.</div>
+// In POST /auth/login → Tests tab:
+const json = pm.response.json();
+pm.environment.set("authToken", json.access_token);
+pm.environment.set("userId", json.user.id);
+
+// In GET /users/{{userId}} → Authorization tab:
+// Type: Bearer Token → Token: {{authToken}}
+
+// In Tests tab: verify the request
+pm.test("Status is 200", () =&gt; {
+    pm.response.to.have.status(200);
+});
+pm.test("Name field exists", () =&gt; {
+    pm.expect(pm.response.json().name).to.be.a("string");
+});</pre>
+      <div class="tip"><strong>Collection Runner:</strong> Chain multiple requests using the Collection Runner to run an entire workflow (login → create → get → delete) in order.</div>
     </div>
   </div>
 
-  <!-- ===== SECTION 9: More Scenario Questions ===== -->
-  <div class="section-title">🔥 More Must-Know Scenario Questions</div>
-
-  <div class="card" data-tags="scenario">
+  <div class="card" data-tags="practical">
     <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q32</span>
-      <div class="q-text">SCENARIO: How do you handle a dropdown, date picker, and file upload within a Cucumber scenario?<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <div class="q-text">How do you run REST Assured API tests in a CI/CD pipeline (GitHub Actions / Jenkins)?
+        <div class="tags"><span class="tag practical">Practical</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
       <pre>
-Scenario: Submit an expense report form
-  Given the user is on the expense report page
-  When the user selects "Travel" from the expense type dropdown
-  And the user selects date "2024-06-15" from the date picker
-  And the user uploads the receipt file "receipt.pdf"
-  And clicks "Submit"
-  Then the expense report should be submitted successfully
-      </pre>
-      <pre>
-// Dropdown
-Select dropdown = new Select(driver.findElement(By.id("expenseType")));
-dropdown.selectByVisibleText(option);
+# .github/workflows/api-tests.yml
+name: API Tests
 
-// Date Picker - clear and type
-WebElement datePicker = driver.findElement(By.id("datePicker"));
-datePicker.clear();
-datePicker.sendKeys("06/15/2024");
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
 
-// File Upload
-WebElement fileInput = driver.findElement(By.id("fileUpload"));
-fileInput.sendKeys("/absolute/path/to/receipt.pdf");
-      </pre>
+jobs:
+  api-test:
+    runs-on: ubuntu-latest
+    env:
+      BASE_URL:       ${{ secrets.API_BASE_URL }}
+      CLIENT_ID:      ${{ secrets.API_CLIENT_ID }}
+      CLIENT_SECRET:  ${{ secrets.API_CLIENT_SECRET }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Run API tests
+        run: mvn test -Dsurefire.failIfNoSpecifiedTests=false
+
+      - name: Publish test report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: api-test-report
+          path: target/surefire-reports/</pre>
+      <div class="warn"><strong>Security:</strong> Always store credentials in CI/CD secrets (GitHub Secrets, Jenkins Credentials). Never commit them to code.</div>
     </div>
   </div>
 
   <div class="card" data-tags="scenario">
     <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q33</span>
-      <div class="q-text">SCENARIO: You need to verify data in a database after a form submission. How do you incorporate DB validation in Cucumber?<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <div class="q-text">SCENARIO: Your API tests pass locally but fail in CI. What are the likely causes?
+        <div class="tags"><span class="tag scenario">Scenario-Based</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
+      <p>Common causes and fixes:</p>
+      <ul>
+        <li><strong>Environment variables missing</strong> — credentials or base URL not set in CI. Fix: add them as CI secrets and verify with a print step.</li>
+        <li><strong>Hardcoded localhost URLs</strong> — <code>http://localhost:8080</code> doesn't exist in CI. Fix: use environment-driven config.</li>
+        <li><strong>Test order dependency</strong> — tests rely on data created by a previous test. Fix: each test should create its own data.</li>
+        <li><strong>Timing issues</strong> — async operations not complete. Fix: add polling/retry logic or proper waits.</li>
+        <li><strong>Different JDK version</strong> — behavior differences between Java 11 locally and Java 17 in CI. Fix: pin the JDK version in CI to match local.</li>
+        <li><strong>SSL certificate validation</strong> — self-signed cert in test env causes SSL error. Fix: configure REST Assured to relax SSL for test environments.</li>
+      </ul>
       <pre>
-@Then("the user record should be saved in the database")
-public void verifyUserInDB() throws SQLException {
-    String query = "SELECT * FROM users WHERE email = 'test@example.com'";
-    Connection conn = DBUtils.getConnection();
-    ResultSet rs = conn.createStatement().executeQuery(query);
-    Assert.assertTrue(rs.next(), "User not found in DB");
-    Assert.assertEquals(rs.getString("status"), "ACTIVE");
-    conn.close();
-}
-      </pre>
-      <div class="tip"><strong>Tip:</strong> Always clean up test data using <code>@After</code> hook or use a test DB with rollback transactions to keep tests idempotent.</div>
+// Relax SSL validation for test environments only
+RestAssured.config = RestAssuredConfig.config()
+    .sslConfig(SSLConfig.sslConfig().relaxedHTTPSValidation());</pre>
     </div>
   </div>
 
   <div class="card" data-tags="scenario">
     <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q34</span>
-      <div class="q-text">SCENARIO: Write scenarios to test a search feature with filters (price range, category, rating).<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <div class="q-text">SCENARIO: How do you handle flaky API tests that sometimes pass and sometimes fail?
+        <div class="tags"><span class="tag scenario">Scenario-Based</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
+      <p><strong>Root causes of flakiness:</strong></p>
+      <ul>
+        <li>Async processing — resource not ready when you check it</li>
+        <li>Shared mutable test data — tests stepping on each other</li>
+        <li>Rate limiting — too many parallel test threads</li>
+        <li>Network instability in CI environment</li>
+      </ul>
+      <p><strong>Fixes:</strong></p>
       <pre>
-Feature: Product Search with Filters
+// 1. Polling / retry for async APIs (using Awaitility)
+import static org.awaitility.Awaitility.*;
+import static java.util.concurrent.TimeUnit.*;
 
-  Scenario: Search with keyword returns relevant results
-    Given the user is on the search page
-    When the user searches for "laptop"
-    Then the results should contain at least 1 product with "laptop" in the name
+await()
+    .atMost(10, SECONDS)
+    .pollInterval(500, MILLISECONDS)
+    .until(() -&gt; {
+        int status = given()
+            .header("Authorization", "Bearer " + authToken)
+        .when()
+            .get("/orders/" + orderId)
+        .then()
+            .extract().path("status");
+        return "PROCESSED".equals(status);
+    });
 
-  Scenario Outline: Filter products by category
-    Given search results for "electronics" are displayed
-    When the user applies category filter "&lt;category&gt;"
-    Then all results should belong to "&lt;category&gt;"
+// 2. Isolated test data (UUID-based)
+String uniqueEmail = "test-" + UUID.randomUUID() + "@example.com";
 
-    Examples:
-      | category   |
-      | Laptops    |
-      | Phones     |
-      | Tablets    |
-
-  Scenario: Apply price range filter
-    Given search results are displayed for "headphones"
-    When the user sets price range from 50 to 200
-    Then all displayed products should have prices between 50 and 200
-
-  Scenario: Apply minimum rating filter
-    Given search results are displayed
-    When the user filters by minimum rating "4 stars"
-    Then all products shown should have a rating of 4 or above
-
-  Scenario: Combine multiple filters
-    Given search results for "shoes" are displayed
-    When the user filters by category "Running" and price range 30 to 100
-    And sets minimum rating to "3 stars"
-    Then only products matching all criteria should be shown
-      </pre>
+// 3. Retry on failure (JUnit 5 extension)
+@RetryingTest(3)   // from junit-pioneer
+void flakeyNetworkTest() { ... }</pre>
     </div>
   </div>
 
-  <div class="card" data-tags="scenario">
+  <div class="card" data-tags="scenario conceptual">
     <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q35</span>
-      <div class="q-text">SCENARIO: How would you test session timeout behavior in Cucumber?<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <div class="q-text">SCENARIO: How would you test versioned APIs (e.g. /v1/users vs /v2/users)?
+        <div class="tags"><span class="tag scenario">Scenario-Based</span><span class="tag conceptual">Conceptual</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
+      <p>API versioning tests should verify:</p>
+      <ul>
+        <li><strong>v1 still works</strong> — backward compatibility after v2 is released</li>
+        <li><strong>v2 returns new fields</strong> — new features are present</li>
+        <li><strong>Response shape differs</strong> — schema tests per version</li>
+        <li><strong>Deprecated v1 behavior</strong> — v1 endpoints may be sunset; verify correct deprecation warnings</li>
+      </ul>
       <pre>
-Feature: Session Management
-
-  @session @security
-  Scenario: User is logged out after session timeout
-    Given the user is logged in
-    When the user is inactive for the session timeout duration
-    Then the user should be automatically logged out
-    And redirected to the login page with message "Your session has expired"
-    And accessing any protected page should redirect to login
-
-  # For actual automation (don't use Thread.sleep in real tests!)
-  # Approach: manipulate session cookie expiry or use backend API to expire session
-      </pre>
-      <pre>
-@When("the user is inactive for the session timeout duration")
-public void expireSession() {
-    // Approach 1: Delete the session cookie
-    driver.manage().deleteCookieNamed("JSESSIONID");
-
-    // Approach 2: Call backend API to invalidate session
-    apiClient.invalidateSession(currentSessionId);
-
-    // Approach 3: For short timeouts only, navigate away and back
+// Parameterized test across versions
+@ParameterizedTest
+@ValueSource(strings = { "v1", "v2" })
+void getAllUsers_shouldReturn200ForAllVersions(String version) {
+    given()
+        .header("Authorization", "Bearer " + authToken)
+    .when()
+        .get("/" + version + "/users")
+    .then()
+        .statusCode(200)
+        .body("data", notNullValue());
 }
-      </pre>
-      <div class="tip"><strong>Tip:</strong> Never use <code>Thread.sleep(30 * 60 * 1000)</code> for a 30-min timeout. Always manipulate state programmatically.</div>
+
+@Test
+void v2Users_shouldIncludeNewProfileField() {
+    given()
+        .header("Authorization", "Bearer " + authToken)
+    .when()
+        .get("/v2/users/1")
+    .then()
+        .statusCode(200)
+        .body("profile", notNullValue())    // new in v2
+        .body("profile.avatar", notNullValue());
+}</pre>
     </div>
   </div>
+
+  <!-- ===== SECTION 10: Real-World Debugging Scenarios ===== -->
+  <div class="section-title">🔍 Real-World Debugging Scenarios</div>
 
   <div class="card" data-tags="scenario">
     <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q36</span>
-      <div class="q-text">SCENARIO: A new feature is added mid-sprint. How do you write Cucumber scenarios before the feature is developed (ATDD)?<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <div class="q-text">SCENARIO: A POST /checkout API returns 200 but the order is never saved in the database. How do you investigate?
+        <div class="tags"><span class="tag scenario">Scenario-Based</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
-      <p><strong>Acceptance Test-Driven Development (ATDD) Process:</strong></p>
+      <p>This is a classic <strong>silent failure</strong> — the API lies about success. Investigation steps:</p>
       <ol>
-        <li>QA, Dev, and BA collaborate in "Three Amigos" meeting</li>
-        <li>Write feature file scenarios in Gherkin before development</li>
-        <li>These become the acceptance criteria for the feature</li>
-        <li>Tag scenarios with <code>@wip</code> until development is complete</li>
-        <li>Write step definitions that are initially stubbed/pending</li>
-        <li>Implement step definitions as the feature is built</li>
-        <li>Scenarios drive the definition of done</li>
+        <li>Verify the database directly — query the orders table to confirm the record is absent</li>
+        <li>Check the response body — does it return an <code>id</code> or <code>orderId</code>? If not, the save may have silently failed</li>
+        <li>Read the server logs for exceptions that were swallowed (catch block logging only, no re-throw)</li>
+        <li>Check whether the transaction was committed — look for a missing <code>@Transactional</code> commit or a rollback triggered by a secondary operation</li>
+        <li>Reproduce with a payload that triggers the save path and trace through the code</li>
       </ol>
+      <p><strong>How to catch this in your tests:</strong></p>
       <pre>
-@wip @sprint-24
-Scenario: User can apply promo code at checkout
-  Given the user has items worth 100 in the cart
-  When the user applies promo code "SAVE20"
-  Then the discount of 20.00 should be applied
-  And the total should display 80.00
-      </pre>
+@Test
+void checkout_shouldPersistOrder() {
+    // POST checkout
+    int orderId = given()
+        .header("Authorization", "Bearer " + authToken)
+        .contentType(ContentType.JSON)
+        .body(checkoutPayload)
+    .when().post("/checkout")
+    .then().statusCode(200).extract().path("orderId");
+
+    // Verify persistence via GET — this is the critical second assertion
+    given()
+        .header("Authorization", "Bearer " + authToken)
+    .when().get("/orders/" + orderId)
+    .then()
+        .statusCode(200)
+        .body("status", equalTo("CONFIRMED"));
+}</pre>
+      <div class="tip"><strong>Rule:</strong> Never trust a 200 alone for write operations. Always follow up with a GET to confirm the state change persisted.</div>
     </div>
   </div>
 
   <div class="card" data-tags="scenario">
     <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q37</span>
-      <div class="q-text">SCENARIO: How do you handle browser pop-ups, alerts, and iframes in Cucumber scenarios?<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <div class="q-text">SCENARIO: An API works correctly in the dev environment but returns incorrect data in staging. What do you check?
+        <div class="tags"><span class="tag scenario">Scenario-Based</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
+      <p>Environment-specific issues are usually caused by configuration, data, or infrastructure differences:</p>
+      <ul>
+        <li><strong>Different config values</strong> — feature flags, timeouts, external service URLs differ between envs</li>
+        <li><strong>Different database state</strong> — staging DB has different seed data or missing records</li>
+        <li><strong>Caching layer</strong> — staging may have Redis/CDN caching that dev does not; stale data is served</li>
+        <li><strong>Microservice version mismatch</strong> — staging has an older version of a dependency</li>
+        <li><strong>Environment variables</strong> — a secret or config key is wrong in staging</li>
+      </ul>
+      <p><strong>Checklist when comparing environments:</strong></p>
       <pre>
-// Handle JavaScript alert
-@Then("the confirmation alert should appear")
-public void handleAlert() {
-    Alert alert = driver.switchTo().alert();
-    String alertText = alert.getText();
-    Assert.assertEquals(alertText, "Are you sure you want to delete?");
-    alert.accept(); // or alert.dismiss()
-}
-
-// Handle iframe
-@When("the user fills in the embedded payment form")
-public void fillIframeForm() {
-    WebElement iframe = driver.findElement(By.id("paymentFrame"));
-    driver.switchTo().frame(iframe);
-    driver.findElement(By.id("cardNumber")).sendKeys("4111111111111111");
-    driver.switchTo().defaultContent(); // switch back
-}
-
-// Handle new window/tab
-@When("the user clicks on Terms and Conditions link")
-public void handleNewTab() {
-    String mainWindow = driver.getWindowHandle();
-    driver.findElement(By.linkText("Terms")).click();
-    for (String handle : driver.getWindowHandles()) {
-        if (!handle.equals(mainWindow)) {
-            driver.switchTo().window(handle);
-        }
-    }
-}
-      </pre>
+1. Compare response headers — look for X-Cache, X-Env, X-Version headers
+2. Log the exact request sent in both envs (REST Assured request logging)
+3. Compare DB records for the same resource ID in both envs
+4. Check /health or /info endpoints — they often expose env name and versions
+5. Diff the config files / environment variable exports between envs</pre>
+      <div class="tip"><strong>Add to your tests:</strong> Assert on environment-agnostic fields only. Use environment-specific config files (dev.properties / staging.properties) to drive base URLs and expected values.</div>
     </div>
   </div>
 
   <div class="card" data-tags="scenario">
     <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q38</span>
-      <div class="q-text">SCENARIO: How do you perform mobile testing using Cucumber + Appium?<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <div class="q-text">SCENARIO: The API response time is 200ms in dev but 8 seconds in production. How do you diagnose this?
+        <div class="tags"><span class="tag scenario">Scenario-Based</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
+      <p>Performance degradation in production points to load or infrastructure issues:</p>
+      <ul>
+        <li><strong>Missing database index</strong> — works on small dev dataset, breaks on millions of production rows</li>
+        <li><strong>N+1 query problem</strong> — the API does one DB call per item in a list instead of one batched call</li>
+        <li><strong>No caching</strong> — every request hits the DB; add Redis caching for read-heavy data</li>
+        <li><strong>Large payload</strong> — returning thousands of records without pagination</li>
+        <li><strong>Connection pool exhaustion</strong> — too many concurrent requests waiting for a DB connection</li>
+        <li><strong>External service call in the hot path</strong> — synchronous call to a slow third-party API</li>
+      </ul>
+      <p><strong>Testing approach:</strong></p>
       <pre>
-Feature: Mobile Login
-
-  @mobile @android
-  Scenario: Login on Android app
-    Given the Android app is launched on the device
-    When the user taps on the "Username" field and enters "user@test.com"
-    And the user taps on the "Password" field and enters "Pass@123"
-    And the user taps the "Login" button
-    Then the home screen should be displayed
-      </pre>
-      <pre>
-// Appium Driver Setup in Hooks
-@Before("@mobile")
-public void setUpMobile() {
-    DesiredCapabilities caps = new DesiredCapabilities();
-    caps.setCapability("platformName", "Android");
-    caps.setCapability("deviceName", "emulator-5554");
-    caps.setCapability("app", "/path/to/app.apk");
-    caps.setCapability("automationName", "UiAutomator2");
-
-    driver = new AndroidDriver(new URL("http://localhost:4723/wd/hub"), caps);
-}
-      </pre>
+// Baseline performance test — fail if response &gt; 2 seconds
+@Test
+void getProducts_shouldRespondUnder2Seconds() {
+    given()
+        .header("Authorization", "Bearer " + authToken)
+        .queryParam("limit", 20)
+    .when()
+        .get("/products")
+    .then()
+        .statusCode(200)
+        .time(lessThan(2000L), MILLISECONDS);
+}</pre>
+      <div class="tip"><strong>Production diagnosis tools:</strong> APM tools (Datadog, New Relic, Dynatrace), slow query logs in the database, distributed tracing (Jaeger, Zipkin).</div>
     </div>
   </div>
 
   <div class="card" data-tags="scenario">
     <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q39</span>
-      <div class="q-text">SCENARIO: Write a Cucumber scenario for verifying pagination on a search results page.<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <div class="q-text">SCENARIO: You send a valid JSON body but the API returns 415 Unsupported Media Type. What went wrong?
+        <div class="tags"><span class="tag scenario">Scenario-Based</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
+      <p><strong>415 Unsupported Media Type</strong> means the server does not accept the <code>Content-Type</code> you sent.</p>
+      <p><strong>Most common causes:</strong></p>
+      <ul>
+        <li>Missing <code>Content-Type: application/json</code> header — the request body is not labeled</li>
+        <li>Sending <code>text/plain</code> or <code>application/x-www-form-urlencoded</code> when JSON is expected</li>
+        <li>Extra charset: <code>application/json; charset=utf-8</code> not accepted by a strict server</li>
+      </ul>
       <pre>
-Feature: Search Results Pagination
+// WRONG — no content type
+given().body(payload).when().post("/orders");
 
-  Scenario: Default page shows first 10 results
-    Given the user searches for "shoes"
-    Then the results page should display 10 products per page
-    And the pagination control should be visible
-
-  Scenario: Navigate to next page
-    Given the search results are on page 1
-    When the user clicks "Next" page
-    Then the results should update to page 2
-    And the URL should contain "page=2"
-    And 10 new products should be displayed
-
-  Scenario: Navigate directly to a specific page
-    Given the search results are displayed
-    When the user clicks on page number "5"
-    Then page 5 results should load
-    And page "5" should be highlighted in the pagination bar
-
-  Scenario: Last page shows remaining items
-    Given the search for "rare item" returns 23 total results
-    When the user navigates to page 3
-    Then 3 products should be displayed on the last page
-    And the "Next" button should be disabled
-      </pre>
+// CORRECT
+given()
+    .contentType(ContentType.JSON)   // sets Content-Type: application/json
+    .body(payload)
+.when()
+    .post("/orders");</pre>
+      <div class="tip"><strong>Always test:</strong> What happens when you omit Content-Type? The API should return 415, not 500. A 500 here means the server has poor input handling.</div>
     </div>
   </div>
 
   <div class="card" data-tags="scenario">
     <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q40</span>
-      <div class="q-text">SCENARIO: How would you implement retry logic for flaky steps in Cucumber?<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <div class="q-text">SCENARIO: An API returns data for User A when you use User B's token. What kind of bug is this and how critical is it?
+        <div class="tags"><span class="tag scenario">Scenario-Based</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
-      <p>Use a custom retry mechanism or the <strong>Cucumber Retry</strong> plugin:</p>
+      <p>This is an <strong>IDOR (Insecure Direct Object Reference)</strong> vulnerability — one of the most critical API security bugs (OWASP API1). User B can access or manipulate User A's data simply by guessing or iterating IDs.</p>
+      <p><strong>How to test for it:</strong></p>
       <pre>
-// Custom Retry Utility
-public class RetryUtils {
-    public static void retry(int maxAttempts, Runnable action) {
-        int attempt = 0;
-        while (attempt &lt; maxAttempts) {
-            try {
-                action.run();
-                return; // success
-            } catch (Exception e) {
-                attempt++;
-                if (attempt == maxAttempts) throw new RuntimeException(e);
-                try { Thread.sleep(1000 * attempt); } catch (InterruptedException ie) {}
-            }
-        }
-    }
-}
+@Test
+void userB_shouldNotAccessUserA_profile() {
+    // User A creates a private resource
+    int resourceId = given()
+        .header("Authorization", "Bearer " + userAToken)
+        .contentType(ContentType.JSON)
+        .body("{ \"note\": \"private note\" }")
+    .when().post("/notes")
+    .then().statusCode(201).extract().path("id");
 
-// Usage in Step Definition
-@When("the payment is processed")
-public void processPayment() {
-    RetryUtils.retry(3, () -&gt; {
-        paymentPage.submitPayment();
-        Assert.assertTrue(paymentPage.isSuccessVisible());
-    });
-}
-      </pre>
-      <div class="tip"><strong>Tip:</strong> For Cucumber 7+, use <code>@Retry</code> annotation with the cucumber-retry extension or configure in <code>junit-platform.properties</code>: <code>cucumber.execution.retry.count=2</code></div>
+    // User B tries to access User A's resource
+    given()
+        .header("Authorization", "Bearer " + userBToken)
+    .when()
+        .get("/notes/" + resourceId)
+    .then()
+        .statusCode(403);  // must be 403, not 200
+}</pre>
+      <div class="warn"><strong>Severity: Critical.</strong> IDOR allows unauthorized data access across all users. Raise as a P1/Blocker defect immediately and do not release to production.</div>
     </div>
   </div>
 
-  <div class="card" data-tags="scenario conceptual">
+  <div class="card" data-tags="scenario">
     <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q41</span>
-      <div class="q-text">SCENARIO: How do you manage test data externalization in Cucumber — not hardcoding it in feature files?<div class="tags"><span class="tag scenario">Scenario-Based</span><span class="tag conceptual">Conceptual</span></div></div>
+      <div class="q-text">SCENARIO: A GET /users API returns 200 with an empty array [] even though users exist. What are the possible causes?
+        <div class="tags"><span class="tag scenario">Scenario-Based</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
-      <p>Strategies for externalizing test data:</p>
+      <p><strong>Possible causes:</strong></p>
       <ul>
-        <li><strong>Properties files:</strong> <code>config.properties</code> for environment URLs, credentials</li>
-        <li><strong>JSON / YAML files:</strong> Complex test data loaded via Jackson/Gson</li>
-        <li><strong>Excel sheets:</strong> Apache POI for large data sets</li>
-        <li><strong>Database:</strong> Fetch test data from a dedicated test schema</li>
-        <li><strong>Faker library:</strong> Generate synthetic realistic test data dynamically</li>
+        <li><strong>Wrong database/schema</strong> — test is hitting a different DB instance with no data</li>
+        <li><strong>Filter applied silently</strong> — a default query filter (e.g. <code>status=active</code>) is hiding records</li>
+        <li><strong>Authorization scoping</strong> — the caller's role/tenant only sees their own data, and none belongs to them</li>
+        <li><strong>Caching stale empty result</strong> — a cached empty response from before data was inserted</li>
+        <li><strong>Bug in data mapping</strong> — ORM mapping error means rows are fetched but not serialized</li>
+        <li><strong>Soft-delete filter</strong> — records are marked deleted=true and filtered out by default</li>
       </ul>
       <pre>
-// Reading from JSON
-public class TestDataReader {
-    public static User getUser(String role) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        File file = new File("src/test/resources/testdata/users.json");
-        Map&lt;String, User&gt; users = mapper.readValue(file,
-            new TypeReference&lt;Map&lt;String, User&gt;&gt;(){});
-        return users.get(role);
-    }
-}
-
-// In Step Definition
-@Given("the admin user is logged in")
-public void adminLogin() {
-    User admin = TestDataReader.getUser("admin");
-    loginPage.login(admin.getEmail(), admin.getPassword());
-}
-      </pre>
+// Test: assert list is non-empty for a seeded dataset
+given()
+    .header("Authorization", "Bearer " + adminToken)
+.when()
+    .get("/users")
+.then()
+    .statusCode(200)
+    .body("data",        notNullValue())
+    .body("data.size()", greaterThan(0))
+    .body("meta.total",  greaterThan(0));</pre>
     </div>
   </div>
 
   <div class="card" data-tags="scenario">
     <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q42</span>
-      <div class="q-text">SCENARIO: How do you test a GraphQL API endpoint using Cucumber?<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <div class="q-text">SCENARIO: Two concurrent POST /orders requests with the same data create duplicate orders. How do you test and prevent this?
+        <div class="tags"><span class="tag scenario">Scenario-Based</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
+      <p>This is a <strong>race condition / idempotency bug</strong>. The API lacks a uniqueness constraint or idempotency key.</p>
+      <p><strong>Testing for duplicate creation:</strong></p>
       <pre>
-Feature: GraphQL User API
+@Test
+void concurrentOrders_shouldNotCreateDuplicates() throws Exception {
+    String idempotencyKey = UUID.randomUUID().toString();
+    int threadCount = 5;
+    CountDownLatch latch = new CountDownLatch(threadCount);
+    List&lt;Integer&gt; createdIds = Collections.synchronizedList(new ArrayList&lt;&gt;());
 
-  Scenario: Fetch user by ID via GraphQL query
-    Given the GraphQL endpoint is "https://api.example.com/graphql"
-    When the following query is executed:
-      """
-      {
-        user(id: "101") {
-          id
-          name
-          email
-          role
-        }
-      }
-      """
-    Then the response should have status 200
-    And the "data.user.name" field should be "John Doe"
-    And the "data.user.role" field should be "ADMIN"
-      </pre>
-      <pre>
-@When("the following query is executed:")
-public void executeGraphQLQuery(String query) {
-    response = given()
-        .contentType("application/json")
-        .body("{\"query\": \"" + query.replace("\n", " ") + "\"}")
-        .post(graphqlEndpoint);
-}
+    for (int i = 0; i &lt; threadCount; i++) {
+        new Thread(() -&gt; {
+            try {
+                int id = given()
+                    .header("Authorization", "Bearer " + authToken)
+                    .header("Idempotency-Key", idempotencyKey)  // RFC 7231
+                    .contentType(ContentType.JSON)
+                    .body(orderPayload)
+                .when().post("/orders")
+                .then().extract().path("id");
+                createdIds.add(id);
+            } finally { latch.countDown(); }
+        }).start();
+    }
 
-@Then("the {string} field should be {string}")
-public void verifyField(String jsonPath, String expected) {
-    String actual = response.jsonPath().getString(jsonPath);
-    Assert.assertEquals(actual, expected);
-}
-      </pre>
+    latch.await();
+    // All 5 calls should return the same order ID
+    assertThat(new HashSet&lt;&gt;(createdIds).size(), equalTo(1));
+}</pre>
+      <div class="tip"><strong>Fix:</strong> The server should support the <code>Idempotency-Key</code> header — store the key and return the same response for duplicate requests within a time window.</div>
     </div>
   </div>
 
-  <div class="card" data-tags="scenario">
+  <!-- ===== SECTION 11: Edge Cases &amp; Tricky Interview Questions ===== -->
+  <div class="section-title">🧠 Tricky &amp; Edge-Case Interview Questions</div>
+
+  <div class="card" data-tags="scenario conceptual">
     <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q43</span>
-      <div class="q-text">SCENARIO: How do you write a Cucumber scenario for testing an OAuth 2.0 protected API?<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <div class="q-text">SCENARIO: What is the difference between 401 and 403 and how do you write tests to verify both?
+        <div class="tags"><span class="tag scenario">Scenario-Based</span><span class="tag conceptual">Conceptual</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
+      <p><strong>401 Unauthorized</strong> — the request lacks valid credentials. The server doesn't know who you are.<br><strong>403 Forbidden</strong> — the server knows who you are (valid token) but you don't have permission.</p>
       <pre>
-Feature: OAuth Protected API
-
-  Background:
-    Given a valid OAuth token is obtained for "client_credentials" flow
-
-  Scenario: Access protected resource with valid token
-    When a GET request is made to "/api/v1/protected/resource"
-    Then the response status should be 200
-    And the response should contain the protected data
-
-  Scenario: Access fails with expired token
-    Given the OAuth token is expired
-    When a GET request is made to "/api/v1/protected/resource"
-    Then the response status should be 401
-    And the error should be "Token has expired"
-
-  Scenario: Access fails without token
-    When a GET request is made to "/api/v1/protected/resource" without auth header
-    Then the response status should be 401
-      </pre>
-      <pre>
-@Before
-public void obtainToken() {
-    token = given()
-        .formParam("grant_type", "client_credentials")
-        .formParam("client_id", config.get("clientId"))
-        .formParam("client_secret", config.get("clientSecret"))
-        .post(config.get("tokenUrl"))
-        .jsonPath().getString("access_token");
+// 401 — no token at all
+@Test void noToken_should401() {
+    given().when().get("/admin/settings").then().statusCode(401);
 }
-      </pre>
+
+// 401 — malformed token
+@Test void malformedToken_should401() {
+    given().header("Authorization", "Bearer NOT_A_REAL_TOKEN")
+           .when().get("/admin/settings").then().statusCode(401);
+}
+
+// 401 — expired token
+@Test void expiredToken_should401() {
+    given().header("Authorization", "Bearer " + expiredToken)
+           .when().get("/admin/settings").then().statusCode(401);
+}
+
+// 403 — authenticated but wrong role
+@Test void viewerRole_cannotAccessAdminSettings_should403() {
+    given().header("Authorization", "Bearer " + viewerToken)  // viewer, not admin
+           .when().get("/admin/settings").then().statusCode(403);
+}
+
+// 200 — correct role
+@Test void adminRole_canAccessAdminSettings() {
+    given().header("Authorization", "Bearer " + adminToken)
+           .when().get("/admin/settings").then().statusCode(200);
+}</pre>
     </div>
   </div>
 
   <div class="card" data-tags="scenario">
     <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q44</span>
-      <div class="q-text">SCENARIO: How do you test responsive design breakpoints across devices in Cucumber?<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <div class="q-text">SCENARIO: How do you test that a DELETE endpoint is truly idempotent — i.e., calling it twice does not cause a 500?
+        <div class="tags"><span class="tag scenario">Scenario-Based</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
+      <p>A well-behaved DELETE should return 204 on first call and 404 (not 500) on subsequent calls for the same resource.</p>
       <pre>
-Feature: Responsive Design
+@Test
+void delete_calledTwice_shouldReturn404NotError() {
+    int id = createTestUser();  // helper: POST and extract ID
 
-  Scenario Outline: Homepage renders correctly at different screen sizes
-    Given the user opens the homepage
-    When the browser is resized to "&lt;width&gt;" x "&lt;height&gt;"
-    Then the "&lt;element&gt;" should be "&lt;visibility&gt;"
-    And the layout should match the "&lt;device&gt;" mockup
+    // First delete — success
+    given().header("Authorization", "Bearer " + authToken)
+           .when().delete("/users/" + id)
+           .then().statusCode(204);
 
-    Examples:
-      | width | height | device  | element        | visibility |
-      | 1920  | 1080   | Desktop | desktop-nav    | visible    |
-      | 768   | 1024   | Tablet  | hamburger-menu | visible    |
-      | 375   | 812    | Mobile  | hamburger-menu | visible    |
-      | 375   | 812    | Mobile  | desktop-nav    | hidden     |
-      </pre>
-      <pre>
-@When("the browser is resized to {string} x {string}")
-public void resizeBrowser(String width, String height) {
-    driver.manage().window().setSize(
-        new Dimension(Integer.parseInt(width), Integer.parseInt(height))
-    );
+    // Second delete — resource gone, should be 404 not 500
+    given().header("Authorization", "Bearer " + authToken)
+           .when().delete("/users/" + id)
+           .then().statusCode(404);
 }
-      </pre>
+
+@Test
+void delete_nonExistentId_shouldReturn404NotError() {
+    given().header("Authorization", "Bearer " + authToken)
+           .when().delete("/users/99999999")
+           .then().statusCode(404);
+}</pre>
+      <div class="tip"><strong>Common bug:</strong> If the server throws an unhandled exception on a second DELETE, it returns 500 — this is a defect. The server must handle "already deleted" gracefully.</div>
     </div>
   </div>
 
   <div class="card" data-tags="scenario">
     <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q45</span>
-      <div class="q-text">SCENARIO: You are asked to verify that a CSV file is downloaded correctly. How do you handle this in Cucumber?<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <div class="q-text">SCENARIO: How do you test what happens when you pass a string where the API expects an integer (wrong data type)?
+        <div class="tags"><span class="tag scenario">Scenario-Based</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
       <pre>
-Feature: Data Export
-
-  @download
-  Scenario: Export user list as CSV
-    Given the admin is on the users management page
-    When the admin clicks the "Export to CSV" button
-    Then a CSV file should be downloaded within 10 seconds
-    And the CSV file should contain header row:
-      | ID | Name | Email | Role | CreatedDate |
-    And the CSV should have at least 1 data row
-    And all email values should be in valid email format
-      </pre>
-      <pre>
-@Then("a CSV file should be downloaded within {int} seconds")
-public void verifyDownload(int timeout) throws Exception {
-    String downloadDir = System.getProperty("user.home") + "/Downloads";
-    File csvFile = null;
-    long start = System.currentTimeMillis();
-
-    while (System.currentTimeMillis() - start &lt; timeout * 1000L) {
-        File[] files = new File(downloadDir).listFiles(
-            f -&gt; f.getName().endsWith(".csv") &amp;&amp; !f.getName().endsWith(".crdownload")
-        );
-        if (files != null &amp;&amp; files.length &gt; 0) {
-            csvFile = files[0];
-            break;
-        }
-        Thread.sleep(500);
-    }
-    Assert.assertNotNull(csvFile, "CSV file not downloaded");
+@Test
+void stringInsteadOfInt_shouldReturn400() {
+    given()
+        .header("Authorization", "Bearer " + authToken)
+        .contentType(ContentType.JSON)
+        .body("{ \"productId\": \"not-a-number\", \"qty\": 1 }")
+    .when()
+        .post("/orders")
+    .then()
+        .statusCode(400)   // or 422
+        .body("error", containsString("productId"));
 }
-      </pre>
+
+@Test
+void floatInsteadOfInt_shouldReturn400() {
+    given()
+        .header("Authorization", "Bearer " + authToken)
+        .contentType(ContentType.JSON)
+        .body("{ \"productId\": 1.5, \"qty\": 1 }")
+    .when()
+        .post("/orders")
+    .then()
+        .statusCode(anyOf(equalTo(400), equalTo(422)));
+}
+
+@Test
+void negativeQty_shouldReturn400() {
+    given()
+        .header("Authorization", "Bearer " + authToken)
+        .contentType(ContentType.JSON)
+        .body("{ \"productId\": 1, \"qty\": -5 }")
+    .when()
+        .post("/orders")
+    .then()
+        .statusCode(400)
+        .body("error", containsString("qty"));
+}</pre>
     </div>
   </div>
 
-  <!-- Conceptual Advanced -->
-  <div class="section-title">💡 Advanced Conceptual Questions</div>
-
-  <div class="card" data-tags="conceptual">
+  <div class="card" data-tags="scenario">
     <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q46</span>
-      <div class="q-text">What are Cucumber Expressions vs Regular Expressions in step definitions?<div class="tags"><span class="tag conceptual">Conceptual</span></div></div>
+      <div class="q-text">SCENARIO: How do you test an API that uses cursor-based pagination instead of page numbers?
+        <div class="tags"><span class="tag scenario">Scenario-Based</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
-      <p><strong>Cucumber Expressions</strong> are a simpler, more readable way to define step patterns (introduced in Cucumber 3+):</p>
+      <p>Cursor-based pagination uses an opaque <code>cursor</code> (or <code>next_cursor</code>) instead of a page number. Each response includes a cursor pointing to the next batch.</p>
       <pre>
-// Cucumber Expression (preferred)
-@Given("the user has {int} items in the cart")
-public void userHasItems(int count) { }
+@Test
+void cursorPagination_shouldIterateAllPages() {
+    List&lt;String&gt; allIds = new ArrayList&lt;&gt;();
+    String cursor = null;
 
-// With optional text
-@When("the user click(s) the submit button")
+    do {
+        RequestSpecification req = given()
+            .header("Authorization", "Bearer " + authToken)
+            .queryParam("limit", 10);
 
-// With alternation
-@Then("the form is submitted/saved successfully")
+        if (cursor != null) req = req.queryParam("cursor", cursor);
 
-// Named parameters
-@Then("the response time is less than {long} milliseconds")
-      </pre>
-      <p><strong>Regex</strong> is more powerful but harder to read:</p>
-      <pre>
-@Given("^the user has (\\d+) items? in the cart$")
-public void userHasItems(int count) { }
-      </pre>
-      <div class="tip"><strong>Tip:</strong> Prefer Cucumber Expressions. Use regex only when complex pattern matching is needed.</div>
+        Response response = req.when().get("/events");
+        response.then().statusCode(200);
+
+        List&lt;String&gt; pageIds = response.path("data.id");
+        allIds.addAll(pageIds);
+
+        cursor = response.path("pagination.next_cursor");  // null on last page
+
+    } while (cursor != null);
+
+    // No duplicate IDs across pages
+    assertThat(allIds.size(), equalTo(new HashSet&lt;&gt;(allIds).size()));
+    assertThat(allIds.size(), greaterThan(0));
+}</pre>
+      <div class="tip"><strong>Test also:</strong> Using a stale/invalid cursor should return 400, not 500 or silently restart from the beginning.</div>
     </div>
   </div>
 
-  <div class="card" data-tags="conceptual">
+  <div class="card" data-tags="scenario">
     <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q47</span>
-      <div class="q-text">What is the Background keyword and when should you use it vs @Before hook?<div class="tags"><span class="tag conceptual">Conceptual</span></div></div>
+      <div class="q-text">SCENARIO: How do you test an API that returns different data based on the user's timezone or locale?
+        <div class="tags"><span class="tag scenario">Scenario-Based</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
-      <ul>
-        <li><code>Background</code> – Runs Gherkin steps before each scenario in the same feature file. Visible and readable in the feature file itself. Best for UI setup steps (navigating to a page, logging in).</li>
-        <li><code>@Before</code> hook – Runs Java code before each scenario. Best for technical setup (launching browser, initializing objects, setting up DB).</li>
-      </ul>
       <pre>
-# Use Background for steps the business cares about
-Background:
-  Given the user is on the product listing page
-  And 10 products are loaded
+@Test
+void datesInResponse_shouldRespectTimezoneHeader() {
+    // Request with UTC timezone
+    String utcDate = given()
+        .header("Authorization", "Bearer " + authToken)
+        .header("Time-Zone", "UTC")
+    .when().get("/events/1")
+    .then().statusCode(200)
+    .extract().path("startTime");
 
-# Use @Before for technical setup only
-@Before
-public void setUp() {
-    driver = DriverFactory.initDriver("chrome");
-    driver.manage().window().maximize();
+    // Request with US/Eastern timezone (UTC-5)
+    String estDate = given()
+        .header("Authorization", "Bearer " + authToken)
+        .header("Time-Zone", "America/New_York")
+    .when().get("/events/1")
+    .then().statusCode(200)
+    .extract().path("startTime");
+
+    // The timestamps represent the same moment but in different zones
+    ZonedDateTime utcTime = ZonedDateTime.parse(utcDate);
+    ZonedDateTime estTime = ZonedDateTime.parse(estDate);
+    assertThat(utcTime.toInstant(), equalTo(estTime.toInstant()));
 }
-      </pre>
-      <div class="tip"><strong>Tip:</strong> Background makes scenarios easier to understand as documentation. @Before is invisible to non-technical stakeholders.</div>
+
+@Test
+void acceptLanguageHeader_shouldReturnLocalizedErrorMessages() {
+    given()
+        .header("Accept-Language", "fr-FR")
+        .contentType(ContentType.JSON)
+        .body("{}")
+    .when().post("/users")
+    .then()
+        .statusCode(400)
+        .body("error", not(equalTo("email is required")));  // should be in French
+}</pre>
     </div>
   </div>
 
-  <div class="card" data-tags="conceptual">
+  <div class="card" data-tags="scenario">
     <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q48</span>
-      <div class="q-text">What is a "Living Documentation" and how does Cucumber enable it?<div class="tags"><span class="tag conceptual">Conceptual</span></div></div>
+      <div class="q-text">SCENARIO: The API team says "we don't need to test headers". How do you convince them otherwise?
+        <div class="tags"><span class="tag scenario">Scenario-Based</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
-      <p><strong>Living Documentation</strong> means the test specifications always reflect the current behavior of the system — they're never out of date because they ARE the tests.</p>
-      <p>Cucumber enables this by:</p>
+      <p>Response headers carry critical non-body information. Here's what headers tell you that body content doesn't:</p>
       <ul>
-        <li>Writing tests in plain English (Gherkin) that serves as specification</li>
-        <li>If behavior changes, the tests fail → forcing documentation to be updated</li>
-        <li>Tools like <strong>Pickles</strong>, <strong>Serenity BDD</strong>, and <strong>Cucumber Reports</strong> generate browsable documentation from feature files</li>
-        <li>Feature files are stored in version control alongside code</li>
+        <li><code>Content-Type</code> — if this is wrong, the client may misparse the body (e.g. parse JSON as text)</li>
+        <li><code>Cache-Control / Expires</code> — wrong values cause clients to cache sensitive or stale data</li>
+        <li><code>Access-Control-Allow-Origin</code> (CORS) — wrong value causes browser clients to reject the response</li>
+        <li><code>X-Content-Type-Options: nosniff</code> — security header preventing MIME sniffing attacks</li>
+        <li><code>Strict-Transport-Security</code> — enforces HTTPS; missing = MITM attack risk</li>
+        <li><code>Location</code> — must be present on 201 Created to point to the new resource</li>
+        <li><code>Retry-After</code> — must be present on 429 to tell clients when to retry</li>
       </ul>
+      <pre>
+// Header assertions in REST Assured
+.then()
+    .header("Content-Type",               containsString("application/json"))
+    .header("X-Content-Type-Options",     equalTo("nosniff"))
+    .header("Cache-Control",              containsString("no-store"))  // for auth endpoints
+    .header("Access-Control-Allow-Origin", notNullValue());</pre>
     </div>
   </div>
 
-  <div class="card" data-tags="scenario conceptual">
+  <div class="card" data-tags="scenario">
     <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q49</span>
-      <div class="q-text">SCENARIO: A step definition in one class needs data set in a step definition from another class. How do you pass data between them?<div class="tags"><span class="tag scenario">Scenario-Based</span><span class="tag conceptual">Conceptual</span></div></div>
+      <div class="q-text">SCENARIO: How do you test an API endpoint that triggers an async background job (e.g. sending an email or generating a report)?
+        <div class="tags"><span class="tag scenario">Scenario-Based</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
-      <p>Three approaches:</p>
-      <ol>
-        <li><strong>Shared Context via DI (Recommended):</strong> Use PicoContainer with a shared context object</li>
-        <li><strong>World object:</strong> A shared object that Cucumber passes to all step definitions in a scenario</li>
-        <li><strong>Thread-local static fields:</strong> Use only when DI is not available</li>
-      </ol>
+      <p>Async endpoints typically return 202 Accepted immediately and process in the background. Test by polling a status endpoint:</p>
       <pre>
-// Recommended: Shared ScenarioContext with PicoContainer
-public class ScenarioContext {
-    private Map&lt;String, Object&gt; data = new HashMap&lt;&gt;();
-    public void put(String key, Object val) { data.put(key, val); }
-    public &lt;T&gt; T get(String key, Class&lt;T&gt; type) { return type.cast(data.get(key)); }
-}
+@Test
+void reportGeneration_shouldCompleteWithinTimeout() {
+    // Trigger the async job
+    String jobId = given()
+        .header("Authorization", "Bearer " + authToken)
+        .contentType(ContentType.JSON)
+        .body("{ \"reportType\": \"monthly_sales\", \"month\": \"2024-01\" }")
+    .when()
+        .post("/reports/generate")
+    .then()
+        .statusCode(202)          // Accepted — job queued
+        .body("jobId", notNullValue())
+        .extract().path("jobId");
 
-// Class A sets data
-public class LoginSteps {
-    private final ScenarioContext ctx;
-    public LoginSteps(ScenarioContext ctx) { this.ctx = ctx; }
-
-    @When("user logs in and gets a session token")
-    public void login() {
-        String token = authService.login("user", "pass");
-        ctx.put("authToken", token);
-    }
-}
-
-// Class B reads data
-public class ApiSteps {
-    private final ScenarioContext ctx;
-    public ApiSteps(ScenarioContext ctx) { this.ctx = ctx; }
-
-    @Then("the API request uses the token")
-    public void apiWithToken() {
-        String token = ctx.get("authToken", String.class);
-        // use token
-    }
-}
-      </pre>
+    // Poll until complete (max 30 seconds)
+    await()
+        .atMost(30, SECONDS)
+        .pollInterval(2, SECONDS)
+        .untilAsserted(() -&gt;
+            given()
+                .header("Authorization", "Bearer " + authToken)
+            .when()
+                .get("/jobs/" + jobId)
+            .then()
+                .statusCode(200)
+                .body("status",      equalTo("COMPLETED"))
+                .body("reportUrl",   notNullValue())
+        );
+}</pre>
+      <div class="tip"><strong>Also test:</strong> What does the status endpoint return while the job is running (<code>PENDING</code>/<code>PROCESSING</code>)? What if the job fails — does it return <code>FAILED</code> with an error message?</div>
     </div>
   </div>
 
   <div class="card" data-tags="scenario">
     <div class="card-header" onclick="toggle(this)">
       <span class="q-num">Q50</span>
-      <div class="q-text">SCENARIO: Write end-to-end Cucumber scenarios for a "Forgot Password" + "Login with new password" complete flow.<div class="tags"><span class="tag scenario">Scenario-Based</span></div></div>
+      <div class="q-text">SCENARIO: How do you test that sensitive data (passwords, credit card numbers, SSNs) is never returned in API responses?
+        <div class="tags"><span class="tag scenario">Scenario-Based</span></div>
+      </div>
       <span class="chevron">▼</span>
     </div>
     <div class="card-body">
       <pre>
-Feature: Complete Password Recovery Flow
+@Test
+void userResponse_shouldNotExposePassword() {
+    String body = given()
+        .header("Authorization", "Bearer " + adminToken)
+    .when()
+        .get("/users/1")
+    .then()
+        .statusCode(200)
+        .extract().body().asString();
 
-  @e2e @smoke
-  Scenario: User recovers account and logs in with new password
-    # Step 1: Trigger forgot password
-    Given the user is on the login page
-    And the user clicks "Forgot Password"
-    And the user enters "testuser@example.com" and submits
-    Then the confirmation message should say "Reset link sent"
+    // Password must never appear in any form
+    assertThat(body, not(containsString("password")));
+    assertThat(body, not(containsString("passwordHash")));
+    assertThat(body, not(containsString("secret")));
+}
 
-    # Step 2: Use reset link (simulated via API in automation)
-    When the test retrieves the reset token for "testuser@example.com" from the system
-    And the user navigates to the password reset link with the token
-    Then the "Set New Password" page should be displayed
+@Test
+void paymentResponse_shouldMaskCardNumber() {
+    String cardNumber = given()
+        .header("Authorization", "Bearer " + authToken)
+    .when()
+        .get("/payments/1")
+    .then()
+        .statusCode(200)
+        .extract().path("card.number");
 
-    # Step 3: Set new password
-    When the user enters "NewSecure@2024" as the new password
-    And confirms with "NewSecure@2024"
-    And submits the form
-    Then the success message "Password updated successfully" should appear
-    And the user should be redirected to login
+    // Only last 4 digits visible: ****-****-****-1234
+    assertThat(cardNumber, matchesPattern("\\*{4}-\\*{4}-\\*{4}-\\d{4}"));
+}
 
-    # Step 4: Login with new password
-    When the user logs in with "testuser@example.com" and "NewSecure@2024"
-    Then the user dashboard should be displayed
-    And the old password "OldPass@2023" should no longer work
-      </pre>
+@Test
+void listUsersResponse_shouldNotExposeInternalIds() {
+    String body = given()
+        .header("Authorization", "Bearer " + authToken)
+    .when().get("/users").then().extract().body().asString();
+
+    // Internal DB surrogate keys or SSNs should not be exposed
+    assertThat(body, not(containsString("internalId")));
+    assertThat(body, not(containsString("ssn")));
+}</pre>
+      <div class="warn"><strong>OWASP API3 – Excessive Data Exposure.</strong> This is a top-10 API vulnerability. Add these assertions to every GET endpoint test.</div>
     </div>
   </div>
 
+  <div class="card" data-tags="scenario">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q51</span>
+      <div class="q-text">SCENARIO: How do you test an API that requires CORS headers for browser-based clients?
+        <div class="tags"><span class="tag scenario">Scenario-Based</span></div>
+      </div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p>CORS (Cross-Origin Resource Sharing) headers control which browser origins can call the API. Test the <strong>preflight OPTIONS request</strong> and verify allowed origins.</p>
+      <pre>
+@Test
+void corsPreflightRequest_shouldReturnAllowHeaders() {
+    given()
+        .header("Origin",                        "https://app.example.com")
+        .header("Access-Control-Request-Method", "POST")
+        .header("Access-Control-Request-Headers","Authorization, Content-Type")
+    .when()
+        .options("/users")
+    .then()
+        .statusCode(200)   // or 204
+        .header("Access-Control-Allow-Origin",   equalTo("https://app.example.com"))
+        .header("Access-Control-Allow-Methods",  containsString("POST"))
+        .header("Access-Control-Allow-Headers",  containsString("Authorization"));
+}
+
+@Test
+void corsFromUnknownOrigin_shouldNotAllowAccess() {
+    given()
+        .header("Origin", "https://evil-site.com")
+    .when()
+        .get("/users")
+    .then()
+        // Access-Control-Allow-Origin must NOT echo back unknown origins
+        .header("Access-Control-Allow-Origin", not(equalTo("https://evil-site.com")));
+}</pre>
+      <div class="warn"><strong>Security:</strong> <code>Access-Control-Allow-Origin: *</code> with credentials is forbidden by browsers and is a misconfiguration — flag it as a bug.</div>
+    </div>
+  </div>
+
+  <div class="card" data-tags="scenario">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q52</span>
+      <div class="q-text">SCENARIO: You are asked to write tests for a GraphQL API. How is this different from REST API testing?
+        <div class="tags"><span class="tag scenario">Scenario-Based</span></div>
+      </div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p>GraphQL uses a <strong>single endpoint</strong> (<code>POST /graphql</code>) with a query language in the body. Key differences from REST:</p>
+      <table>
+        <tr><th>Aspect</th><th>REST</th><th>GraphQL</th></tr>
+        <tr><td>Endpoint</td><td>One per resource</td><td>Single: /graphql</td></tr>
+        <tr><td>HTTP Method</td><td>GET, POST, PUT…</td><td>Always POST (queries &amp; mutations)</td></tr>
+        <tr><td>Over/Under fetch</td><td>Fixed response shape</td><td>Client specifies fields</td></tr>
+        <tr><td>Status codes</td><td>200 / 4xx / 5xx</td><td>Always 200 — errors in body</td></tr>
+        <tr><td>Error handling</td><td>HTTP status + body</td><td>200 + <code>errors[]</code> array in body</td></tr>
+      </table>
+      <pre>
+// GraphQL test with REST Assured
+@Test
+void graphql_queryUser_shouldReturnNameAndEmail() {
+    String query = """
+        {
+          \"query\": \"{ user(id: 1) { id name email } }\"
+        }
+        """;
+
+    given()
+        .header("Authorization", "Bearer " + authToken)
+        .contentType(ContentType.JSON)
+        .body(query)
+    .when()
+        .post("/graphql")
+    .then()
+        .statusCode(200)
+        .body("errors",         nullValue())     // no errors
+        .body("data.user.name", equalTo("Alice"))
+        .body("data.user.email",notNullValue());
+}</pre>
+      <div class="tip"><strong>Key difference to remember:</strong> GraphQL errors always come with <code>200 OK</code>. You MUST check the <code>errors</code> field in the body — don't rely on status code alone.</div>
+    </div>
+  </div>
+
+  <div class="card" data-tags="scenario practical">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q53</span>
+      <div class="q-text">SCENARIO: How do you test API backward compatibility when a new version is deployed?
+        <div class="tags"><span class="tag scenario">Scenario-Based</span><span class="tag practical">Practical</span></div>
+      </div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p>Backward compatibility means existing clients still work after a new version. Breaking changes include: removing fields, renaming fields, changing field types, changing status codes.</p>
+      <pre>
+// "Smoke test" suite run against every deployment
+@Tag("backward-compat")
+public class BackwardCompatibilityTest extends BaseTest {
+
+    @Test void existingField_shouldStillExist() {
+        given().header("Authorization", "Bearer " + authToken)
+               .when().get("/users/1")
+               .then().body("id",    notNullValue())
+                      .body("name",  notNullValue())
+                      .body("email", notNullValue());  // must not be removed
+    }
+
+    @Test void existingFieldTypes_shouldNotChange() {
+        given().header("Authorization", "Bearer " + authToken)
+               .when().get("/users/1")
+               .then().body("id",   isA(Integer.class))   // must stay integer
+                      .body("name", isA(String.class));
+    }
+
+    @Test void existingStatusCodes_shouldNotChange() {
+        // A working request must still return 200
+        given().header("Authorization", "Bearer " + authToken)
+               .when().get("/users").then().statusCode(200);
+
+        // A bad request must still return 400
+        given().header("Authorization", "Bearer " + authToken)
+               .contentType(ContentType.JSON).body("{}")
+               .when().post("/users").then().statusCode(400);
+    }
+}</pre>
+      <div class="tip"><strong>Best practice:</strong> Tag these tests as <code>@backward-compat</code> and run them automatically on every deployment to production — before traffic is shifted.</div>
+    </div>
+  </div>
+
+  <div class="card" data-tags="scenario">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q54</span>
+      <div class="q-text">SCENARIO: How do you handle an API that requires a CAPTCHA to complete a request?
+        <div class="tags"><span class="tag scenario">Scenario-Based</span></div>
+      </div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p>CAPTCHAs are designed to block automated testing. Legitimate approaches:</p>
+      <ul>
+        <li><strong>Disable CAPTCHA in test environments</strong> — the most practical and common approach. Request the dev team to add an environment flag or a bypass header for non-production environments.</li>
+        <li><strong>Use a test CAPTCHA key</strong> — Google reCAPTCHA provides test site keys that always pass verification</li>
+        <li><strong>Mock the CAPTCHA validation service</strong> — use WireMock to stub the CAPTCHA verification endpoint to always return success</li>
+        <li><strong>Test at the service layer</strong> — bypass the CAPTCHA at the HTTP layer and test the underlying business logic directly via the API with an internal bypass header</li>
+      </ul>
+      <pre>
+// Request the team to support an internal bypass header in non-prod
+given()
+    .header("Authorization",   "Bearer " + authToken)
+    .header("X-Test-Bypass-Captcha", "true")  // only works in test/staging env
+    .contentType(ContentType.JSON)
+    .body(registrationPayload)
+.when()
+    .post("/register")
+.then()
+    .statusCode(201);</pre>
+      <div class="warn"><strong>Important:</strong> The bypass header must be rejected in production. Verify this with a separate security test asserting the header is ignored (or returns 400) in the production-like environment.</div>
+    </div>
+  </div>
+
+  <div class="card" data-tags="scenario">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q55</span>
+      <div class="q-text">SCENARIO: How do you test an API's search endpoint with special characters and Unicode input?
+        <div class="tags"><span class="tag scenario">Scenario-Based</span></div>
+      </div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <pre>
+@ParameterizedTest
+@CsvSource({
+    "Alice,   200, 1",          // normal search
+    "ali,     200, 1",          // partial match
+    "张伟,     200, 0",          // Chinese characters — no crash
+    "José,    200, 0",          // accented characters
+    "',       200, 0",          // apostrophe — SQL injection guard
+    "&lt;&gt;&lt;script&gt;, 200, 0",    // XSS payload — should be safe
+    "      ,  200, 0",          // whitespace only
+    "",       400, 0"           // empty string — validation error
+})
+void search_withVariousInputs(String query, int expectedStatus, int minResults) {
+    ValidatableResponse response = given()
+        .header("Authorization", "Bearer " + authToken)
+        .queryParam("q", query)
+    .when()
+        .get("/users/search")
+    .then()
+        .statusCode(expectedStatus);
+
+    if (expectedStatus == 200) {
+        response.body("data.size()", greaterThanOrEqualTo(minResults));
+    }
+}
+
+@Test
+void searchResult_shouldNeverReturn500ForAnyInput() {
+    // Fuzzing — random garbage input should never crash the server
+    String[] fuzzInputs = { "\0", "\n", "\t", "%%", "../../../", "<null>" };
+    for (String input : fuzzInputs) {
+        given().header("Authorization", "Bearer " + authToken)
+               .queryParam("q", input)
+               .when().get("/users/search")
+               .then().statusCode(not(equalTo(500)));
+    }
+}</pre>
+    </div>
+  </div>
+
+  <div class="card" data-tags="scenario">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q56</span>
+      <div class="q-text">SCENARIO: How do you test a webhook — an API endpoint that your system exposes for external services to call?
+        <div class="tags"><span class="tag scenario">Scenario-Based</span></div>
+      </div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p>A webhook is your service receiving an inbound POST from a third party (Stripe, GitHub, Twilio). Testing it means sending that POST yourself and verifying the side effects.</p>
+      <pre>
+@Test
+void stripeWebhook_paymentSucceeded_shouldUpdateOrderStatus() {
+    // Simulate Stripe sending a webhook to our endpoint
+    String stripePayload = """
+        {
+          \"type\": \"payment_intent.succeeded\",
+          \"data\": {
+            \"object\": {
+              \"id\": \"pi_test_123\",
+              \"metadata\": { \"orderId\": \"42\" },
+              \"amount\": 9999
+            }
+          }
+        }
+    """;
+
+    // Stripe signs its payloads — compute a test signature
+    String signature = computeStripeSignature(stripePayload, webhookSecret);
+
+    given()
+        .contentType(ContentType.JSON)
+        .header("Stripe-Signature", signature)
+        .body(stripePayload)
+    .when()
+        .post("/webhooks/stripe")
+    .then()
+        .statusCode(200);  // Stripe requires 200 quickly
+
+    // Verify the side effect: order status updated
+    given().header("Authorization", "Bearer " + adminToken)
+           .when().get("/orders/42")
+           .then().body("status", equalTo("PAID"));
+}
+
+@Test
+void webhook_withInvalidSignature_shouldReturn401() {
+    given()
+        .contentType(ContentType.JSON)
+        .header("Stripe-Signature", "invalid_sig")
+        .body(validPayload)
+    .when().post("/webhooks/stripe")
+    .then().statusCode(401);
+}</pre>
+    </div>
+  </div>
+
+  <div class="card" data-tags="scenario">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q57</span>
+      <div class="q-text">SCENARIO: The QA team has no API documentation. How do you start testing the API?
+        <div class="tags"><span class="tag scenario">Scenario-Based</span></div>
+      </div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p>This is a common real-world challenge. A structured approach:</p>
+      <ol>
+        <li><strong>Check for auto-generated docs</strong> — look for <code>/swagger-ui</code>, <code>/api-docs</code>, <code>/openapi.json</code> endpoints on the server</li>
+        <li><strong>Intercept network traffic</strong> — use browser DevTools or a proxy (Charles Proxy, OWASP ZAP) while using the frontend app to capture real API calls</li>
+        <li><strong>Postman collection</strong> — ask developers if there is an existing Postman collection or Insomnia workspace</li>
+        <li><strong>Read the source code</strong> — controller/router files (Spring controllers, Express routes) are the ground truth</li>
+        <li><strong>Interview the developers</strong> — 30-minute session asking about endpoints, expected inputs, error codes</li>
+        <li><strong>Exploratory API testing</strong> — start with known patterns (<code>/users</code>, <code>/products</code>) and observe responses</li>
+      </ol>
+      <pre>
+// Check for auto-generated OpenAPI spec
+given().when().get("/v3/api-docs").then().statusCode(not(equalTo(404)));
+given().when().get("/openapi.json").then().statusCode(not(equalTo(404)));
+given().when().get("/swagger.json").then().statusCode(not(equalTo(404)));</pre>
+      <div class="tip"><strong>Advocate for documentation:</strong> Use this as an opportunity to introduce OpenAPI/Swagger to the team. Good docs make testing easier and reduce bugs from misunderstandings.</div>
+    </div>
+  </div>
+
+  <div class="card" data-tags="scenario">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q58</span>
+      <div class="q-text">SCENARIO: How do you test an API that uses server-sent events (SSE) or long polling for real-time updates?
+        <div class="tags"><span class="tag scenario">Scenario-Based</span></div>
+      </div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p>SSE and long polling keep the HTTP connection open and stream data over time. REST Assured isn't ideal for streaming; use OkHttp or specific SSE libraries:</p>
+      <pre>
+// Testing SSE with OkHttp
+@Test
+void sse_orderUpdates_shouldReceiveStatusChange() throws Exception {
+    OkHttpClient client = new OkHttpClient.Builder()
+        .readTimeout(30, TimeUnit.SECONDS).build();
+
+    Request request = new Request.Builder()
+        .url(baseUrl + "/orders/42/stream")
+        .header("Authorization", "Bearer " + authToken)
+        .header("Accept", "text/event-stream")
+        .build();
+
+    List&lt;String&gt; receivedEvents = new ArrayList&lt;&gt;();
+    CountDownLatch latch = new CountDownLatch(1);
+
+    try (Response response = client.newCall(request).execute()) {
+        assertThat(response.code(), equalTo(200));
+        assertThat(response.header("Content-Type"), containsString("text/event-stream"));
+
+        BufferedSource source = response.body().source();
+        while (!source.exhausted()) {
+            String line = source.readUtf8Line();
+            if (line != null &amp;&amp; line.startsWith("data:")) {
+                receivedEvents.add(line.replace("data:", "").trim());
+                if (receivedEvents.size() &gt;= 1) { latch.countDown(); break; }
+            }
+        }
+    }
+
+    latch.await(10, SECONDS);
+    assertThat(receivedEvents, not(empty()));
+}</pre>
+    </div>
+  </div>
+
+  <div class="card" data-tags="scenario conceptual">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q59</span>
+      <div class="q-text">SCENARIO: How do you prioritize which API test cases to automate first when you have limited time?
+        <div class="tags"><span class="tag scenario">Scenario-Based</span><span class="tag conceptual">Conceptual</span></div>
+      </div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p>Prioritize by <strong>risk × value</strong>:</p>
+      <ol>
+        <li><strong>Core happy paths</strong> — the endpoints that 80% of users hit every day (login, create order, fetch products)</li>
+        <li><strong>Authentication &amp; authorization</strong> — security bugs have the highest business impact</li>
+        <li><strong>Data-modifying endpoints</strong> — POST, PUT, DELETE have more risk than GET</li>
+        <li><strong>Previously defective areas</strong> — wherever bugs were found before, regression risk is highest</li>
+        <li><strong>Integrations with third parties</strong> — payment, email, SMS — these are high-risk and hard to test manually</li>
+        <li><strong>Contract / schema validation</strong> — run on every endpoint; cheap to write, catches regressions early</li>
+        <li><strong>Negative / boundary cases for critical fields</strong> — price, quantity, ID fields where bad data causes financial damage</li>
+      </ol>
+      <div class="tip"><strong>Leave for last:</strong> Edge cases on non-critical read endpoints, formatting tests, and tests that require complex setup with low coverage value.</div>
+    </div>
+  </div>
+
+  <div class="card" data-tags="scenario">
+    <div class="card-header" onclick="toggle(this)">
+      <span class="q-num">Q60</span>
+      <div class="q-text">SCENARIO: How do you test an API that has a file download endpoint — e.g. GET /reports/1/download returning a PDF?
+        <div class="tags"><span class="tag scenario">Scenario-Based</span></div>
+      </div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <pre>
+@Test
+void downloadReport_shouldReturnValidPdf() {
+    byte[] fileBytes = given()
+        .header("Authorization", "Bearer " + authToken)
+        .accept("application/pdf")
+    .when()
+        .get("/reports/1/download")
+    .then()
+        .statusCode(200)
+        .header("Content-Type",        equalTo("application/pdf"))
+        .header("Content-Disposition", containsString("attachment"))
+        .header("Content-Disposition", containsString("filename="))
+        .extract().asByteArray();
+
+    // Verify it's a real PDF — PDFs start with %PDF
+    assertThat(fileBytes.length, greaterThan(0));
+    String header = new String(Arrays.copyOf(fileBytes, 4));
+    assertThat(header, equalTo("%PDF"));
+}
+
+@Test
+void downloadReport_withoutAuth_shouldReturn401() {
+    given()
+        .accept("application/pdf")
+    .when()
+        .get("/reports/1/download")
+    .then()
+        .statusCode(401);
+}
+
+@Test
+void downloadReport_nonExistent_shouldReturn404() {
+    given()
+        .header("Authorization", "Bearer " + authToken)
+    .when()
+        .get("/reports/99999/download")
+    .then()
+        .statusCode(404);
+}</pre>
+    </div>
+  </div>
+
+  <div class="no-results" id="noResults" style="display:none">No questions match your filter.</div>
 </main>
 
 <footer>
-  <p>Cucumber Interview Questions for QA Automation Engineer · 3 Years Experience · 50+ Questions</p>
+  API Testing &amp; Interview Guide · QA Automation Engineer · 2024
 </footer>
 
 <script>
-  function toggle(headerEl) {
-    const card = headerEl.closest('.card');
+  // Toggle Q&A card
+  function toggle(header) {
+    const card = header.closest('.card');
     card.classList.toggle('open');
   }
 
+  // Toggle theory block
+  function toggleTheory(header) {
+    const block = header.closest('.theory-block');
+    block.classList.toggle('open');
+  }
+
   // Filter buttons
-  document.querySelectorAll('nav.filter-bar button').forEach(btn => {
+  const filterBtns = document.querySelectorAll('nav.filter-bar button');
+  filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      document.querySelectorAll('nav.filter-bar button').forEach(b => b.classList.remove('active'));
+      filterBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      const filter = btn.dataset.filter;
-      filterCards(filter, document.getElementById('searchInput').value.toLowerCase());
+      applyFilters();
     });
   });
 
   // Search
-  document.getElementById('searchInput').addEventListener('input', e => {
-    const activeFilter = document.querySelector('nav.filter-bar button.active').dataset.filter;
-    filterCards(activeFilter, e.target.value.toLowerCase());
-  });
+  document.getElementById('searchInput').addEventListener('input', applyFilters);
 
-  function filterCards(tagFilter, searchText) {
-    const sections = document.querySelectorAll('.section-title');
-    const cards = document.querySelectorAll('.card');
+  function applyFilters() {
+    const filter = document.querySelector('nav.filter-bar button.active').dataset.filter;
+    const query  = document.getElementById('searchInput').value.toLowerCase();
+    const cards  = document.querySelectorAll('#mainContent .card');
+    let visible  = 0;
 
     cards.forEach(card => {
-      const tags = card.dataset.tags || '';
-      const text = card.textContent.toLowerCase();
-      const tagMatch = tagFilter === 'all' || tags.includes(tagFilter);
-      const searchMatch = !searchText || text.includes(searchText);
-      card.style.display = tagMatch && searchMatch ? '' : 'none';
+      const tags    = card.dataset.tags || '';
+      const text    = card.textContent.toLowerCase();
+      const matchF  = filter === 'all' || tags.includes(filter);
+      const matchQ  = !query || text.includes(query);
+      card.style.display = (matchF && matchQ) ? '' : 'none';
+      if (matchF && matchQ) visible++;
     });
 
-    // Hide section titles if all cards in that section are hidden
-    sections.forEach(section => {
-      let next = section.nextElementSibling;
-      let hasVisible = false;
-      while (next && !next.classList.contains('section-title')) {
-        if (next.classList.contains('card') && next.style.display !== 'none') {
-          hasVisible = true;
-        }
-        next = next.nextElementSibling;
-      }
-      section.style.display = hasVisible ? '' : 'none';
-    });
-
-    // Show "no results" if nothing visible
-    const anyVisible = [...cards].some(c => c.style.display !== 'none');
-    let noResults = document.getElementById('noResults');
-    if (!anyVisible) {
-      if (!noResults) {
-        noResults = document.createElement('div');
-        noResults.id = 'noResults';
-        noResults.className = 'no-results';
-        noResults.textContent = 'No matching questions found.';
-        document.getElementById('mainContent').appendChild(noResults);
-      }
-      noResults.style.display = '';
-    } else if (noResults) {
-      noResults.style.display = 'none';
-    }
+    document.getElementById('noResults').style.display = visible === 0 ? 'block' : 'none';
   }
 </script>
 </body>
