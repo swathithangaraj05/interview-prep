@@ -4,3 +4,6 @@
 [Selenium](docs/selenium.md)
 
 [Cucumber](docs/cucumber.html)
+
+[ApiTesting](docs/api-testing.html)
+
